@@ -1,12 +1,14 @@
-import { GlobalStyle } from "./styles/GlobalStyle";
+import { CommonLayOut, GlobalStyle, PaddingLayOut } from "./styles/GlobalStyle";
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <div>
-        <h1>ggobook-coding❤</h1>
-      </div>
+      <CommonLayOut>
+        <PaddingLayOut padding={33}>
+          <h1>ggobook-coding❤</h1>
+        </PaddingLayOut>
+      </CommonLayOut>
     </>
   );
 }
