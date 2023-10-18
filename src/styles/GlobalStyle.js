@@ -61,14 +61,26 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
   input {
+    width: 100%;
+    box-sizing: border-box;
     background: unset;
     border: unset;
     font: inherit;
+    &::placeholder {
+      color: #dbdbdb;
+    }
   }
   img {
     display: block;
     vertical-align: top;
     width: 100%;
+  }
+
+  @font-face {
+    font-family: 'SpoqaHanSansNeo-R';
+    src: url(/fonts/SpoqaHanSansNeo-Regular.otf);
+    font-weight: normal;
+    font-style: normal;
   }
   //숨김처리
   .a11y {
@@ -96,3 +108,12 @@ export const CommonLayOut = styled.section`
 export const PaddingLayOut = styled.div`
   ${props => `padding: 0 ${props.padding}px`}
 `
+
+//
+export const CommonImgThumbnail = styled.img`
+  width: 100%;
+  height: 200px;
+  display: block;
+  border-radius: 10px;
+  background-color: gray;
+`;
