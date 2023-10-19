@@ -1,7 +1,7 @@
 //reset css
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import './fonts.css';
+import "./fonts.css";
 
 export const GlobalStyle = createGlobalStyle`
   :root{
@@ -83,16 +83,16 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   //추가로 적용해야할 공통 CSS 추가
-`
+`;
 //공통 Layout 적용
 export const CommonLayOut = styled.section`
   margin: 0 auto;
   max-width: 390px;
   height: 100vh;
   background-color: beige;
-`
+`;
 
 //Layout 좌우 패딩
 export const PaddingLayOut = styled.div`
-  ${props => `padding: 0 ${props.padding}px`}
-`
+  ${(props) => `padding: 0 ${props.padding}px`}
+`;
