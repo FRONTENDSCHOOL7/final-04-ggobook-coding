@@ -109,9 +109,6 @@ export const PaddingLayOut = styled.div`
   ${(props) => `padding: 0 ${props.padding}px`}
 `;
 
-  ${props => `padding: 0 ${props.padding}px`}
-`
-
 //
 export const CommonImgThumbnail = styled.img`
   width: 100%;
