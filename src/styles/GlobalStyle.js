@@ -7,10 +7,11 @@ export const GlobalStyle = createGlobalStyle`
   :root{
     --mainColor: #237B46;
     --disabled: #A7CAB5;
+    --appWidth: 390px;
   }
 
   ${reset};
-
+  * {box-sizing: border-box;}
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -70,6 +71,15 @@ export const GlobalStyle = createGlobalStyle`
       color: #dbdbdb;
     }
   }
+  textarea {
+    font: inherit;
+    width: 100%;
+    border: unset;
+    background-color: unset;
+    &::placeholder {
+      color: #C4C4C4;
+    }
+  }
   img {
     display: block;
     vertical-align: top;
@@ -99,7 +109,7 @@ export const GlobalStyle = createGlobalStyle`
 //공통 Layout 적용
 export const CommonLayOut = styled.section`
   margin: 0 auto;
-  max-width: 390px;
+  max-width: var(--appWidth);
   height: 100vh;
   background-color: beige;
 `;
@@ -116,4 +126,34 @@ export const CommonImgThumbnail = styled.img`
   display: block;
   border-radius: 10px;
   background-color: gray;
+`;
+
+/**
+ * 공통으로 적용되는 버튼
+ * 방법: 버튼 내부에 이미지 적용시 사용
+ * <CommonBtn type="button" $w="22px" $h="22px" $img="/images/x.svg" alt=""/>
+ * props -> img, w(width), h(height), img
+ */
+export const CommonBtn = styled.button`
+  margin-left: auto;
+  width: ${(props) => props.$w};
+  height: ${(props) => props.$h};
+  background-image: url(${(props) => props.$img});
+  background-repeat: no-repeat;
+  background-position: center;
+`;
+
+/**
+ * 공통으로 적용될 수 있는 이미지레이아웃
+ * props -> w(width), h(height)
+ */
+export const CommonImgLayout = styled.img`
+  max-width: ${(props) => props.$w};
+  height: ${(props) => props.$h};
+  display: block;
+  width: 100%;
+  border: 1px solid #dbdbdb;
+  background-color: #3f3c3c;
+  border-radius: 10px;
+  box-sizing: border-box;
 `;
