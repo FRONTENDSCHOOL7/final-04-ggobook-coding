@@ -5,9 +5,6 @@ function App() {
     <>
       <GlobalStyle />
       <CommonLayOut>
-        <PaddingLayOut padding={33}>
-          <h1>ggobook-coding❤</h1>
-        </PaddingLayOut>
       </CommonLayOut>
     </>
   );
