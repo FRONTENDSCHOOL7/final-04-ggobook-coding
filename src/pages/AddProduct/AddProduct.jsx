@@ -12,11 +12,11 @@ const LayoutAddProduct = styled.ul`
   input {
     height: 30px;
     margin-top: 10px;
-    border-bottom: 1px solid transparent;
-    &:focus{
+    border-bottom: 2px solid var(--disabled);
+    &:focus {
       outline: none;
       border: none;
-      border-bottom: 2px solid #DBDBDB;
+      border-bottom: 2px solid var(--mainColor);
     }
   }
 
@@ -44,41 +44,35 @@ const LayoutInner = styled.li`
   }
 `;
 
-// const CommonImgThumbnail = styled.img`
-//   width: 100%;
-//   height: 200px;
-//   display: block;
-//   border-radius: 10px;
-//   background-color: gray;
-// `;
-
 export default function AddProduct() {
   return (
-    <LayoutAddProduct>
-      <LayoutInner>
-        <label htmlFor="">이미지 등록</label>
-        <CommonImgThumbnail src="" alt="" />
-        <button type="button">저장</button>
-      </LayoutInner>
+    <>
+      <LayoutAddProduct>
+        <LayoutInner>
+          <label htmlFor="">이미지 등록</label>
+          <CommonImgThumbnail src="" alt="" />
+          <button type="button">저장</button>
+        </LayoutInner>
 
-      <LayoutInner>
-        <label htmlFor="">
-          상품명
-          <input type="text" placeholder="2~15자 이내여야합니다." />
-        </label>
-      </LayoutInner>
-      <LayoutInner>
-        <label htmlFor="">
-          가격
-          <input type="number" placeholder="숫자만 입력가능합니다." />
-        </label>
-      </LayoutInner>
-      <LayoutInner>
-        <label htmlFor="">
-          판매 링크
-          <input type="text" placeholder="URL을 입력해주세요" />
-        </label>
-      </LayoutInner>
-    </LayoutAddProduct>
+        <LayoutInner>
+          <label htmlFor="">
+            상품명
+            <input type="text" placeholder="2~15자 이내여야합니다." />
+          </label>
+        </LayoutInner>
+        <LayoutInner>
+          <label htmlFor="">
+            가격
+            <input type="number" placeholder="숫자만 입력가능합니다." />
+          </label>
+        </LayoutInner>
+        <LayoutInner>
+          <label htmlFor="">
+            판매 링크
+            <input type="text" placeholder="URL을 입력해주세요" />
+          </label>
+        </LayoutInner>
+      </LayoutAddProduct>
+    </>
   );
 }
