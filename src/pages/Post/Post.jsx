@@ -1,5 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+// import required modules
+import { Pagination } from "swiper/modules";
 
 const PostParent = styled.section`
   padding-bottom: 40px;
@@ -24,7 +30,7 @@ const LayoutPost = styled.article`
 `;
 
 const UserPost = styled.ul`
-  width: 100%;
+  width: calc(100% - 50px);
   color: #767676;
   font-size: 14px;
 `;
@@ -49,6 +55,12 @@ const PostInforInner = styled.li`
 
   &:last-child {
     margin-bottom: 0;
+  }
+  .mySwiper {
+    overflow: hidden;
+    .swiper-pagination-bullet {
+      background-color: var(--mainColor) !important;
+    }
   }
 `;
 
@@ -156,7 +168,19 @@ export default function Post() {
               </Comment>
             </PostInforInner>
             <PostInforInner>
-              <CommonImgLayout $w="304px" $h="228px" src="" alt="" />
+              <Swiper
+                pagination={true}
+                modules={[Pagination]}
+                spaceBetween={0}
+                className="mySwiper"
+              >
+                <SwiperSlide>
+                  <CommonImgLayout $w="304px" $h="228px" src="https://cdn.pixabay.com/photo/2015/12/04/14/05/code-1076536_640.jpg" alt="" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <CommonImgLayout $w="304px" $h="228px" src="https://cdn.pixabay.com/photo/2021/05/15/10/07/zookti-6255408_640.jpg" alt="" />
+                </SwiperSlide>
+              </Swiper>
             </PostInforInner>
             <PostInforInner>
               <BtnPostWrap>
@@ -184,96 +208,6 @@ export default function Post() {
           </UserPost>
         </LayoutPost>
 
-        <LayoutPost $space="16px">
-          <div>
-            <img
-              className="imgProfile"
-              src="/images/img-profile-default.svg"
-              alt="profile"
-            />
-          </div>
-          <UserPost>
-            <PostInforInner $position="center">
-              <div>
-                <h3>지나가던 user</h3>
-              </div>
-              <CommonBtn
-                type="button"
-                $img="/images/icon-more-vertical.svg"
-                $w="20px"
-                $h="20px"
-                alt="more-vertical"
-              />
-            </PostInforInner>
-            <PostInforInner>
-              <Comment $clamp="2">
-                우와 최고최고우와 최고최고우와 최고최고우와 최고최고우와
-                최고최고우와 최고최고우와 최고최고우와 최고최고우와 최고최고우와
-                최고최고우와 최고최고
-              </Comment>
-            </PostInforInner>
-          </UserPost>
-        </LayoutPost>
-        <LayoutPost $space="16px">
-          <div>
-            <img
-              className="imgProfile"
-              src="/images/img-profile-default.svg"
-              alt="profile"
-            />
-          </div>
-          <UserPost>
-            <PostInforInner $position="center">
-              <div>
-                <h3>지나가던 user</h3>
-              </div>
-              <CommonBtn
-                type="button"
-                $img="/images/icon-more-vertical.svg"
-                $w="20px"
-                $h="20px"
-                alt="more-vertical"
-              />
-            </PostInforInner>
-            <PostInforInner>
-              <Comment $clamp="2">
-                우와 최고최고우와 최고최고우와 최고최고우와 최고최고우와
-                최고최고우와 최고최고우와 최고최고우와 최고최고우와 최고최고우와
-                최고최고우와 최고최고
-              </Comment>
-            </PostInforInner>
-          </UserPost>
-        </LayoutPost>
-        <LayoutPost $space="16px">
-          <div>
-            <img
-              className="imgProfile"
-              src="/images/img-profile-default.svg"
-              alt="profile"
-            />
-          </div>
-          <UserPost>
-            <PostInforInner $position="center">
-              <div>
-                <h3>지나가던 user</h3>
-              </div>
-              <CommonBtn
-                type="button"
-                $img="/images/icon-more-vertical.svg"
-                $w="20px"
-                $h="20px"
-                alt="more-vertical"
-              />
-            </PostInforInner>
-            <PostInforInner>
-              <Comment $clamp="2">
-                우와 최고최고우와 최고최고우와 최고최고우와 최고최고우와
-                최고최고우와 최고최고우와 최고최고우와 최고최고우와 최고최고우와
-                최고최고우와 최고최고
-              </Comment>
-            </PostInforInner>
-          </UserPost>
-        </LayoutPost>
         <LayoutPost $space="16px">
           <div>
             <img
