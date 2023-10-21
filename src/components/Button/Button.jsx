@@ -12,7 +12,7 @@ export default function Button({
     <StyledButton
       width={width}
       border={border}
-      before={before}
+      before={before} // 가상연산자가 있을 경우 props에 true 값을 전달
       beforeBackground={beforeBackground}
     >
       {children}
