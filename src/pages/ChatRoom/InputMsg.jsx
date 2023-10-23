@@ -1,12 +1,11 @@
-import React from 'react'
-import { styled } from 'styled-components'
+import React from "react";
+import { styled } from "styled-components";
 
 export default function InputMsg() {
-  
   const InputMsgLayout = styled.div`
     width: 390px;
     height: 60px;
-    background-color: #FFF;
+    background-color: #fff;
     display: flex;
     align-items: center;
     box-sizing: border-box;
@@ -21,17 +20,17 @@ export default function InputMsg() {
     }
 
     button {
-      color: #C4C4C4;
+      color: #c4c4c4;
       font-size: 14px;
       white-space: nowrap;
     }
-  ` 
+  `;
 
   return (
     <InputMsgLayout>
       <img src="/images/img-button.svg" alt="사진 선택" />
-      <input placeholder='메시지 입력하기...'></input>
+      <input placeholder="메시지 입력하기..."></input>
       <button>전송</button>
     </InputMsgLayout>
-  )
+  );
 }
