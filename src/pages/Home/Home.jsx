@@ -2,6 +2,9 @@ import React from "react"
 import styled from "styled-components"
 import { Link } from 'react-router-dom'
 
+// import Header from "../../components/Header/Header";
+// import { HomeLayout, MiddleSearch, Button} from "./HomeStyle";
+
 
 // 총 배경 ========================================================
 
@@ -40,18 +43,14 @@ const SearchImg = styled.img`
   height: 24px;
 `;
 
-
 // 중앙 검색대 ===================================================
 
 
 const MiddleSearch = styled.div`
-
   margin-left: auto;
   margin-right: auto;
   display: block; 
   font-size: 14px;
-  
-  
 
   img{
     margin-bottom: 20px;
@@ -81,8 +80,6 @@ const Button = styled.div`
     width: 120px;
   }
   `
-
-
 
 
 // 하단 ==========================================================
