@@ -1,55 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
+import Navigator from "../../components/Navigator/Navigator";
+import HeaderProfile from "../../components/Header/HeaderProfile";
 
-// 바디
-const Body = styled.div`
+// 총 배경 ================================================
+
+const HomeLayout = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
   background-color: white;
 `;
 
-// 헤더
-const Top = styled.div`
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 0.5px solid var(--DBDBDB, #dbdbdb);
-  button {
-    margin: 13px 16px;
-    background: #fff;
-    border-style: none;
-  }
-  .btn-save {
-    color: #fff;
-    background: #6f76b6;
-    padding: 7px 32px;
-    border-radius: 32px;
-  }
-`;
-
-const TopFollowers = styled.div`
-  height: 48px;
-  display: flex;
-  align-items: center;
-  border-bottom: 0.5px solid var(--DBDBDB, #dbdbdb);
-  button {
-    margin: 13px 16px;
-    background: #fff;
-    border-style: none;
-  }
-  h2 {
-    transform: translateY(-15%);
-    font-size: 20px;
-    margin-left: -5px;
-  }
-`;
 
 
 
-// section 1
+// section 1 =============================================
 const Sect1 = styled.div`
   display: flex;
   flex-direction: column;
@@ -100,6 +67,8 @@ const Intro = styled.div`
 const Btns = styled.div`
   display: flex;
   margin-top: 24px;
+  /* 버튼 아래 마진 추가 */
+  margin-bottom: 24px;
   justify-content: center;
   gap: 10px;
   button {
@@ -115,7 +84,7 @@ const Btns = styled.div`
   }
 `;
 
-// section1
+// section 2 =============================================
 
 const Sect2 = styled.div`
   h2 {
@@ -156,9 +125,9 @@ const Sale = styled.div`
       border-radius: 10px;
     }
 `;
-// section 2
 
-// section 3
+
+// section 3 =============================================
 
 const Sect3 = styled.div`
   .album-btns {
@@ -245,50 +214,11 @@ const Sect3 = styled.div`
 `;
 
 
-// 하단탭
-const Tab = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-top: 0.5px solid #dbdbdb;
-  /* 이게 왜 됨..? */
-  position: fixed;
-  bottom: 0;
-  padding: 12px 0 6px;
-  width: 100%;
-
-  /* 오류 생길걸로 예상되는 코드 */
-  max-width: 320px;
-  /* --------------------------- */
-  button {
-    background: #fff;
-    border-style: none;
-    margin-top: 12px;
-    img {
-      width: 24px;
-      height: 24px;
-      margin: 0 auto 4px;
-    }
-  }
-
-  p {
-    font-size: 10px;
-    font-weight: 400;
-    margin-top: 4px;
-  }
-`;
 
 export default function Profile() {
   return (
-    <Body>
-      <Top>
-      <button>
-        <img src="images/icon-arrow-left.svg" alt="" />
-      </button>
-      <button>
-        <img src="images/s-icon-more-vertical.svg" alt="" />
-      </button>
-    </Top>
+    <HomeLayout>
+      <HeaderProfile />
       <Sect1>
         <ProImg>
           <button>
@@ -316,25 +246,8 @@ export default function Profile() {
           </button>
         </Btns>
       </Sect1>
-
-      <Tab>
-      <button>
-        <img src="images/icon-home.svg" alt="" />
-        <p>홈</p>
-      </button>
-      <button>
-        <img src="images/icon-message-circle-1.svg" alt="" />
-        <p>채팅</p>
-      </button>
-      <button>
-        <img src="images/icon-edit.svg" alt="" />
-        <p>게시물 작성</p>
-      </button>
-      <button>
-        <img src="images/icon-user.svg" alt="" />
-        <p>프로필</p>
-      </button>
-    </Tab>
-    </Body>
+      {/* 하단 */} 
+      <Navigator /> 
+    </HomeLayout>
   );
 }
