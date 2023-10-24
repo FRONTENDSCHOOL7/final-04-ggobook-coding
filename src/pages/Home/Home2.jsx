@@ -2,6 +2,9 @@ import React from "react"
 import styled from "styled-components"
 import { Link } from 'react-router-dom'
 
+import Navigator from "../../components/Navigator/Navigator";
+import HeaderHome from "../../components/Header/HeaderHome";
+
 
 // 총 배경 ========================================================
 
@@ -10,50 +13,13 @@ const HomeLayout = styled.div`
   flex-direction: column;
   height: 100vh;
   background-color: white;
-`; 
+`;  
 
 
-// 헤더 ===========================================================
-
-// 헤더 배경
-const HeaderLayout = styled.div`
-  display: flex;
-  padding: 13px 0;
-  /* flex-direction: column; -> 필요 없는듯? */
-  border-bottom: 0.5px solid #dbdbdb;
-  
-`;
-
-// 헤더 폰트
-const HeaderTitle = styled.p`
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 22px;
-  padding-left: 16px;
-`
-
-// 헤더 찾기 아이콘
-const SearchImg = styled.img`
-  margin-left: auto;
-  padding-right: 16px;
-  width: 24px;
-  height: 24px;
-`;
-
-// 게시글=================================================================
+// 게시글===============================================
 
 
 const Sect3 = styled.div`
-  /* .album-btns {
-    display: flex;
-    justify-content: right;
-    border-bottom: 0.5px solid var(--DBDBDB, #dbdbdb);
-  }
-  button {
-    background: #fff;
-    border: none;
-  } */
   .content-container::-webkit-scrollbar {
     display: none;
   }
@@ -128,57 +94,11 @@ const Sect3 = styled.div`
   }
 `;
 
-// 하단 ==========================================================
-
-const Bottom = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-top: 0.5px solid #dbdbdb;
-  /* 이게 왜 됨..? */
-  position: fixed;
-  bottom: 0;
-  padding: 12px 0 6px;
-  width: 100%;
-
-  /* 오류 생길걸로 예상되는 코드 */
-  max-width: 320px;
-  /* --------------------------- */
-  button {
-    background: #fff;
-    border-style: none;
-    margin-top: 12px;
-    img {
-      width: 24px;
-      height: 24px;
-      margin: 0 auto 4px;
-    }
-  }
-
-  p {
-    font-size: 10px;
-    font-weight: 400;
-    margin-top: 4px;
-  }
-`
-
 export default function Home() {
   return (
     <HomeLayout>
-      {/* 헤더 */}
-      <HeaderLayout>
-        <HeaderTitle>감귤마켓 피드</HeaderTitle>
-        <SearchImg img src="/images/icon-search.svg" alt="" />
-      </HeaderLayout>
+      <HeaderHome />
       <Sect3>
-      {/* <div className="album-btns">
-        <button>
-          <img src="/images/icon-post-list-on.svg" alt="" />
-        </button>
-        <button>
-          <img src="/images/icon-post-album-off.svg" alt="" />
-        </button>
-      </div> */}
       {/* 게시글 목록 */}
       <div className="content-container">
         {/* 게시글 한개 */}
@@ -192,7 +112,7 @@ export default function Home() {
               </div>
               <div>
                 <button>
-                  <img src="/images/basic-profile.svg" alt="" />
+                  <img src="images/s-icon-more-vertical.svg" alt="" />
                 </button>
               </div>
             </div>
@@ -227,7 +147,7 @@ export default function Home() {
               </div>
               <div>
                 <button>
-                  <img src="/images/basic-profile.svg" alt="" />
+                <img src="images/s-icon-more-vertical.svg" alt="" />
                 </button>
               </div>
             </div>
@@ -260,7 +180,7 @@ export default function Home() {
               </div>
               <div>
                 <button>
-                  <img src="/images/basic-profile.svg" alt="" />
+                  <img src="images/s-icon-more-vertical.svg" alt="" />
                 </button>
               </div>
             </div>
@@ -286,27 +206,8 @@ export default function Home() {
         
       </div>
     </Sect3>
-          {/* 하단 */} 
-          <Bottom>
-      <button>
-        <img src="images/icon-home.svg" alt="" />
-        <p>홈</p>
-      </button>
-      <button>
-        <img src="images/icon-message-circle-1.svg" alt="" />
-        <p>채팅</p>
-      </button>
-      <button>
-        <img src="images/icon-edit.svg" alt="" />
-        <p>게시물 작성</p>
-      </button>
-      <button>
-        <img src="images/icon-user.svg" alt="" />
-        <p>프로필</p>
-      </button>
-      </Bottom>
-
-
+      {/* 하단 */} 
+      <Navigator /> 
     </HomeLayout>
   );
 }
