@@ -67,6 +67,7 @@ export const GlobalStyle = createGlobalStyle`
     background: unset;
     border: unset;
     font: inherit;
+    outline: none;
     &::placeholder {
       color: #dbdbdb;
     }
