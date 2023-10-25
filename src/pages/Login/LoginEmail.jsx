@@ -8,48 +8,57 @@ export default function LoginEmail() {
   // 이메일로 로그인 기능 구현
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const login = async (email, password) => {
     const baseUrl = "https://api.mandarin.weniv.co.kr"; // https 서버
     const reqPath = "/user/login"; // Request
 
-    // 로그인한 후 토큰 꺼내기
-    const res = await fetch(baseUrl + reqPath, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      // 문자열로 전환
-      body: JSON.stringify({
-        user: {
-          email: email,
-          password: password,
+    try {
+      // 로그인한 후 토큰 꺼내기
+      const res = await fetch(baseUrl + reqPath, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
         },
-      }),
-    });
+        // 문자열로 전환
+        body: JSON.stringify({
+          user: {
+            email: email,
+            password: password,
+          },
+        }),
+      });
 
-    const json = await res.json();
-    const token = json.user.token;
+      const json = await res.json();
 
-    // console.log(json);
-    // console.log(token);
+      if (json.status === 422) {
+        setErrorMsg("*아이디 또는 비밀번호가 틀렸습니다.");
+      } else if (!email || !password) {
+        setErrorMsg("이메일 또는 비밀번호를 입력해 주세요.");
+      } else {
+        const token = json.user.token;
 
-    // 어떤 페이지를 가든 token 값을 자유롭게 사용할 수 있도록 로컬스토리지에 저장
-    localStorage.setItem("token", token);
+        localStorage.setItem("token", token); // 어떤 페이지를 가든 token 값을 자유롭게 사용할 수 있도록 로컬스토리지에 저장
+        setErrorMsg("");
+      }
+    } catch (error) {
+      console.log("에러 발생");
+    }
   };
 
   const inputEmail = (event) => {
     setEmail(event.target.value);
-    console.log("email : ", email);
+    setErrorMsg("");
   };
 
   const inputPassword = (event) => {
     setPassword(event.target.value);
-    console.log("password : ", password);
+    setErrorMsg("");
   };
 
   const handleLogin = (event) => {
-    event.preventDefault(); // 페이지 새로고침
+    event.preventDefault(); // 페이지가 새로고침 되는 것을 막음
     login(email, password);
   };
 
@@ -77,6 +86,7 @@ export default function LoginEmail() {
           value={password}
           placeholder="비밀번호를 입력해 주세요."
         />
+        {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         <Spaces gap="30px" />
         <Button width="322px" backgroundColor="var(--mainColor)" color="#fff">
           로그인
@@ -108,6 +118,13 @@ const Styledh1 = styled.h1`
 `;
 
 const StyledForm = styled.form``;
+
+const ErrorMsg = styled.p`
+  margin-top: 6px;
+  color: #eb5757;
+  font-size: 12px;
+  font-weight: 400;
+`;
 
 const StyledLink = styled.a`
   color: #767676;
