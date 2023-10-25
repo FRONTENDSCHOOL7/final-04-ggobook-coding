@@ -1,6 +1,7 @@
 import React from "react";
 import { CommonImgLayout } from "../../styles/GlobalStyle";
 import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/swiper-bundle.css';
 import styled from "styled-components";
 
 const GoodsParents = styled.section`
