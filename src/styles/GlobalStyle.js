@@ -111,7 +111,8 @@ export const CommonLayOut = styled.section`
   margin: 0 auto;
   max-width: var(--appWidth);
   height: 100vh;
-  background-color: beige;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.24);
 `;
 
 //Layout 좌우 패딩
