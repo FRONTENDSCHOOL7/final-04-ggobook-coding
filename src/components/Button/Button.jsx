@@ -9,6 +9,8 @@ export default function Button({
   before,
   beforeBackground,
   children,
+  disabled,
+  type
 }) {
   return (
     <StyledButton
@@ -18,6 +20,8 @@ export default function Button({
       $color={color}
       $before={before} // 가상연산자가 있을 경우 props로 true 전달
       $beforeBackground={beforeBackground}
+      $disabled={disabled} //disabled 적용
+      $type={type} //button type 명시
     >
       {children}
     </StyledButton>
@@ -26,9 +30,9 @@ export default function Button({
 
 const StyledButton = styled.button`
   width: ${(props) => props.$width};
-  padding: 13px 0;
+  padding: 7px 0;
   background-color: ${(props) =>
-    props.$backgroundColor ? props.$backgroundColor : "transparent"};
+    props.$disabled ?  props.$backgroundColor : "var(--mainColor)"};
   color: ${(props) => (props.$color ? props.$color : "#767676")};
   font-family: "Spoqa Han Sans Neo";
   font-size: 14px;
