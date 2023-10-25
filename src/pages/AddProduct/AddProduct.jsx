@@ -203,6 +203,7 @@ export default function AddProduct() {
             backgroundColor="var(--disabled)"
             color="#fff"
             type="submit"
+            padding="7px"
             disabled={
               !inputPrice.length ||
               !salesLink.length ||

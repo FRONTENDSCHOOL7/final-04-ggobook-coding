@@ -10,7 +10,8 @@ export default function Button({
   beforeBackground,
   children,
   disabled,
-  type
+  type,
+  padding
 }) {
   return (
     <StyledButton
@@ -22,6 +23,7 @@ export default function Button({
       $beforeBackground={beforeBackground}
       $disabled={disabled} //disabled 적용
       $type={type} //button type 명시
+      $padding={padding}
     >
       {children}
     </StyledButton>
@@ -30,7 +32,7 @@ export default function Button({
 
 const StyledButton = styled.button`
   width: ${(props) => props.$width};
-  padding: 7px 0;
+  padding: ${(props) => `${props.$padding} 0`};
   background-color: ${(props) =>
     props.$disabled ?  props.$backgroundColor : "var(--mainColor)"};
   color: ${(props) => (props.$color ? props.$color : "#767676")};
