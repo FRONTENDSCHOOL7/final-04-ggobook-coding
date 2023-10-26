@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
-
+import styled from 'styled-components';
+import HeaderBtn from '../../components/Header/HeaderBtn';
+import ProfileEditBtn from '../../components/ProfileEditBtn/ProfileEditBtn';
+import Input from '../../components/Input/Input';
+import Spaces from '../../components/Spaces/Spaces';
 
 function EditProfile() {
-  // Recoil 대신 localStorage에서 토큰 가져오기
-  const token = localStorage.getItem('userToken');
+  // localStorage에서 토큰 가져오기
+  const token = localStorage.getItem('token');
 
+  // 나머지 초기 상태 설정
   const [initUsername, setInitUsername] = useState('');
   const [initAccountname, setInitAccountname] = useState('');
   const [initIntron, setInitIntron] = useState('');
-  const [initImgSrc, setInitImgSrc] = useState(''); // 이미 있는 이미지 주소
+  const [initImgSrc, setInitImgSrc] = useState('');
 
   // 내 정보 API
   const getInitInfo = async () => {
+    console.log(token);
     const res = await fetch('https://api.mandarin.weniv.co.kr/user/myinfo', {
       method: 'GET',
       headers: {
@@ -19,20 +25,25 @@ function EditProfile() {
       },
     });
     const json = await res.json();
+    console.log(json);
 
     if (json && json.user) {
       setInitImgSrc(json.user['image'] || '');
       setImgSrc(json.user['image'] || '');
+
       setInitAccountname(json.user['accountname'] || '');
       setAccountname(json.user['accountname'] || '');
+
       setInitUsername(json.user['username'] || '');
       setUsername(json.user['username'] || '');
+
       setInitIntron(json.user['intro'] || '');
       setIntro(json.user['intro'] || '');
     }
   };
 
   useEffect(() => {
+    // 컴포넌트가 마운트될 때 getInitInfo 함수를 실행합니다.
     getInitInfo();
   }, []);
 
@@ -43,6 +54,8 @@ function EditProfile() {
 
   // 프로필 수정 API
   const edit = async (editData) => {
+    // const token = localStorage.getItem('token');
+
     const reqUrl = 'https://api.mandarin.weniv.co.kr/user';
     const res = await fetch(reqUrl, {
       method: 'PUT',
@@ -53,16 +66,15 @@ function EditProfile() {
       body: JSON.stringify(editData),
     });
     const json = await res.json();
+    console.log(json);
   };
 
   const inputUsername = (e) => {
     setUsername(e.target.value);
   };
-
   const inputAccountname = (e) => {
     setAccountname(e.target.value);
   };
-
   const inputInfo = (e) => {
     setIntro(e.target.value);
   };
@@ -70,21 +82,24 @@ function EditProfile() {
   const uploadImage = async (imageFile) => {
     const baseUrl = 'https://api.mandarin.weniv.co.kr/';
     const reqUrl = baseUrl + 'image/uploadfile';
-
+    // 폼데이터 만들기
     const form = new FormData();
+    // 폼데이터에 값 추가하기
+    // 폼데이터.append("키","값")
     form.append('image', imageFile);
-
+    // 폼바디에 넣어서 요청하기
     const res = await fetch(reqUrl, {
       method: 'POST',
       body: form,
     });
     const json = await res.json();
-
+    console.log(baseUrl + json.filename);
     const imageUrl = baseUrl + json.filename;
     setImgSrc(imageUrl);
   };
 
   const handleChangeImage = (e) => {
+    // 파일 가져오기
     const imageFile = e.target.files[0];
     uploadImage(imageFile);
   };
@@ -102,8 +117,6 @@ function EditProfile() {
     };
     edit(editData);
   };
-
-  // (여기에는 해당 컴포넌트의 JSX 렌더링 부분이 이어져야 함)
 
   return (
     <>
