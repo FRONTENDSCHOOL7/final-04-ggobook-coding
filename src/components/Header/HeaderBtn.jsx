@@ -15,13 +15,20 @@ const Header = styled.div`
     background: #fff;
     border-style: none;
   }
-  /* 삭제 할듯 */
-  /* .btn-save {
-    color: #fff;
-    background: #6f76b6;
-    padding: 7px 32px;
+
+  /* 임시. 나중에 버튼 컴포넌트 사용할지도  */
+  .btn-follow {
     border-radius: 32px;
-  } */
+    background: #237B46;
+    /* 비 활성화 컬러 */
+    /* background: #A7CAB5; */
+    color: #fff;
+    width: 90px;
+    padding: 4px;
+    font-size: 14px;
+    
+  }
+  
 `;
 export default function HeaderProfile() {
   return (
@@ -29,9 +36,7 @@ export default function HeaderProfile() {
 <button>
   <img src="images/icon-arrow-left.svg" alt="" />
 </button>
-<button>
-  <img src="images/s-icon-more-vertical.svg" alt="" />
-</button>
+<button className="btn-follow">저장</button>
 </Header>
       );
     }

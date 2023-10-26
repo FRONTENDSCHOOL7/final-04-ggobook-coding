@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../../components/Header/Header";
+import HeaderBtn from "../../components/Header/HeaderBtn";
 import ProfileEditBtn from "../../components/ProfileEditBtn/ProfileEditBtn";
 import Input from "../../components/Input/Input";
 import Spaces from "../../components/Spaces/Spaces";
@@ -8,7 +8,7 @@ import Spaces from "../../components/Spaces/Spaces";
 export default function ProfileModification() {
   return (
     <StyledDiv>
-      <Header></Header>
+      <HeaderBtn></HeaderBtn>
 
       <StyledForm>
         <ProfileEditBtn />
