@@ -4,7 +4,7 @@ import Header from "./Header";
 import styled from "styled-components";
 
 export default function Search() {
-  const URL = "https://api.mandarin.weniv.co.kr";
+  const URL = process.env.REACT_APP_API_URL;
   const TOKEN = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo`;
   const [inputValue, setInputValue] = useState("");
   const [valueItems, setValueItems] = useState([]);
