@@ -1,6 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { styled } from 'styled-components'
+import { CommonBtn } from '../../styles/GlobalStyle';
 
 // 헤더 ===================================================
 
@@ -36,7 +37,7 @@ export default function HeaderProfile() {
 <button>
   <img src="images/icon-arrow-left.svg" alt="" />
 </button>
-<button className="btn-follow">저장</button>
+<CommonBtn className="btn-follow" $w="90px" $h="32px">저장</CommonBtn>
 </Header>
       );
     }

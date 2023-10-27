@@ -228,7 +228,7 @@ function Godpm2() {
 
   return (
     <StyledDiv>
-      <HeaderBtn></HeaderBtn>
+      <HeaderBtn />
       <button type="button" onClick={submitEdit}>
         저장
       </button>
