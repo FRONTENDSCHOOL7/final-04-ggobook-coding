@@ -24,7 +24,12 @@ export default function LoginEmail() {
           placeholder="비밀번호를 입력해 주세요."
         />
         <Spaces gap="30px" />
-        <Button width="322px" backgroundColor="var(--mainColor)" color="#fff">
+        <Button
+          width="322px"
+          padding="13px"
+          backgroundColor="var(--mainColor)"
+          color="#fff"
+        >
           로그인
         </Button>
       </StyledForm>
@@ -36,7 +41,7 @@ export default function LoginEmail() {
 }
 
 const StyledDiv = styled.div`
-  height: 100%;
+  height: 100vh;
   padding: 30px 34px;
   display: flex;
   flex-direction: column;
