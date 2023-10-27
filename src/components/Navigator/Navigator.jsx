@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { styled } from "styled-components";
 
 const NavLayout = styled.nav`
@@ -12,7 +12,7 @@ const NavLayout = styled.nav`
   height: 60px;
   max-width: 390px;
 
-  li {
+  ul {
     display: flex;
     justify-content: space-around;
   }
@@ -23,36 +23,50 @@ const NavLayout = styled.nav`
     margin: 0 auto 4px;
   }
 
-  a {
+  li {
     text-align: center;
+  }
+
+  a {
     text-decoration: none;
     font-size: 10px;
     color: #767676;
     line-height: 14px;
   }
 `;
+
+let navigators = [
+  { id: 1, name: "홈", path: "/", img: "/images/icon-home.svg" },
+  {
+    id: 2,
+    name: "채팅",
+    path: "/chat",
+    img: "/images/icon-message-circle.svg",
+  },
+  {
+    id: 3,
+    name: "게시글 작성",
+    path: "/post/upload",
+    img: "/images/icon-edit.svg",
+  },
+  { id: 4, name: "프로필", path: "/profile", img: "/images/icon-user.svg" },
+];
+
+let navList = [];
+navigators.map((nav) =>
+  navList.push(
+    <li key={nav.id}>
+      <NavLink exact to={nav.path}>
+        <img src={nav.img} /> {nav.name}
+      </NavLink>
+    </li>
+  )
+);
+
 export default function Navigator() {
   return (
     <NavLayout>
-      <ul>
-        <li>
-          <a href="#">
-            <img src="/images/icon-home.svg" />홈
-          </a>
-          <a href="#">
-            <img src="/images/icon-message-circle.svg" />
-            채팅
-          </a>
-          <a href="#">
-            <img src="/images/icon-edit.svg" />
-            게시글 작성
-          </a>
-          <a href="#">
-            <img src="/images/icon-user.svg" />
-            프로필
-          </a>
-        </li>
-      </ul>
+      <ul>{navList}</ul>
     </NavLayout>
   );
 }
