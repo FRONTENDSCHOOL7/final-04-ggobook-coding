@@ -11,7 +11,7 @@ export default function Button({
   children,
   disabled,
   type,
-  padding
+  padding,
 }) {
   return (
     <StyledButton
@@ -34,7 +34,7 @@ const StyledButton = styled.button`
   width: ${(props) => props.$width};
   padding: ${(props) => `${props.$padding} 0`};
   background-color: ${(props) =>
-    props.$disabled ?  props.$backgroundColor : "var(--mainColor)"};
+    props.$disabled ? "var(--disabled)" : props.$backgroundColor};
   color: ${(props) => (props.$color ? props.$color : "#767676")};
   font-family: "Spoqa Han Sans Neo";
   font-size: 14px;
