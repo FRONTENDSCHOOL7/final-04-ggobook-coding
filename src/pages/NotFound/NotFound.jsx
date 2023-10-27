@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 
-export default function Page404() {
+export default function NotFound() {
   const Page404Layout = styled.div`
     height: 100vh;
     display: flex;

@@ -88,7 +88,12 @@ export default function LoginEmail() {
         />
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         <Spaces gap="30px" />
-        <Button width="322px" backgroundColor="var(--mainColor)" color="#fff">
+        <Button
+          width="322px"
+          padding="13px"
+          backgroundColor="var(--mainColor)"
+          color="#fff"
+        >
           로그인
         </Button>
       </StyledForm>
@@ -99,8 +104,8 @@ export default function LoginEmail() {
   );
 }
 
-const LoginEmailPage = styled.div`
-  height: 100%;
+const StyledDiv = styled.div`
+  height: 100vh;
   padding: 30px 34px;
   display: flex;
   flex-direction: column;

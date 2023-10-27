@@ -45,6 +45,6 @@ const StyledInput = styled.input`
   }
 
   &:focus {
-    border-bottom-color: var(--mainColor);
+    border-bottom: 1px solid var(--mainColor);
   }
 `;
