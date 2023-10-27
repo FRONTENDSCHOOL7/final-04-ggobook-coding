@@ -1,21 +1,21 @@
 import React from "react";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SplashScreen from "../pages/SplashScreen/SplashScreen";
 import Login from "../pages/Login/Login";
 import JoinMembership from "../pages/Join/JoinMembership";
 import ProfileSetting from "../pages/Join/ProfileSetting";
-import LoginEmail from "./Login/LoginEmail";
-import Home from "./Home/Home2";
-import Search from "./Search/Search";
-import Profile from "./Profile/profile";
-import ProfileModification from "./Profile/ProfileModification";
-import FollowersList from "./FollowersList/FollowersList";
-import AddProduct from "./AddProduct/AddProduct";
-import Post from "./Post/Post";
-import Upload from "./Upload/Upload";
-import ChatList from "./ChatList/ChatList";
-import ChatRoom from "./ChatRoom/ChatRoom";
-import NotFound from "./NotFound/NotFound";
+import LoginEmail from "../pages/Login/LoginEmail";
+import Home from "../pages/Home/Home2";
+import Search from "../pages/Search/Search";
+import Profile from "../pages/Profile/Profile";
+import ProfileModification from "../pages/Profile/ProfileModification";
+import FollowersList from "../pages/FollowersList/FollowersList";
+import AddProduct from "../pages/AddProduct/AddProduct";
+import Post from "../pages/Post/Post";
+import Upload from "../pages/Upload/Upload";
+import ChatList from "../pages/ChatList/ChatList";
+import ChatRoom from "../pages/ChatRoom/ChatRoom";
+import NotFound from "../pages/NotFound/NotFound";
 
 export default function AppRouter() {
   return (
