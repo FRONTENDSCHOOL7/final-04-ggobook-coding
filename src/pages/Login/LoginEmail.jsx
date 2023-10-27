@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import Spaces from "../../components/Spaces/Spaces";
+import { Link } from "react-router-dom";
 
 export default function LoginEmail() {
   // 이메일로 로그인 기능 구현
@@ -38,9 +39,10 @@ export default function LoginEmail() {
         setErrorMsg("이메일 또는 비밀번호를 입력해 주세요.");
       } else {
         const token = json.user.token;
-
-        localStorage.setItem("token", token); // 어떤 페이지를 가든 token 값을 자유롭게 사용할 수 있도록 로컬스토리지에 저장
+        localStorage.setItem("token", token); // token 값을 자유롭게 사용할 수 있도록 로컬스토리지에 저장
         setErrorMsg("");
+
+        alert("로그인 성공!");
       }
     } catch (error) {
       console.log("에러 발생");
@@ -88,19 +90,24 @@ export default function LoginEmail() {
         />
         {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         <Spaces gap="30px" />
-        <Button width="322px" backgroundColor="var(--mainColor)" color="#fff">
+        <Button
+          width="322px"
+          padding="13px"
+          backgroundColor="var(--mainColor)"
+          color="#fff"
+        >
           로그인
         </Button>
       </StyledForm>
       <Spaces gap="20px" />
 
-      <StyledLink>이메일로 회원가입</StyledLink>
+      <JoinEmailLink to="/joinmembership">이메일로 회원가입</JoinEmailLink>
     </LoginEmailPage>
   );
 }
 
 const LoginEmailPage = styled.div`
-  height: 100%;
+  height: 100vh;
   padding: 30px 34px;
   display: flex;
   flex-direction: column;
@@ -126,7 +133,7 @@ const ErrorMsg = styled.p`
   font-weight: 400;
 `;
 
-const StyledLink = styled.a`
+const JoinEmailLink = styled(Link)`
   color: #767676;
   text-align: center;
   font-size: 12px;
