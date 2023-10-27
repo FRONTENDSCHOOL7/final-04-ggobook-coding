@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { ProfileThumbnail } from "../../styles/GlobalStyle";
 import HeaderBtn from '../../components/Header/HeaderBtn';
 import ProfileEditBtn from '../../components/ProfileEditBtn/ProfileEditBtn';
+// 프로필 사진임.
+import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
 import Spaces from '../../components/Spaces/Spaces';
 
@@ -32,8 +35,8 @@ function Godpm2() {
 
     브라우저 로컬스토리지에 저장
   */
-  const token = localStorage.getItem('userToken');
-  console.log('userToken:', token);
+  // const token = localStorage.getItem('userToken');
+  // console.log('userToken:', token);
   /* [!] 주석을 풀어 확인해보세요! 콘솔은 잘 받아오고 있군요! 에러가 발생한다면 재로그인(토큰값을 업데이트 해보세요) */
 
   // 사용자 초기 정보를 저장하기 위한 상태들을 선언합니다.
@@ -49,7 +52,7 @@ function Godpm2() {
 
     단순 정보를 가져오는 거니까 GET, 토큰값은 헤더 정보에 넣어 요청합니다!
   */
-  // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo";
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo";
   const getInitInfo = async () => {
     const res = await fetch('https://api.mandarin.weniv.co.kr/user/myinfo', {
       method: 'GET',
@@ -228,23 +231,53 @@ function Godpm2() {
 
   return (
     <StyledDiv>
-      <HeaderBtn />
+      
       <button type="button" onClick={submitEdit}>
         저장
       </button>
+      <HeaderBtn></HeaderBtn>
 
       <StyledForm>
-        <ProfileEditBtn />
-        <label htmlFor='profileImg'>
+        {/* <ProfileEditBtn/> */}
+
+
+
+
+        <AddImgWrap>
+          <input
+            id="file"
+            className="btnUpload"
+            type="file"
+            name="file"
+            accept=".jpg, .jpeg, .png, .gif, .bmp, .tif, .heic"
+            // 로컬에서 이미지 등록
+            onChange={handleChangeImage}
+            />
+            <ProfileThumbnail
+                src={imgSrc === "" ? null : imgSrc}
+                alt=""
+              />
+        </AddImgWrap>
+
+
+        {/* 기존 이미지 */}
+        {/* <label htmlFor='profileImg'>
           <img src={imgSrc || initImgSrc} alt='Profile' id='imagePre' />
-        </label>
-        <input
+        </label> */}
+        {/* 이미지 선택 */}
+        {/* <input
           type="file"
           onChange={handleChangeImage}
           id="profileImg"
           name="image"
           accept="image/*"
-        />
+        /> */}
+
+
+
+
+
+        
         <Spaces gap="140px" />
         <Input
           label="사용자 이름"
@@ -294,6 +327,10 @@ function Godpm2() {
 }
 
 const StyledDiv = styled.div`
+/* ---------오류테스트용------------ */
+  display: flex;
+  flex-direction: column;
+/* --------------------- */
   height: 100vh;
   background-color: #fff;
   font-family: 'Spoqa Han Sans Neo';
@@ -304,5 +341,30 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+`;
+
+// 하늘님 코드
+const AddImgWrap = styled.div`
+  position: relative;
+  border: 0.5px solid #dbdbdb;
+  border-radius: 10px;
+  //input file custom
+  .btnUpload {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    
+    display: inline-block;
+    background: url("/images/img-button.svg") center;
+    cursor: pointer;
+  }
+  input[type="file"]::file-selector-button {
+    background-color: transparent;
+    border: none;
+    color: transparent;
+  }
 `;
 export default Godpm2;

@@ -1,24 +1,3 @@
-// import { CommonLayOut, GlobalStyle, PaddingLayOut } from "./styles/GlobalStyle";
-
-// function App() {
-//   return (
-//     <>
-//       <GlobalStyle />
-//       <CommonLayOut>
-//         <PaddingLayOut>
-//         {/* <PaddingLayOut padding={33}> */}
-//           <YourProfile4>
-//             <h1>ggobook-coding❤</h1>
-//           </YourProfile4>
-//         </PaddingLayOut>
-//       </CommonLayOut>
-//     </>
-//   );
-// }
-
-// export default App;
-
-
 
 import { CommonLayOut, GlobalStyle } from "./styles/GlobalStyle";
 import Follower from "./pages/FollowersList/Follower"
@@ -30,6 +9,8 @@ import Godpm2 from "./pages/Profile/Godpm2"
 import ProModification2 from "./pages/Profile/ProModification2"
 // import Recoilpm from "./pages/Profile/Recoilpm"
 import Fetchpm from "./pages/Profile/Fetchpm"
+import AddProduct from "./pages/AddProduct/AddProduct";
+
 
 import AppRouter from "./routes/AppRouter";
 
@@ -38,11 +19,10 @@ function App() {
     <>
       <GlobalStyle />
       <CommonLayOut>
-        <AppRouter />
+        {/* <AddProduct></AddProduct> */}
+        <Godpm2></Godpm2>
+        {/* <AppRouter /> */}
       </CommonLayOut>
-        <CommonLayOut>
-          <Godpm2></Godpm2>
-        </CommonLayOut>
     </>
   );
 }

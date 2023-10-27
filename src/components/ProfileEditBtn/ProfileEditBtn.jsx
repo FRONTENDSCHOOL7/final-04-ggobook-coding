@@ -15,6 +15,7 @@ const StyledButton = styled.button`
   border-radius: 110px;
   border: 1px solid #dbdbdb;
 
+  /* 지도 이미지 콘 */
   &::before {
     content: "";
     display: inline-block;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import HeaderBtn from '../../components/Header/HeaderBtn';
-import ProfileEditBtn from '../../components/ProfileEditBtn/ProfileEditBtn';
 import Input from '../../components/Input/Input';
 import Spaces from '../../components/Spaces/Spaces';
+
 
 function ProModification2() {
   // localStorage에서 토큰 가져오기
@@ -228,6 +228,7 @@ function ProModification2() {
   return (
     <StyledDiv>
       <HeaderBtn></HeaderBtn>
+
       <button type="button" onClick={submitEdit}>
         저장
       </button>
