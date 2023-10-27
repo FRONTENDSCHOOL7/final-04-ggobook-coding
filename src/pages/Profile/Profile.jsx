@@ -4,8 +4,6 @@ import styled from "styled-components";
 import Navigator from "../../components/Navigator/Navigator";
 import HeaderProfile from "../../components/Header/HeaderProfile";
 
-
-
 // 총 배경 ================================================
 
 const HomeLayout = styled.div`
@@ -79,11 +77,9 @@ const Btns = styled.div`
   }
   .btn-follow {
     background: 767676;
-    color: #DBDBDB;
+    color: #dbdbdb;
     width: 120px;
   }
-  
-
 `;
 
 // section 2 =============================================
@@ -121,16 +117,15 @@ const Sale = styled.div`
     margin-top: 12px;
     font-size: 12px;
     font-weight: 700;
-    color: #237B46;
+    color: #237b46;
     /* 판매상품 하단 간격 추가 */
     display: block;
     margin-bottom: 12px;
   }
-  img{
-      border-radius: 10px;
-    }
+  img {
+    border-radius: 10px;
+  }
 `;
-
 
 // section 3 =============================================
 
@@ -218,12 +213,10 @@ const Sect3 = styled.div`
     }
   }
 
-  img{
-      border-radius: 10px;
-    }
+  img {
+    border-radius: 10px;
+  }
 `;
-
-
 
 export default function Profile() {
   return (
@@ -252,74 +245,79 @@ export default function Profile() {
         </Btns>
       </Sect1>
       <Sect2>
-      <h2>판매중인 상품</h2>
-      <Sale>
-        <div>
-          <img src="https://via.placeholder.com/140x90" alt="" />
-          <p>애월읍 노지 감귤</p>
-          <span>35,000원</span>
+        <h2>판매중인 상품</h2>
+        <Sale>
+          <div>
+            <img src="https://via.placeholder.com/140x90" alt="" />
+            <p>애월읍 노지 감귤</p>
+            <span>35,000원</span>
+          </div>
+          <div>
+            <img src="https://via.placeholder.com/140x90" alt="" />
+            <p>애월읍 노지 감귤</p>
+            <span>35,000원</span>
+          </div>
+          <div>
+            <img src="https://via.placeholder.com/140x90" alt="" />
+            <p>애월읍 노지 감귤</p>
+            <span>35,000원</span>
+          </div>
+        </Sale>
+      </Sect2>
+      <Sect3>
+        <div className="album-btns">
+          <button>
+            <img src="/images/icon-post-list-on.svg" alt="" />
+          </button>
+          <button>
+            <img src="/images/icon-post-album-off.svg" alt="" />
+          </button>
         </div>
-        <div>
-          <img src="https://via.placeholder.com/140x90" alt="" />
-          <p>애월읍 노지 감귤</p>
-          <span>35,000원</span>
-        </div>
-        <div>
-          <img src="https://via.placeholder.com/140x90" alt="" />
-          <p>애월읍 노지 감귤</p>
-          <span>35,000원</span>
-        </div>
-      </Sale>
-    </Sect2>
-    <Sect3>
-      <div className="album-btns">
-        <button>
-          <img src="/images/icon-post-list-on.svg" alt="" />
-        </button>
-        <button>
-          <img src="/images/icon-post-album-off.svg" alt="" />
-        </button>
-      </div>
-      {/* 게시글 목록 */}
-      <div className="content-container">
-        {/* 게시글 한개 */}
-        <div className="content-list">
-          <img src="/images/basic-profile.svg" alt="" className="profile-img" />
-          <div className="content">
-            <div className="content-title">
-              <div className="content-id">
-                <h3>애월읍 위니브 감귤농장</h3>
-                <p>@ weniv_Mandarin</p>
+        {/* 게시글 목록 */}
+        <div className="content-container">
+          {/* 게시글 한개 */}
+          <div className="content-list">
+            <img
+              src="/images/basic-profile.svg"
+              alt=""
+              className="profile-img"
+            />
+            <div className="content">
+              <div className="content-title">
+                <div className="content-id">
+                  <h3>애월읍 위니브 감귤농장</h3>
+                  <p>@ weniv_Mandarin</p>
+                </div>
+                <div>
+                  <button>
+                    <img src="/images/icon-more-vertical.svg" alt="" />
+                  </button>
+                </div>
               </div>
-              <div>
+              <div className="content-inner">
+                <p>
+                  옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의 위하여,
+                  뿐이다. 이상의 청춘의 뼈 따뜻한 그들의 그와 약동하다. 대고,
+                  못할 넣는 풍부하게 뛰노는 인생의 힘있다.
+                </p>
+                <img src="https://via.placeholder.com/304x228" alt="" />
+              </div>
+              <div className="like-comment">
                 <button>
-                  <img src="/images/icon-more-vertical.svg" alt="" />
+                  <img src="/images/icon-heart.svg" alt="" /> <span>58</span>
+                </button>
+                <button>
+                  <img src="/images/icon-message-circle.svg" alt="" />{" "}
+                  <span>12</span>
                 </button>
               </div>
+              <span className="date">2020년 10월 21일</span>
             </div>
-            <div className="content-inner">
-              <p>
-                옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의 위하여,
-                뿐이다. 이상의 청춘의 뼈 따뜻한 그들의 그와 약동하다. 대고, 못할
-                넣는 풍부하게 뛰노는 인생의 힘있다.
-              </p>
-              <img src="https://via.placeholder.com/304x228" alt="" />
-            </div>
-            <div className="like-comment">
-              <button>
-                <img src="/images/icon-heart.svg" alt="" /> <span>58</span>
-              </button>
-              <button>
-                <img src="/images/icon-message-circle.svg" alt="" /> <span>12</span>
-              </button>
-            </div>
-            <span className="date">2020년 10월 21일</span>
           </div>
-        </div> 
-      </div>
-    </Sect3>
-      {/* 하단 */} 
-      <Navigator /> 
+        </div>
+      </Sect3>
+      {/* 하단 */}
+      <Navigator />
     </HomeLayout>
   );
 }
