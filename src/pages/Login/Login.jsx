@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
 import Button from "../../components/Button/Button";
 import Spaces from "../../components/Spaces/Spaces";
 
@@ -11,6 +13,7 @@ export default function Login() {
           <ButtonList>
             <Button
               width="332px"
+              padding="13px"
               border="1px solid #F2C94C"
               before
               beforeBackground="/images/logo-kakao.svg"
@@ -22,6 +25,7 @@ export default function Login() {
           <ButtonList>
             <Button
               width="332px"
+              padding="13px"
               border="1px solid #767676"
               before
               beforeBackground="/images/logo-google.svg"
@@ -33,6 +37,8 @@ export default function Login() {
           <ButtonList>
             <Button
               width="332px"
+              padding="13px"
+              backgroundColor="transparents"
               border="1px solid #2D9CDB"
               before
               beforeBackground="/images/logo-facebook.svg"
@@ -43,8 +49,8 @@ export default function Login() {
         </ButtonWrapper>
 
         <LoginJoinWrapper>
-          <EmailLoginLink href="#">이메일로 로그인</EmailLoginLink>
-          <JoinLink href="#">회원가입</JoinLink>
+          <EmailLoginLink to="/loginemail">이메일로 로그인</EmailLoginLink>
+          <JoinLink to="/joinmembership">회원가입</JoinLink>
         </LoginJoinWrapper>
       </ButtonSection>
     </StyledDiv>
@@ -87,7 +93,7 @@ const LoginJoinWrapper = styled.div`
   font-size: 12px;
 `;
 
-const EmailLoginLink = styled.a`
+const EmailLoginLink = styled(Link)`
   &::after {
     content: "";
     display: inline-block;
@@ -99,4 +105,4 @@ const EmailLoginLink = styled.a`
   }
 `;
 
-const JoinLink = styled.a``;
+const JoinLink = styled(Link)``;
