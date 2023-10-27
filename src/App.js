@@ -31,11 +31,15 @@ import ProModification2 from "./pages/Profile/ProModification2"
 // import Recoilpm from "./pages/Profile/Recoilpm"
 import Fetchpm from "./pages/Profile/Fetchpm"
 
+import AppRouter from "./routes/AppRouter";
 
 function App() {
   return (
     <>
       <GlobalStyle />
+      <CommonLayOut>
+        <AppRouter />
+      </CommonLayOut>
         <CommonLayOut>
           <Godpm2></Godpm2>
         </CommonLayOut>
