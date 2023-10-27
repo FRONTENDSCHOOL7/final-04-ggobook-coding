@@ -38,4 +38,8 @@ const StyledInput = styled.input`
     color: #dbdbdb;
     font-size: 14px;
   }
+
+  &:focus {
+    border-bottom: 1px solid var(--mainColor);
+  }
 `;
