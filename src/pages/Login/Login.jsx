@@ -94,6 +94,8 @@ const LoginJoinWrapper = styled.div`
 `;
 
 const EmailLoginLink = styled(Link)`
+  color: #767676;
+  text-decoration: none;
   &::after {
     content: "";
     display: inline-block;
@@ -105,4 +107,7 @@ const EmailLoginLink = styled(Link)`
   }
 `;
 
-const JoinLink = styled(Link)``;
+const JoinLink = styled(Link)`
+  color: #767676;
+  text-decoration: none;
+`;
