@@ -12,6 +12,7 @@ export default function Button({
   disabled,
   type,
   padding,
+  onClick,
 }) {
   return (
     <StyledButton
@@ -24,6 +25,7 @@ export default function Button({
       $disabled={disabled} //disabled 적용
       $type={type} //button type 명시
       $padding={padding}
+      onClick={onClick}
     >
       {children}
     </StyledButton>
