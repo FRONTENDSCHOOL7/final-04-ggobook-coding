@@ -94,15 +94,14 @@ export default function ProfileSetting() {
       <Spaces gap="14px" />
       <StyledP>나중에 언제든지 변경할 수 있습니다.</StyledP>
 
-      <ProfileEditBtn
-        type="file"
-        marginTop="86px"
-        onChange={handleChangeImg}
-        imgSrc={imgSrc}
-      />
-      <Spaces gap="170px" />
-
       <StyledForm>
+        <ProfileEditBtn
+          type="file"
+          marginTop="30px"
+          onChange={handleChangeImg}
+          background={imgSrc}
+        />
+        <Spaces gap="170px" />
         <Input
           label="사용자 이름"
           inputBorderColor="#dbdbdb"
@@ -173,4 +172,8 @@ const StyledP = styled.p`
   line-height: 14px;
 `;
 
-const StyledForm = styled.form``;
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
