@@ -1,85 +1,95 @@
-import React from 'react';
 import styled from 'styled-components';
+import { useEffect, useRef, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { getFollowerList, getFollowingList } from '../api/followListAPI';
+import useScrollBottom from '../hooks/useScrollBottom';
 
-import BasicLayout from '../../../../layout/BasicLayout';
-import { useLocation } from 'react-router-dom';
-// import { FollowerWrapper, FollowerList, FollowItem } from './FollowersPageStyle';
-import { getFollowers } from '../../../../api/followApi';
-import UserSimpleInfo from '../../../../components/common/UserSimpleInfo/UserSimpleInfo/UserSimpleInfo';
-import useObserver from '../../../../hooks/useObserver';
-import useInfiniteDataQuery from '../../../../hooks/useInfiniteDataQuery';
-import { useRecoilValue } from 'recoil';
-import { myProfileDataAtom } from '../../../../atoms/myProfile';
-import { FOLLOWLIMIT } from '../../../../constants/pagenation';
+import FollowersProfile from '../components/common/FollowersProfile';
+import ChatHeader from '../components/header/ChatHeader';
+import Loader from '../Loader/Loader';
 
-// 총 배경 ================================================
+export default function FollowListPage() {
+  const elementRef = useRef(null);
+  const isBottom = useScrollBottom(elementRef);
 
-const HomeLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: white;
-`;
+  const { accountname } = useParams();
+  const location = useLocation();
+  const [loadFollowSeq, setLoadFollowSeq] = useState(0);
+  const [followList, setFollowList] = useState([]);
+  const [title, setTitle] = useState('');
+  const [loading, setLoading] = useState(false);
 
-const FollowerWrapper = styled.section`
-  padding: 16px;
+  useEffect(() => {
+    if (isBottom) {
+      loadFollowList(loadFollowSeq + 20);
+      setLoadFollowSeq((PrevValue) => PrevValue + 20);
+    }
+  }, [isBottom]);
 
-  button {
-    width: 68px;
-  }
-`;
+  useEffect(() => {
+    loadFollowList(loadFollowSeq);
+  }, []);
 
-const FollowerList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 16px;
-`;
+  const loadFollowList = async (value) => {
+    let list;
+    if (location.pathname === `/profile/${accountname}/following`) {
+      list = await getFollowingList(accountname, value);
+      setTitle('Followings');
+      setLoading(true);
+    } else if (location.pathname === `/profile/${accountname}/follower`) {
+      list = await getFollowerList(accountname, value);
+      setTitle('Followers');
+      setLoading(true);
+    }
+    setFollowList((prevValue) => [...prevValue, ...list]);
+  };
 
-const FollowItem = styled.li`
-  & > div > div {
-    width: calc(100% - 78px);
-  }
-`;
-
-const accountname = useLocation().state.accountname;
-
-const myProfileData = useRecoilValue(myProfileDataAtom);
-
-const {
-  data: followers,
-  fetchNextPage,
-  isLoading,
-  hasNextPage,
-} = useInfiniteDataQuery(['followers', accountname], getFollowers, {
-  limit: FOLLOWLIMIT,
-  select: (data) => {
-    return data.pages.flatMap((page) => page.data);
-  },
-  enabled: !!accountname,
-});
-
-const observerRef = useObserver(hasNextPage, fetchNextPage, isLoading);
-
-export default function Foll() {
   return (
-    <HomeLayout type='follow' title='팔로워'>
-      <FollowerWrapper>
-        <FollowerList>
-          {followers?.map((follower) => (
-            <FollowItem key={follower._id}>
-              <UserSimpleInfo
-                profile={follower}
-                type='follow'
-                isLink={true}
-                isMyProfile={myProfileData.accountname === follower.accountname}
-              />
-            </FollowItem>
-          ))}
-        </FollowerList>
-        <div ref={observerRef} style={{ minHeight: '1px' }}></div>
-      </FollowerWrapper>
-    </HomeLayout>
+    <>
+      <ChatHeader name={`${title}`} isButton={false} />
+      <FollowListStyle ref={elementRef}>
+        {loading ? (
+          followList.length !== 0 ? (
+            followList.map((item, index) => (
+              <FollowersProfile followingUser={item} key={item._id} />
+            ))
+          ) : (
+            <NoFollowListStyle>
+              {title === 'Followings' ? (
+                <span>팔로잉한 사람이 없습니다</span>
+              ) : (
+                <span>팔로워가 없습니다</span>
+              )}
+            </NoFollowListStyle>
+          )
+        ) : (
+          <Loader />
+        )}
+      </FollowListStyle>
+    </>
   );
 }
 
+const FollowListStyle = styled.section`
+  height: var(--screen-nav-height);
+  padding: 16px;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    background-color: var(--background-color);
+    width: 0px;
+  }
+`;
+
+const NoFollowListStyle = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-color-1);
+    font-size: var(--font--size-md);
+  }
+`;

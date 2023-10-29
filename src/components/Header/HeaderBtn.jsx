@@ -1,6 +1,5 @@
-import React from 'react'
-// import { Link } from 'react-router-dom'
-import { styled } from 'styled-components'
+import React from 'react';
+import { styled } from 'styled-components';
 import { CommonBtn } from '../../styles/GlobalStyle';
 
 // 헤더 ===================================================
@@ -29,15 +28,22 @@ const Header = styled.div`
     font-size: 14px;
     
   }
-  
 `;
-export default function HeaderProfile() {
+export default function HeaderBtn({ onSubmitEdit, onNavigate, btnState }) {
   return (
-<Header>
-<button>
-  <img src="images/icon-arrow-left.svg" alt="" />
-</button>
-<CommonBtn className="btn-follow" $w="90px" $h="32px">저장</CommonBtn>
-</Header>
-      );
-    }
+    <Header>
+      <button onClick={onNavigate}>
+        <img src="images/icon-arrow-left.svg" alt="뒤로가기" />
+      </button>
+      <CommonBtn 
+        className="btn-follow" 
+        $w="90px" 
+        $h="32px"
+        onClick={onSubmitEdit}
+        disabled={btnState}
+      >
+        저장
+      </CommonBtn>
+    </Header>
+  );
+}

@@ -136,6 +136,7 @@ export const ProfileThumbnail = styled.img`
   position: absolute;
   background-size: 110px;
   border-radius: 110px;
+  
   border: 1px solid #dbdbdb;
   
 `;
@@ -153,6 +154,12 @@ export const CommonBtn = styled.button`
   background-image: url(${(props) => props.$img});
   background-repeat: no-repeat;
   background-position: center;
+
+  /* 비활성화 컬러 추가 */
+  &[disabled] {
+    background-color: #A7CAB5; 
+    cursor: not-allowed;
+  }
 `;
 
 /**

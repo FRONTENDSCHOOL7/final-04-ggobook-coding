@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+
 import Navigator from "../../components/Navigator/Navigator";
 import HeaderProfile from "../../components/Header/HeaderProfile";
 
