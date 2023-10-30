@@ -6,6 +6,12 @@ export default function Input({
   inputBorderColor,
   placeholder,
   autoFocus,
+  value,
+  onChange,
+  onBlur, 
+  type,
+  id, 
+  name,
 }) {
   return (
     <InputContainer>
@@ -14,6 +20,13 @@ export default function Input({
         $inputBorderColor={inputBorderColor}
         placeholder={placeholder}
         autoFocus={autoFocus}
+        onChange={onChange}
+        onBlur={onBlur}
+        value={value}
+        type={type}
+        id={id}
+        name={name}
+
       ></StyledInput>
     </InputContainer>
   );

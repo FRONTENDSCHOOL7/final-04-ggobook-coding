@@ -302,7 +302,7 @@ function EditProfile() {
     const navigate = useNavigate();
 
     const handleNavigateToLogin = () => {
-      navigate("/myprofile");
+      navigate("/profile/6537cdb6b2cb20566385f8ed");
     };
   
 
