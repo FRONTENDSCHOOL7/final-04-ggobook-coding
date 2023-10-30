@@ -4,6 +4,9 @@ import styled from "styled-components";
 export default function Input({
   label,
   inputBorderColor,
+  type,
+  value,
+  onChange,
   placeholder,
   autoFocus,
 }) {
@@ -12,6 +15,9 @@ export default function Input({
       <StyledLabel>{label}</StyledLabel>
       <StyledInput
         $inputBorderColor={inputBorderColor}
+        type={type}
+        value={value}
+        onChange={onChange}
         placeholder={placeholder}
         autoFocus={autoFocus}
       ></StyledInput>
@@ -35,7 +41,6 @@ const StyledInput = styled.input`
   border-bottom: 1px solid ${(props) => props.$inputBorderColor};
 
   &::placeholder {
-    color: #dbdbdb;
     font-size: 14px;
   }
 
