@@ -115,6 +115,76 @@ function ProfileModification() {
   const [imgSrc, setImgSrc] = useState(initImgSrc);
   const [intro, setIntro] = useState(initIntron);
 
+
+    // 닉네임 에러, 아이디 에러, 소개 에러 상태 관리
+    const [usernameErr, setUsernameErr] = useState("");
+    const [accountnameErr, setAccountnameErr] = useState("");
+    const [introErr, setIntroErr] = useState("");
+    
+
+  // 각 input 유효성 검사
+  const UsernameValid = () => {
+    if (!username) {
+      setUsernameErr("필수 입력 항목입니다.");
+    } else if (username.length < 2) {
+      setUsernameErr("2자 이상 닉네임을 입력해 주세요.");
+    } else if (username.length > 10) {
+      setUsernameErr("10자 이하 닉네임을 입력해 주세요.");
+    } else {
+      setUsernameErr("");
+    }
+  };
+
+    // 아이디 조건(정규 표현식)
+    const userIdReg = /^[A-Za-z0-9_.]{5,}$/;
+
+    const AccountnameValid = () => {
+      if (!accountname) {
+        setAccountnameErr("필수 입력 항목입니다.");
+      } else if (!userIdReg.test(accountname)) {
+        setAccountnameErr("아이디 형식이 올바르지 않습니다.");
+      } else {
+        setAccountnameErr("");
+      }
+    };
+
+    const IntroValid = () => {
+      if (!intro) {
+        setIntroErr("필수 입력 항목입니다.");
+      } else {
+        setIntroErr("");
+      }
+    };
+
+      // 버튼 비활성화 상태 관리
+  const [btnState, SetBtnState] = useState(true);
+  
+      // 버튼 활성화
+  const btnActive = () => {
+    if (
+      !usernameErr &&
+      !accountnameErr &&
+      !introErr &&
+      username &&
+      accountname &&
+      intro
+    ) {
+      SetBtnState(false);
+    } else {
+      SetBtnState(true);
+    }
+  };
+
+  // input창이 바뀔 때마다 btnActive로 확인 후 버튼 활성화
+  useEffect(() => {
+    btnActive();
+  }, [username, accountname, intro]);
+
+  
+
+
+
+
   // 기존 토큰으로 가져온 부분 ==================================================
 
   // 프로필 정보를 수정하는 API 호출 함수입니다.
@@ -148,6 +218,7 @@ function ProfileModification() {
    */
   const inputUsername = (e) => {
     setUsername(e.target.value);
+    console.log(e.target.value)
   };
 
   const inputAccountname = (e) => {
@@ -223,6 +294,7 @@ function ProfileModification() {
         image: imgSrc,
       },
     };
+    console.log(editData)
     edit(editData);
   };
 
@@ -230,7 +302,7 @@ function ProfileModification() {
     const navigate = useNavigate();
 
     const handleNavigateToLogin = () => {
-      navigate("/myprofile");
+      navigate("/profile/6537cdb6b2cb20566385f8ed");
     };
   
 
@@ -238,7 +310,10 @@ function ProfileModification() {
 
   return (
     <StyledDiv>
-      <HeaderBtn onSubmitEdit={submitEdit} onNavigate={handleNavigateToLogin} />
+      <HeaderBtn 
+      onSubmitEdit={submitEdit} 
+      onNavigate={handleNavigateToLogin} 
+      btnState={btnState} />
         <StyledForm>
         <AddImgWrap>
           <ProfileThumbnail
@@ -275,6 +350,8 @@ function ProfileModification() {
           inputBorderColor="#dbdbdb"
           value={username}
           onChange={inputUsername}
+          // 유효성용
+          onBlur={UsernameValid}
           type="text"
           id="userNameInput"
           name="username"
@@ -288,6 +365,8 @@ function ProfileModification() {
           inputBorderColor="#dbdbdb"
           value={accountname}
           onChange={inputAccountname}
+          //유효성용
+          onBlur={AccountnameValid}
           type="text"
           id="userIdInput"
           name="accountname"
@@ -303,6 +382,8 @@ function ProfileModification() {
           inputBorderColor="#dbdbdb"
           value={intro}
           onChange={inputInfo}
+          // 유효성용
+          onBlur={IntroValid}
           type="text"
           id="userIntroInput"
           name="intro"
@@ -318,15 +399,14 @@ function ProfileModification() {
 }
 
 
-
-
+// 배경
 const StyledDiv = styled.div`
-
   height: 100vh;
   background-color: #fff;
   font-family: 'Spoqa Han Sans Neo';
 `;
 
+// 중앙 
 const StyledForm = styled.form`
   padding: 30px 34px;
   display: flex;
@@ -335,7 +415,7 @@ const StyledForm = styled.form`
   
 `;
 
-// 하늘님 코드
+// 프로필 & 업로드 이미지
 const AddImgWrap = styled.div`
   width: 110px;
   height: 110px;
