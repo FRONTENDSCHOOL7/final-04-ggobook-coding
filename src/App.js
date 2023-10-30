@@ -1,28 +1,19 @@
 
 import { CommonLayOut, GlobalStyle } from "./styles/GlobalStyle";
 import AppRouter from "./routes/AppRouter";
-import { BrowserRouter as Router } from 'react-router-dom';
-import Navigator from "./components/Navigator/Navigator";
-import ProfileModification from "./pages/Profile/ProfileModification";
+import FollowersList from "./pages/FollowersList/FollowersList";
 
-
-
-import FollowTest from "./pages/FollowersList/FollowTest";
-import FollowersFor from "./pages/FollowersList/FollowersFor";
 
 function App() {
   return (
     <>
       <GlobalStyle />
       <CommonLayOut>
-        <Router>
-          <FollowersFor/>
-        </Router>
-        
+          <FollowersList/>
+          <AppRouter/>
       </CommonLayOut>
     </>
   );
 }
-
 
 export default App;
