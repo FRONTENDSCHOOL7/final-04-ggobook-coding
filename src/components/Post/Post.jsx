@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 
 const PostLayout = styled.ul`
@@ -10,6 +9,9 @@ const PostLayout = styled.ul`
   .profile-img {
     width: 42px;
     height: 42px;
+    flex-shrink: 0;
+    border-radius: 42px;
+    border: 0.5px solid var(--DBDBDB, #dbdbdb);
   }
   .content-title {
     display: flex;
@@ -78,7 +80,11 @@ export default function Post({ post }) {
   return (
     <PostLayout>
       <li className="content-list">
-        <img src="/images/basic-profile.svg" alt="" className="profile-img" />
+        <img
+          src={post.author.image ?? "/images/basic-profile.svg"}
+          alt=""
+          className="profile-img"
+        />
         <div className="content">
           <div className="content-title">
             <div className="content-id">
@@ -93,16 +99,7 @@ export default function Post({ post }) {
           </div>
           <div className="content-inner">
             <p>{post.content}</p>
-            <img
-              src={
-                post.image === "" ? null : post.image
-                // .replace(
-                //     "uploadFiles/",
-                //     "https://api.mandarin.weniv.co.kr/"
-                //   )
-              }
-              alt=""
-            />
+            <img src={post.image === "" ? null : post.image} alt="" />
           </div>
           <div className="like-comment">
             <button>
