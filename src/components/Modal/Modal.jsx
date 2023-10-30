@@ -1,13 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 
+/**
+ * @param title modal 상단부 text
+ * @param handleModalCancelButton 취소 버튼 클릭시 모달의 상태 입력 (배경 클릭시에도 사라짐)
+ * @returns 공통부 Modal
+ */
+export default function Modal({ title, children, handleModalCancelButton }) {
+  return (
+    <ModalParent onClick={handleModalCancelButton}>
+      <ModalInner onClick={(e) => e.stopPropagation()}>
+        <p>{title}</p>
+        <ButtonWrap>
+          <button type="button" onClick={handleModalCancelButton}>
+            취소
+          </button>
+          {children}
+        </ButtonWrap>
+      </ModalInner>
+    </ModalParent>
+  );
+}
+
 const ModalParent = styled.div`
   position: fixed;
+  z-index: 10;
   top: 0;
   left: 50%;
   right: 0;
   bottom: 0;
-  max-width: 390px;
+  max-width: var(--appWidth);
   width: 100%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.3);
@@ -57,17 +79,3 @@ const ButtonWrap = styled.div`
     }
   }
 `;
-
-export default function Modal() {
-  return (
-    <ModalParent>
-      <ModalInner>
-        <p>게시글을 삭제할까요?</p>
-        <ButtonWrap>
-          <button type="button">취소</button>
-          <button type="button">삭제</button>
-        </ButtonWrap>
-      </ModalInner>
-    </ModalParent>
-  );
-}
