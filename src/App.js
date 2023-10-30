@@ -1,16 +1,24 @@
-import { RecoilRoot } from 'recoil';
+
 import { CommonLayOut, GlobalStyle } from "./styles/GlobalStyle";
 import AppRouter from "./routes/AppRouter";
+import { BrowserRouter as Router } from 'react-router-dom';
+
+
+
+import FollowTest from "./pages/FollowersList/FollowTest";
 
 function App() {
   return (
-    <RecoilRoot>
+    <>
       <GlobalStyle />
       <CommonLayOut>
-        <AppRouter />
+        <Router>
+          <FollowTest/>
+        </Router>
       </CommonLayOut>
-    </RecoilRoot>
+    </>
   );
 }
+
 
 export default App;
