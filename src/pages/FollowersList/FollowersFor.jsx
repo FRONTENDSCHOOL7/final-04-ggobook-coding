@@ -28,10 +28,12 @@ async function fetchFollowersList(accountname, token) {
 }
 
 // 팔로워 목록을 보여주는 컴포넌트
-function FollowTest() {
+function FollowersFor() {
   const accountname  = useParams().id; // URL 파라미터에서 accountname 추출
+
   const [followers, setFollowers] = useState([]); // 팔로워 목록 상태
-  const token = localStorage.getItem('token'); // 로컬 스토리지에서 토큰 가져오기
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo";
+  // const token = localStorage.getItem('token'); // 로컬 스토리지에서 토큰 가져오기
 
   useEffect(() => {
     fetchFollowersList(accountname, token)
@@ -94,4 +96,4 @@ const FollowerLayout = styled.div`
   }
 `;
 
-export default FollowTest;
+export default FollowersFor;
