@@ -29,6 +29,7 @@ const StyledLabel = styled.label`
   background-size: 110px;
   cursor: pointer;
 
+  /* 지도 이미지 콘 */
   &::before {
     content: "";
     display: inline-block;

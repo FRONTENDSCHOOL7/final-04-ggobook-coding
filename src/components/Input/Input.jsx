@@ -9,6 +9,12 @@ export default function Input({
   onChange,
   placeholder,
   autoFocus,
+  value,
+  onChange,
+  onBlur, 
+  type,
+  id, 
+  name,
 }) {
   return (
     <InputContainer>
@@ -20,6 +26,13 @@ export default function Input({
         onChange={onChange}
         placeholder={placeholder}
         autoFocus={autoFocus}
+        onChange={onChange}
+        onBlur={onBlur}
+        value={value}
+        type={type}
+        id={id}
+        name={name}
+
       ></StyledInput>
     </InputContainer>
   );

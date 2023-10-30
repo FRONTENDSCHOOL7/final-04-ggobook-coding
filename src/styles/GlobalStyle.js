@@ -129,6 +129,18 @@ export const CommonImgThumbnail = styled.img`
   background-color: gray;
 `;
 
+// 프로필 수정 이미지
+export const ProfileThumbnail = styled.img`
+  width: 110px;
+  height: 110px;
+  position: absolute;
+  background-size: 110px;
+  border-radius: 110px;
+  
+  border: 1px solid #dbdbdb;
+  
+`;
+
 /**
  * 공통으로 적용되는 버튼
  * 방법: 버튼 내부에 이미지 적용시 사용
@@ -142,6 +154,12 @@ export const CommonBtn = styled.button`
   background-image: url(${(props) => props.$img});
   background-repeat: no-repeat;
   background-position: center;
+
+  /* 비활성화 컬러 추가 */
+  &[disabled] {
+    background-color: #A7CAB5; 
+    cursor: not-allowed;
+  }
 `;
 
 /**
