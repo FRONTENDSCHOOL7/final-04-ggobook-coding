@@ -1,13 +1,28 @@
 import React from "react";
 import styled from "styled-components";
 
+/**
+ * @param children
+ * @returns PostModal 화면 하단부에 띄워지는 모달
+ */
+export default function PostModal({ children }) {
+  return (
+    <PostModalParent>
+      <div className="spaceBar"></div>
+      <PostModalInner>{children}</PostModalInner>
+    </PostModalParent>
+  );
+}
+
 const PostModalParent = styled.ul`
+  z-index: 10;
   position: fixed;
-  max-width: 390px;
+  max-width: var(--appWidth);
   bottom: 0;
   background-color: #fff;
   width: 100%;
   border-radius: 10px 10px 0 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
 
   .spaceBar {
     content: "";
@@ -31,17 +46,3 @@ const PostModalInner = styled.li`
     font-weight: 600;
   }
 `;
-
-export default function PostModal() {
-  return (
-    <PostModalParent>
-      <div className="spaceBar"></div>
-      <PostModalInner>
-        <button>신고하기</button>
-      </PostModalInner>
-      {/* <PostModalInner>
-        <button>신고하기</button>
-      </PostModalInner> */}
-    </PostModalParent>
-  );
-}

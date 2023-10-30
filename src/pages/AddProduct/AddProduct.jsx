@@ -4,77 +4,6 @@ import { CommonImgThumbnail } from "../../styles/GlobalStyle";
 import HeaderProfile from "../../components/Header/HeaderProfile";
 import Button from "./../../components/Button/Button";
 
-const FormAddProductParent = styled.form``;
-
-const LayoutAddProduct = styled.ul`
-  position: relative;
-  padding: 48px 16px;
-  label,
-  input {
-    display: block;
-  }
-
-  input {
-    height: 30px;
-    margin-top: 10px;
-    border-bottom: 2px solid var(--disabled);
-    &:focus {
-      outline: none;
-      border: none;
-      border-bottom: 2px solid var(--mainColor);
-    }
-    &[type="file"] {
-      border-bottom: none;
-    }
-  }
-
-  label {
-    font-size: 12px;
-    line-height: 14px;
-    color: #767676;
-    margin-bottom: 18px;
-    font-weight: 500;
-  }
-`;
-
-const LayoutInner = styled.li`
-  position: relative;
-
-  button {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-  }
-  &:nth-of-type(1) {
-    margin-bottom: 30px;
-  }
-  &:nth-child(n + 1) {
-    margin-bottom: 16px;
-  }
-`;
-
-const AddImgWrap = styled.div`
-  position: relative;
-  border: 0.5px solid #dbdbdb;
-  border-radius: 10px;
-  //input file custom
-  .btnUpload {
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-    width: 36px;
-    height: 36px;
-    display: inline-block;
-    background: url("/images/img-button.svg") center;
-    cursor: pointer;
-  }
-  input[type="file"]::file-selector-button {
-    background-color: transparent;
-    border: none;
-    color: transparent;
-  }
-`;
-
 /**
  * @param {}
  * @returns AddProduct
@@ -131,7 +60,8 @@ export default function AddProduct() {
               itemName: inputFocuseRef.current.value,
               price: Number(inputPrice),
               link: salesLink,
-              itemImage: uploadResult.path,
+              // itemImage: uploadResult.path,
+              itemImage: uploadResult.filename,
             },
           }),
         });
@@ -143,6 +73,10 @@ export default function AddProduct() {
         const data = await res.json();
         console.log("productData", data);
         setAddProductData(data);
+        setProductName("");
+        setInputPrice("");
+        setSalesLink("");
+        setAddFileImg("");
       } catch (error) {
         if (!inputFocuseRef.current.value || !inputPrice || !salesLink) {
           console.error("🚫필수 입력사항을 모두 입력해주세요", error);
@@ -164,13 +98,13 @@ export default function AddProduct() {
   const handelInputAddProduct = useCallback((e) => {
     const { value, id } = e.target;
     const noComma = value.replaceAll(",", "");
-    //공통 공백 예외 처리
-    if (value.indexOf(" ") !== -1 || noComma.indexOf(" ") !== -1) return;
+    //name -> 공백 제외변경
+    if (id !== "name" && noComma.indexOf(" ") !== -1) return;
 
     if (id === "price") {
       //숫자가 아닐경우 예외 처리
       if (isNaN(noComma)) return;
-      const str = value.replaceAll(",", "").slice(0, 5);
+      const str = value.replaceAll(",", "");
       setInputPrice(str);
     } else if (id === "link") {
       setSalesLink(value);
@@ -200,7 +134,7 @@ export default function AddProduct() {
           <Button
             width="90px"
             height="32px"
-            backgroundColor="var(--disabled)"
+            backgroundColor="var(--mainColor)"
             color="#fff"
             type="submit"
             padding="7px"
@@ -274,3 +208,74 @@ export default function AddProduct() {
     </>
   );
 }
+
+const FormAddProductParent = styled.form``;
+
+const LayoutAddProduct = styled.ul`
+  position: relative;
+  padding: 48px 16px;
+  label,
+  input {
+    display: block;
+  }
+
+  input {
+    height: 30px;
+    margin-top: 10px;
+    border-bottom: 2px solid var(--disabled);
+    &:focus {
+      outline: none;
+      border: none;
+      border-bottom: 2px solid var(--mainColor);
+    }
+    &[type="file"] {
+      border-bottom: none;
+    }
+  }
+
+  label {
+    font-size: 12px;
+    line-height: 14px;
+    color: #767676;
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+`;
+
+const LayoutInner = styled.li`
+  position: relative;
+
+  button {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+  }
+  &:nth-of-type(1) {
+    margin-bottom: 30px;
+  }
+  &:nth-child(n + 1) {
+    margin-bottom: 16px;
+  }
+`;
+
+const AddImgWrap = styled.div`
+  position: relative;
+  border: 0.5px solid #dbdbdb;
+  border-radius: 10px;
+  //input file custom
+  .btnUpload {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+    background: url("/images/img-button.svg") center;
+    cursor: pointer;
+  }
+  input[type="file"]::file-selector-button {
+    background-color: transparent;
+    border: none;
+    color: transparent;
+  }
+`;
