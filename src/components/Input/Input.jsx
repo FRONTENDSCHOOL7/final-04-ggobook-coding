@@ -4,16 +4,35 @@ import styled from "styled-components";
 export default function Input({
   label,
   inputBorderColor,
+  type,
+  value,
+  onChange,
   placeholder,
   autoFocus,
+  value,
+  onChange,
+  onBlur, 
+  type,
+  id, 
+  name,
 }) {
   return (
     <InputContainer>
       <StyledLabel>{label}</StyledLabel>
       <StyledInput
         $inputBorderColor={inputBorderColor}
+        type={type}
+        value={value}
+        onChange={onChange}
         placeholder={placeholder}
         autoFocus={autoFocus}
+        onChange={onChange}
+        onBlur={onBlur}
+        value={value}
+        type={type}
+        id={id}
+        name={name}
+
       ></StyledInput>
     </InputContainer>
   );
@@ -35,7 +54,6 @@ const StyledInput = styled.input`
   border-bottom: 1px solid ${(props) => props.$inputBorderColor};
 
   &::placeholder {
-    color: #dbdbdb;
     font-size: 14px;
   }
 

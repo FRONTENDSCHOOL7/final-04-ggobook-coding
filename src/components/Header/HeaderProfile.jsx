@@ -15,12 +15,13 @@ const Header = styled.div`
     background: #fff;
     border-style: none;
   }
-  .btn-save {
+  /* 삭제 할듯 */
+  /* .btn-save {
     color: #fff;
     background: #6f76b6;
     padding: 7px 32px;
     border-radius: 32px;
-  }
+  } */
 `;
 export default function HeaderProfile() {
   return (

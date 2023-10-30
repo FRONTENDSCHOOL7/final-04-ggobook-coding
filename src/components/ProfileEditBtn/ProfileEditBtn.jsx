@@ -1,20 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function ProfileEditBtn({ marginTop }) {
-  return <StyledButton $marginTop={marginTop}></StyledButton>;
+export default function ProfileEditBtn({
+  type,
+  marginTop,
+  onChange,
+  background,
+}) {
+  return (
+    <StyledLabel $marginTop={marginTop} $background={background}>
+      <ProfileImgSetting
+        type={type}
+        name="image"
+        accept="image/*"
+        onChange={onChange}
+      ></ProfileImgSetting>
+    </StyledLabel>
+  );
 }
 
-const StyledButton = styled.button`
+const StyledLabel = styled.label`
   width: 110px;
   height: 110px;
-  margin-top: ${(props) => (props.$marginTop ? props.$marginTop : "0")};
+  border-radius: 50%;
   position: absolute;
-  background: url("images/img-profile-default.svg") no-repeat;
+  margin-top: ${(props) => (props.$marginTop ? props.$marginTop : "0")};
+  background: no-repeat url(${(props) => props.$background});
   background-size: 110px;
-  border-radius: 110px;
-  border: 1px solid #dbdbdb;
+  cursor: pointer;
 
+  /* 지도 이미지 콘 */
   &::before {
     content: "";
     display: inline-block;
@@ -26,4 +41,8 @@ const StyledButton = styled.button`
     background: url("images/upload-file.svg");
     background-size: 36px;
   }
+`;
+
+const ProfileImgSetting = styled.input`
+  display: none;
 `;
