@@ -25,6 +25,7 @@ export default function Button({
       $disabled={disabled} //disabled 적용
       $type={type} //button type 명시
       $padding={padding}
+      disabled={disabled}
       onClick={onClick}
     >
       {children}
