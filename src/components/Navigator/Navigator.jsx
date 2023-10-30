@@ -36,11 +36,11 @@ const NavLayout = styled.nav`
 `;
 
 let navigators = [
-  { id: 1, name: "홈", path: "/", img: "/images/icon-home.svg" },
+  { id: 1, name: "홈", path: "/home", img: "/images/icon-home.svg" },
   {
     id: 2,
     name: "채팅",
-    path: "/chat",
+    path: "/chatlist",
     img: "/images/icon-message-circle.svg",
   },
   {
@@ -56,7 +56,7 @@ let navList = [];
 navigators.map((nav) =>
   navList.push(
     <li key={nav.id}>
-      <NavLink exact to={nav.path}>
+      <NavLink exact="true" to={nav.path}>
         <img src={nav.img} /> {nav.name}
       </NavLink>
     </li>
