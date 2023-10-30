@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { CommonBtn, CommonImgLayout } from "../../styles/GlobalStyle";
 import HeaderBtn from "../../components/Header/HeaderBtn";
 import Button from "../../components/Button/Button";
+import { useNavigate } from "react-router-dom";
 
 const LayoutUpLoad = styled.article`
   padding: 0 15px;
@@ -75,6 +76,7 @@ export default function Upload() {
   const [contentTxt, setContentTxt] = useState(""); //게시글내용
   const [addFileImg, setAddFileImg] = useState(""); //이미지 등록
   const [uploadImg, setUploadImg] = useState(null);
+  const navigate = useNavigate();
 
   //이미지 api 등록 함수
   const imgSubmit = useCallback(async () => {
@@ -93,41 +95,39 @@ export default function Upload() {
   }, [uploadImg, TOKEN]);
 
   //post API 함수
-  const handleAddPostSubmit = useCallback(
-    async (e) => {
-      try {
-        e.preventDefault();
-        //이미지를 넣어주기 위해서 body전에 삽입하고 imgSubmit을 호출
-        const uploadResult = await imgSubmit();
-        console.log("uploadResult", uploadResult);
+  const handleAddPostSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      //이미지를 넣어주기 위해서 body전에 삽입하고 imgSubmit을 호출
+      const uploadResult = await imgSubmit();
+      console.log("uploadResult", uploadResult);
 
-        const res = await fetch(`${URL}/post`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${TOKEN}`,
-            "Content-Type": "application/json",
+      const res = await fetch(`${URL}/post`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          post: {
+            content: contentTxt,
+            image: uploadResult.filename,
           },
-          body: JSON.stringify({
-            post: {
-              content: contentTxt,
-              image: uploadResult.filename,
-            },
-          }),
-        });
+        }),
+      });
 
-        console.log("body", res);
-        if (!res.ok) {
-          throw new Error("네트워크 문제가 발생했어요.");
-        }
-        const data = await res.json();
-        console.log("PostData", data);
-        alert("저장되었습니다.");
-      } catch (error) {
-        console.error(error);
+      console.log("body", res);
+      if (!res.ok) {
+        throw new Error("네트워크 문제가 발생했어요.");
       }
-    },
-    [contentTxt, TOKEN, imgSubmit]
-  );
+      const data = await res.json();
+      console.log("PostData", data);
+      alert("저장되었습니다.");
+      navigate("/home");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   //로컬에서 이미지 등록
   const handleAddFileImg = useCallback(async (e) => {
