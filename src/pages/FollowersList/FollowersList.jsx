@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import HeaderFollowers from '../../components/Header/HeaderFollowers';
+import Navigator from '../../components/Navigator/Navigator';
 
 
 // API 호출 함수
@@ -17,12 +18,6 @@ async function fetchFollowersList(accountname, token) {
       },
     });
     
-    
-    // 왜 아무것도 안나오지??
-    // if (!response.ok) {
-    //   throw new Error('네트워크 응답이 올바르지 않습니다.');
-    // }
-
     const data = await response.json();
     return data; // 팔로워 데이터를 반환합니다.
   } catch (error) {
@@ -32,22 +27,25 @@ async function fetchFollowersList(accountname, token) {
 }
 
 // 팔로워 목록을 보여주는 컴포넌트
-function FollowersList() {
+  function FollowersList() {
+  // const { accountname } = useParams();
   // const accountname = useParams().id; // URL 파라미터에서 accountname 추출
-  const accountname = "Ggobook";
+  const accountname = "ggobook";
   console.log(accountname)
 
   const [followerList, setFollowerList] = useState(() => {})
   const [followers, setFollowers] = useState([]); // 팔로워 목록 상태
+
   const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo";
   // const token = localStorage.getItem('token'); // 로컬 스토리지에서 토큰 가져오기
   console.log('userToken:', token);
+
 /* 
 if(true){
   안에 애들이 실행
 }  => accountname = undefined(=false) ==> accountname가 true가 아니면 안에 내용이 실행되지 않음!
-
 */
+
   useEffect(() => {
     // if (accountname) {
     //   fetchFollowersList(accountname, token)
@@ -66,6 +64,21 @@ if(true){
   }, []);
   // }, [accountname, token]);
 
+
+
+  // =========================================
+
+  const toggleFollow = async (followerId, isCurrentlyFollowed) => {
+    // 서버에 팔로우 상태 변경을 요청하는 로직을 여기에 추가합니다.
+    // ...
+    // 로컬 상태 업데이트
+    setFollowerList((prevList) =>
+      prevList.map((follower) =>
+        follower._id === followerId ? { ...follower, isfollow: !isCurrentlyFollowed } : follower
+      )
+    );
+  };
+  // =========================================
   console.log("데이터 찍히고 있나 ?", followerList);
   return (
     <>
@@ -85,11 +98,14 @@ if(true){
               <h3>{follower.username}</h3>
               <p>{follower.intro}</p>
             </div>
-            <button>{follower.isfollow ? "언팔로우" : "팔로우"}</button>
+            <FollowButton 
+              isfollowed={follower.isfollow} 
+              onClick={() => toggleFollow(follower._id, follower.isfollow)}>
+              {follower.isfollow ? "취소" : "팔로우"}
+            </FollowButton>
 
-
+            {/* <Navigator/> */}
           </FollowerLayout>
-          
           );
         }
         )
@@ -97,19 +113,7 @@ if(true){
         <p>로딩 안됐음</p>
       )}
     </>
-    // {followers.map((follower) => (
-    //   <FollowerLayout key={follower._id}>
-        // <img
-        //   src={follower.image}
-        //   alt={`${follower.username}의 프로필 사진`}
-        // />
-        // <div>
-        //   <h3>{follower.username}</h3>
-        //   <p>{follower.intro}</p>
-        // </div>
-    //     <button>{follower.isfollow ? "언팔로우" : "팔로우"}</button>
-    //   </FollowerLayout>
-    // ))}
+
   );
 }
 
@@ -138,7 +142,7 @@ const FollowerLayout = styled.div`
     object-fit: cover;
   }
 
-  button {
+  /* button {
     width: 56px;
     height: 28px;
     border-radius: 26px;
@@ -146,7 +150,19 @@ const FollowerLayout = styled.div`
     color: #fff;
     margin-left: auto;
     font-size: 12px;
-  }
+  } */
+`;
+
+const FollowButton = styled.button`
+  width: 56px;
+  height: 28px;
+  border-radius: 26px;
+  background: ${({ isfollowed }) => (isfollowed ? '#fff' : 'var(--mainColor)')};
+  color: ${({ isfollowed }) => (isfollowed ? '#767676' : '#fff')};
+  border: ${({ isfollowed }) => (isfollowed ? '1px solid #767676' : 'none')};
+  margin-left: auto;
+  font-size: 12px;
+  cursor: pointer;
 `;
 
 export default FollowersList;

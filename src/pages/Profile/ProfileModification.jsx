@@ -7,50 +7,20 @@ import Spaces from '../../components/Spaces/Spaces';
 import { useNavigate } from 'react-router-dom';
 
 function ProfileModification() {
-  // localStorage에서 토큰 가져오기
-  /* 
-    [!] 토큰값은 
-    개발자도구 > 애플리케이션 > 로컬스토리지 > (http://localhost:3000) 
-    '키:값'의 형태로 저장되어있습니다. -> 로그인기능 구현하실때 작업을 하셨을거에요
-    만약, 로그인 구현이 완료되기 전이라면 포스트맨에서 token 값을 받아 임의로 저장해줍니다.
-
-    [PostMan 사용]
-    POST : https://api.mandarin.weniv.co.kr/user/login
-
-    Body - raw - JSON 
-    {
-        "user": {
-                "email": "",
-                "password": ""
-        }
-    } 
-
-    * 유효한 아이디, 패스워드 입력해주세요
-    
-    -> Send 버튼 클릭!
-
-    "token"값 복사
-
-    브라우저 로컬스토리지에 저장
-  */
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo";
+  // localStorage에서 토큰 가져오기. 지금은 테스트를 위해 직접 넣은 상태.
   // const token = localStorage.getItem('userToken');
   // console.log('userToken:', token);
-  /* [!] 주석을 풀어 확인해보세요! 콘솔은 잘 받아오고 있군요! 에러가 발생한다면 재로그인(토큰값을 업데이트 해보세요) */
+
 
   // 사용자 초기 정보를 저장하기 위한 상태들을 선언합니다.
   const [initUsername, setInitUsername] = useState('');
   const [initAccountname, setInitAccountname] = useState('');
   const [initIntron, setInitIntron] = useState('');
-  const [initImgSrc, setInitImgSrc] = useState(''); // 이미 있는 이미지 주소
+  const [initImgSrc, setInitImgSrc] = useState(''); 
+
 
   // 사용자 정보를 가져오는 API 호출 함수입니다.
-  /* 
-    API 명세서 : 2.3 프로필  정보  불러오기
-    -> 내가가진 '토큰값'만으로 나의 정보를 가져올수 있게 개발이 되어 있습니다!
-
-    단순 정보를 가져오는 거니까 GET, 토큰값은 헤더 정보에 넣어 요청합니다!
-  */
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo";
   const getInitInfo = async () => {
     const res = await fetch('https://api.mandarin.weniv.co.kr/user/myinfo', {
       method: 'GET',
@@ -60,27 +30,9 @@ function ProfileModification() {
     });
 
     // console.log('res:', res);
-    /* [!] 
-      res: 응답값에 대한 정보를 알려줍니다. 
-      status를 확인해서 응답이 정상적으로 이루어졌는지 확인합니다.
-      200: 정상적으로 잘 받아온것입니다.
-      401: 토큰이 없거나 유효하지 않을때 발생할 수 있습니다.
-      기타 403,422 등의 번호가 나타날수 있습니다.
-     */
-
     const json = await res.json();
     // console.log('json:', json); 
-    // 테스트
-    /* [!]
-      JSON 파일 타입으로 응답값을 확인할수 있습니다.
-      사용자에대한 정보들이 나옵니다!      
-    */
 
-    // API의 응답으로 받은 사용자 정보를 상태에 저장합니다.
-    /*
-      사용자가 정보 수정하기 전에 각 인풋에 현재 정보값을 넣어주기위해서!
-      받아온 정보에 데이터가 있다면 해당 데이터로 상태값을 업데이트
-    */
     if (json && json.user) {
       setInitImgSrc(json.user['image'] || '');
       setImgSrc(json.user['image'] || '');
@@ -101,14 +53,14 @@ function ProfileModification() {
   useEffect(() => {
     getInitInfo();
   }, []);
-  //  주의 - 빈칸?
+
   /*
     useEffect를 빈칸으로 두면 최초 마운트 되었을때 '한번만' 안의 함수를 호출합니다.
 
     만약 다른 상태값들을 빈칸에 넣어준다면 해당값이 바뀔때마다 실행할수 있습니다!
-
   */
 
+    
   // 사용자 정보를 수정하기 위한 상태들을 선언합니다.
   const [username, setUsername] = useState(initUsername);
   const [accountname, setAccountname] = useState(initAccountname);
@@ -116,76 +68,7 @@ function ProfileModification() {
   const [intro, setIntro] = useState(initIntron);
 
 
-    // 닉네임 에러, 아이디 에러, 소개 에러 상태 관리
-    const [usernameErr, setUsernameErr] = useState("");
-    const [accountnameErr, setAccountnameErr] = useState("");
-    const [introErr, setIntroErr] = useState("");
-    
-
-  // 각 input 유효성 검사
-  const UsernameValid = () => {
-    if (!username) {
-      setUsernameErr("필수 입력 항목입니다.");
-    } else if (username.length < 2) {
-      setUsernameErr("2자 이상 닉네임을 입력해 주세요.");
-    } else if (username.length > 10) {
-      setUsernameErr("10자 이하 닉네임을 입력해 주세요.");
-    } else {
-      setUsernameErr("");
-    }
-  };
-
-    // 아이디 조건(정규 표현식)
-    const userIdReg = /^[A-Za-z0-9_.]{5,}$/;
-
-    const AccountnameValid = () => {
-      if (!accountname) {
-        setAccountnameErr("필수 입력 항목입니다.");
-      } else if (!userIdReg.test(accountname)) {
-        setAccountnameErr("아이디 형식이 올바르지 않습니다.");
-      } else {
-        setAccountnameErr("");
-      }
-    };
-
-    const IntroValid = () => {
-      if (!intro) {
-        setIntroErr("필수 입력 항목입니다.");
-      } else {
-        setIntroErr("");
-      }
-    };
-
-      // 버튼 비활성화 상태 관리
-  const [btnState, SetBtnState] = useState(true);
-  
-      // 버튼 활성화
-  const btnActive = () => {
-    if (
-      !usernameErr &&
-      !accountnameErr &&
-      !introErr &&
-      username &&
-      accountname &&
-      intro
-    ) {
-      SetBtnState(false);
-    } else {
-      SetBtnState(true);
-    }
-  };
-
-  // input창이 바뀔 때마다 btnActive로 확인 후 버튼 활성화
-  useEffect(() => {
-    btnActive();
-  }, [username, accountname, intro]);
-
-  
-
-
-
-
-  // 기존 토큰으로 가져온 부분 ==================================================
+  // ┗ ========== 기존 토큰으로 가져온 부분 =================┛
 
   // 프로필 정보를 수정하는 API 호출 함수입니다.
   /*
@@ -210,12 +93,11 @@ function ProfileModification() {
     // 수정한 값으로 데이터가 변경되어 json으로 알려줍니다!
   };
 
-  // 주의 뭐지?
+
 
   // 각 Input 변경 이벤트 핸들러입니다.
-  /*
-    각 인풋에 onChange 이벤트가 발생하면 상태값을 입력된 값들로 바꿔줍니다!
-   */
+  // 각 인풋에 onChange 이벤트가 발생하면 상태값을 입력된 값들로 바꿔줍니다!
+
   const inputUsername = (e) => {
     setUsername(e.target.value);
     console.log(e.target.value)
@@ -228,6 +110,8 @@ function ProfileModification() {
   const inputInfo = (e) => {
     setIntro(e.target.value);
   };
+
+
 
   // 이미지를 업로드하는 API 호출 함수입니다.
   const uploadImage = async (imageFile) => {
@@ -260,6 +144,7 @@ function ProfileModification() {
       }
       */
     });
+    
     // console.log(res);
     /* [!] input-file에 이미지를 올리고 나나 res로 잘 응답하는것 확인합니다 */
     const json = await res.json();
@@ -302,18 +187,91 @@ function ProfileModification() {
     const navigate = useNavigate();
 
     const handleNavigateToLogin = () => {
-      navigate("/profile/6537cdb6b2cb20566385f8ed");
+      navigate("profile/:id");
     };
   
 
-  // (여기에는 해당 컴포넌트의 JSX 렌더링 부분이 이어져야 함)
+ // ┌ ====== 유효성을 통한 버튼 활성화 기능 ==========┐
+
+    // 닉네임 에러, 아이디 에러, 소개 에러 상태 관리
+    const [usernameErr, setUsernameErr] = useState("");
+    const [accountnameErr, setAccountnameErr] = useState("");
+    const [introErr, setIntroErr] = useState("");
+    
+
+  // 각 input 유효성 검사
+  // 사용자 이름 input
+  const UsernameValid = () => {
+    if (!username) {
+      setUsernameErr("필수 입력 항목입니다.");
+    } else if (username.length < 2) {
+      setUsernameErr("2자 이상 닉네임을 입력해 주세요.");
+    } else if (username.length > 10) {
+      setUsernameErr("10자 이하 닉네임을 입력해 주세요.");
+    } else {
+      setUsernameErr("");
+    }
+  };
+
+    // 계정 ID Input
+    const userIdReg = /^[A-Za-z0-9_.]{5,}$/;
+
+    const AccountnameValid = () => {
+      if (!accountname) {
+        setAccountnameErr("필수 입력 항목입니다.");
+      } else if (!userIdReg.test(accountname)) {
+        setAccountnameErr("아이디 형식이 올바르지 않습니다.");
+      } else {
+        setAccountnameErr("");
+      }
+    };
+
+    
+    // 소개 Input
+    const IntroValid = () => {
+      if (!intro) {
+        setIntroErr("필수 입력 항목입니다.");
+      } else {
+        setIntroErr("");
+      }
+    };
+
+      // 버튼 비활성화 상태 관리
+  const [btnState, SetBtnState] = useState(true);
+  
+      // 버튼 활성화
+  const btnActive = () => {
+    if (
+      !usernameErr &&
+      !accountnameErr &&
+      !introErr &&
+      username &&
+      accountname &&
+      intro
+    ) {
+      SetBtnState(false);
+    } else {
+      SetBtnState(true);
+    }
+  };
+
+  // input창이 바뀔 때마다 btnActive로 확인 후 버튼 활성화
+  useEffect(() => {
+    btnActive();
+  }, [username, accountname, intro, usernameErr, accountnameErr, introErr]);
+  // }, [username, accountname, intro]);
+
+
+
+
+
 
   return (
     <StyledDiv>
       <HeaderBtn 
       onSubmitEdit={submitEdit} 
       onNavigate={handleNavigateToLogin} 
-      btnState={btnState} />
+      disabled={btnState} />
         <StyledForm>
         <AddImgWrap>
           <ProfileThumbnail

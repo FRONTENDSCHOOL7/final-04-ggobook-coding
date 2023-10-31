@@ -20,15 +20,19 @@ const Header = styled.div`
   .btn-follow {
     border-radius: 32px;
     background: #237B46;
-    /* 비 활성화 컬러 */
-    /* background: #A7CAB5; */
     color: #fff;
     width: 90px;
     padding: 4px;
     font-size: 14px;
-    
+
+    /* 비활성화 컬러 추가 */
+    &[disabled] {
+    background-color: #A7CAB5; 
+    cursor: not-allowed;
+    }
   }
 `;
+
 export default function HeaderBtn({ onSubmitEdit, onNavigate, btnState }) {
   return (
     <Header>
