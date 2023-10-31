@@ -3,13 +3,24 @@ import styled from "styled-components";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import Spaces from "../../components/Spaces/Spaces";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function LoginEmail() {
   // 이메일로 로그인 기능 구현
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [isBtnDisabled, setIsBtnDisabled] = useState(true);
+
+  const navigate = useNavigate();
+
+  const handleBtnDisabled = () => {
+    if (email && password) {
+      setIsBtnDisabled(false);
+    } else {
+      setIsBtnDisabled(true);
+    }
+  };
 
   const login = async (email, password) => {
     const baseUrl = "https://api.mandarin.weniv.co.kr"; // https 서버
@@ -39,10 +50,11 @@ export default function LoginEmail() {
         setErrorMsg("이메일 또는 비밀번호를 입력해 주세요.");
       } else {
         const token = json.user.token;
+
         localStorage.setItem("token", token); // token 값을 자유롭게 사용할 수 있도록 로컬스토리지에 저장
         setErrorMsg("");
-
         alert("로그인 성공!");
+        navigate("/home");
       }
     } catch (error) {
       console.log("에러 발생");
@@ -52,11 +64,13 @@ export default function LoginEmail() {
   const inputEmail = (event) => {
     setEmail(event.target.value);
     setErrorMsg("");
+    handleBtnDisabled();
   };
 
   const inputPassword = (event) => {
     setPassword(event.target.value);
     setErrorMsg("");
+    handleBtnDisabled();
   };
 
   const handleLogin = (event) => {
@@ -95,6 +109,7 @@ export default function LoginEmail() {
           padding="13px"
           backgroundColor="var(--mainColor)"
           color="#fff"
+          disabled={isBtnDisabled}
         >
           로그인
         </Button>
