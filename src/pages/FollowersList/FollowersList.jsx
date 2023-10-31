@@ -29,7 +29,7 @@ async function fetchFollowersList(accountname, token) {
 // 팔로워 목록을 보여주는 컴포넌트
   function FollowersList() {
   // const { accountname } = useParams();
-  // const accountname = useParams().id; // URL 파라미터에서 accountname 추출
+  // const accountname = useParams().id; // URL 파라미터에서 accountname 추출.. 둘중 맞는게 어떤거지
   const accountname = "ggobook";
   console.log(accountname)
 

@@ -89,6 +89,7 @@ function ProfileModification() {
     // console.log(res);
     // [!] res 200으로 응답을 잘 하고 있군요
     const json = await res.json();
+    
     // console.log(json);
     // 수정한 값으로 데이터가 변경되어 json으로 알려줍니다!
   };
@@ -190,6 +191,10 @@ function ProfileModification() {
       navigate("profile/:id");
     };
   
+    
+
+
+
 
  // ┌ ====== 유효성을 통한 버튼 활성화 기능 ==========┐
 
@@ -205,6 +210,7 @@ function ProfileModification() {
     if (!username) {
       setUsernameErr("필수 입력 항목입니다.");
     } else if (username.length < 2) {
+      console.log(username.length < 2)
       setUsernameErr("2자 이상 닉네임을 입력해 주세요.");
     } else if (username.length > 10) {
       setUsernameErr("10자 이하 닉네임을 입력해 주세요.");
@@ -214,12 +220,12 @@ function ProfileModification() {
   };
 
     // 계정 ID Input
-    const userIdReg = /^[A-Za-z0-9_.]{5,}$/;
+    const accountnameReg = /^[A-Za-z0-9_.]{5,}$/;
 
     const AccountnameValid = () => {
       if (!accountname) {
         setAccountnameErr("필수 입력 항목입니다.");
-      } else if (!userIdReg.test(accountname)) {
+      } else if (!accountnameReg.test(accountname)) {
         setAccountnameErr("아이디 형식이 올바르지 않습니다.");
       } else {
         setAccountnameErr("");
@@ -236,11 +242,12 @@ function ProfileModification() {
       }
     };
 
-      // 버튼 비활성화 상태 관리
-  const [btnState, SetBtnState] = useState(true);
+    // 버튼 비활성화 상태 관리
+    const [btnState, SetBtnState] = useState(true);
+
   
-      // 버튼 활성화
-  const btnActive = () => {
+    // 버튼 활성화
+    const btnActive = () => {
     if (
       !usernameErr &&
       !accountnameErr &&
@@ -288,19 +295,6 @@ function ProfileModification() {
             onChange={handleChangeImage}
           />
           </AddImgWrap>
-
-        {/* 기존 이미지 */}
-        {/* <label htmlFor='profileImg'>
-          <img src={imgSrc || initImgSrc} alt='Profile' id='imagePre' />
-        </label> */}
-        {/* 이미지 선택 */}
-        {/* <input
-          type="file"
-          onChange={handleChangeImage}
-          id="profileImg"
-          name="image"
-          accept="image/*"
-        /> */}
 
         <Spaces gap="140px" />
         <Input
