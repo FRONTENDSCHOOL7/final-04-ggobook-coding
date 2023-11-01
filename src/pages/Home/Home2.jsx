@@ -11,7 +11,6 @@ const HomeLayout = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: white;
 `;
 
 //게시글===============================================
@@ -21,12 +20,12 @@ const Sect3 = styled.div`
     display: none;
   }
   .content-container {
-    height: 600px;
+    /* height: 600px; */
     overflow-y: scroll;
     overflow-x: visible;
     display: flex;
     flex-direction: column;
-    margin: 16px 16px 0;
+    margin: 16px 16px 80px;
   }
 `;
 
@@ -89,7 +88,7 @@ export default function Home() {
         const data = await response.json();
         setPosts(data.posts);
         // console.log(posts);
-        // console.log(data);
+        console.log(data);
       } catch (error) {
         console.error(error);
       }
@@ -113,22 +112,22 @@ export default function Home() {
         <Navigator />
       </HomeLayout>
     );
+  } else {
+    //팔로우한 유저가 있을 경우
+    return (
+      <HomeLayout>
+        <HeaderHome />
+        <Sect3>
+          {/* 게시글 목록 */}
+          <div className="content-container">
+            {posts.map((post) => (
+              <Post key={post.id} post={post} />
+            ))}
+          </div>
+        </Sect3>
+        {/* 하단 */}
+        <Navigator />
+      </HomeLayout>
+    );
   }
-
-  //팔로우한 유저가 있을 경우
-  return (
-    <HomeLayout>
-      <HeaderHome />
-      <Sect3>
-        {/* 게시글 목록 */}
-        <div className="content-container">
-          {posts.map((post) => (
-            <Post key={post.id} post={post} />
-          ))}
-        </div>
-      </Sect3>
-      {/* 하단 */}
-      <Navigator />
-    </HomeLayout>
-  );
 }
