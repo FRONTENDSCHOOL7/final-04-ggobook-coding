@@ -10,7 +10,6 @@ import Post from "../../components/Post/Post";
 const HomeLayout = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
 `;
 
 //게시글===============================================
