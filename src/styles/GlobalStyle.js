@@ -41,7 +41,6 @@ export const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'SpoqaHanSansNeo-R';
     line-height: 1;
-    height: 100vh;
   }
   ol, ul {
     list-style: none;
@@ -112,11 +111,10 @@ export const GlobalStyle = createGlobalStyle`
 //공통 Layout 적용
 export const CommonLayOut = styled.section`
   margin: 0 auto;
-  height: 100vh;
   max-width: var(--appWidth);
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
-  `;
+`;
 
 //Layout 좌우 패딩
 export const PaddingLayOut = styled.div`
