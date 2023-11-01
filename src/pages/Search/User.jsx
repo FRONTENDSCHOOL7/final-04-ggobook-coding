@@ -1,18 +1,47 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import styled from "styled-components";
-
-const test = (e) => {
-  console.log("클릭되었습니다");
-};
 
 /**
  * @param inputValue input 입력값
  * @param valueItems data내 단일 객체
  * @returns User 유저검색시 매칭되어 나오는 User의 목록
-  #TODO 버튼으로 할지 아니면 router Link로 페이지 이동해야하는지
-*/
+ */
 export default function User({ inputValue, valueItems }) {
-  console.log("valueItems", inputValue, valueItems);
+  const URL = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate();
+  const id = useParams().id;
+  const [baseImg, setBaseImg] = useState(`basic-profile.svg`); //초기이미지
+  console.log("valueItems", inputValue, "valueItems이미지====>", valueItems);
+  console.log("🍀선택한 id값", id)
+
+  const handelUserProfile = (e) => {
+    console.log("클릭되었습니다");
+    // navigate(`/profile/${id}`);
+  };
+
+
+  //프로필 이미지 조건 처리
+  const userProfileImg = useCallback((imgPath) => {
+    console.log("🎯", imgPath);
+    const regExp = /heroku|undefined|null|blob|mandarin.api|Ellipse/;
+    const errorPaths = [
+      "http://146.56.183.55:5050/Ellipse.png",
+      "https://mandarin.api.weniv.co.kr/", //잘못된 api주소
+    ];
+    // errorPaths의 조건에 부합할 경우
+    if(errorPaths.includes(imgPath) === true) {
+      return `https://api.mandarin.weniv.co.kr/Ellipse.png`;
+    }
+    // //http로 시작하지 않는 이미지
+    if(!imgPath.startsWith("http")) {
+      return `https://api.mandarin.weniv.co.kr/Ellipse.png`;
+    }
+    if(regExp.test(imgPath)) {
+      return `https://api.mandarin.weniv.co.kr/Ellipse.png`;
+    }
+    return imgPath;
+  }, []);
 
   //매칭 글자 하이라이트
   //inputValue(input 입력값), colorValue(하이라이트 글씨)
@@ -39,11 +68,17 @@ export default function User({ inputValue, valueItems }) {
 
   return (
     <UserParent>
-      {valueItems.length === 0 && <NoticeText>조건에 맞는 계정이<br/> 없어요😥</NoticeText>}
+      {valueItems.length === 0 && (
+        <NoticeText>
+          조건에 맞는 계정이
+          <br /> 없어요😥
+        </NoticeText>
+      )}
       {valueItems.map((item) => {
         return (
-          <UserLayout onClick={test} key={item._id}>
-            <img src={item.image} alt="" />
+          <UserLayout onClick={handelUserProfile} key={item._id}>
+            {/* <img src={item.image} alt={item.username} /> */}
+            <img src={userProfileImg(item.image)} alt={item.username} />
             <div>
               <h3>{highLightText(item.username, inputValue)}</h3>
               <p>{item.accountname}</p>
@@ -78,6 +113,10 @@ const UserLayout = styled.button`
   p {
     font-size: 12px;
     color: #767676;
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   img {
@@ -85,6 +124,7 @@ const UserLayout = styled.button`
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
+    border: 1px solid #dbdbdb;
   }
 `;
 
@@ -95,5 +135,4 @@ const NoticeText = styled.p`
   top: 50%;
   left: 50%;
   text-align: center;
-
 `;

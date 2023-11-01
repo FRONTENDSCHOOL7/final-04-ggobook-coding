@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import { CommonImgLayout } from "../../styles/GlobalStyle";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { CommonImgLayout, StyledLink } from "../../styles/GlobalStyle";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { getToken } from "../../utils/common";
@@ -20,13 +20,10 @@ export default function Profile() {
   const URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const { id } = useParams();
-  console.log("id", id);
   const [userInfo, setUserInfo] = useState("");
   const [list, setList] = useState([]); //상품리스트를 담을 hook
   const [selectProduct, setSelectProduct] = useState(null); //선택된 상품
   const [modalType, setModalType] = useState(true);
-  // const [isPostModalShow, setIsPostModalShow] = useState(false); //하단 포스트모달
-  // const [isCommonModal, setIsCommonModal] = useState(false); //모달
   //atom상태값 읽기
   const modalState = useRecoilValue(ProfileAtom);
   //atom 상태 수정하기
@@ -36,15 +33,16 @@ export default function Profile() {
    * 모달 중복코드 공통함수 적용
    */
   const updateModalState = useCallback((commonModalState, PostModalState) => {
-    setIsModalState(prev => ({
+    setIsModalState((prev) => ({
       ...prev,
       isCommonModal: commonModalState,
       isPostModalShow: PostModalState,
-    }))
+    }));
   }, []);
 
   useEffect(() => {
     userInfoData();
+    updateModalState(null, null); //초기 렌더링시 모달 초기화
   }, []);
   //userInfo데이터가 변경될때 productListData함수 실행
   useEffect(() => {
@@ -73,7 +71,7 @@ export default function Profile() {
 
   //8.2 상품리스트 productListData api
   const productListData = useCallback(async () => {
-    console.log("userInfo---->", userInfo);
+    // console.log("userInfo---->", userInfo);
     if (!userInfo) return;
     try {
       const res = await fetch(`${URL}/product/${userInfo.accountname}`, {
@@ -112,7 +110,7 @@ export default function Profile() {
 
       const listArray = list.filter((item) => item.id !== selectProduct.id);
       console.log("list", listArray);
-      console.log("🧧상품 삭제기능", itemData);
+      console.log("상품 삭제기능", itemData);
       setList(listArray);
       return itemData;
     } catch (error) {
@@ -133,7 +131,7 @@ export default function Profile() {
     setModalType(false);
   }, []);
 
-  //선택상품 삭제
+  //Modal -> 선택상품 삭제
   const handleSelectedItem = useCallback(
     (selectProduct) => {
       console.log("선택상품 삭제 product", selectProduct);
@@ -144,10 +142,10 @@ export default function Profile() {
     [selectProduct]
   );
 
-  //선택상품 수정
-  // const handleRenameItem = useCallback(() => {
-  //   navigate(`/product/addproduct`);
-  // }, []);
+  //Modal -> 선택상품 수정
+  const handleRenameItem = useCallback(() => {
+    navigate(`/product/${selectProduct.id}/edit`);
+  }, [selectProduct]);
 
   //모달 취소 버튼
   const handleModalCancelButton = useCallback(() => {
@@ -202,10 +200,7 @@ export default function Profile() {
         </Sect1>
         <Sect2>
           {list.length > 0 ? (
-            <ProductsList
-              list={list}
-              setSelectProduct={setSelectProduct}
-            />
+            <ProductsList list={list} setSelectProduct={setSelectProduct} />
           ) : null}
         </Sect2>
         <Sect3>
@@ -218,44 +213,86 @@ export default function Profile() {
             </button>
           </div>
           {/* 게시글 목록 */}
-          <div className="content-container">
-            {/* 게시글 한개 */}
-            <div className="content-list">
-              <img
-                src="/images/basic-profile.svg"
-                alt=""
-                className="profile-img"
-              />
-              <div className="content">
-                <div className="content-title">
-                  <div className="content-id">
-                    <h3>애월읍 위니브 감귤농장</h3>
-                    <p>@ weniv_Mandarin</p>
+          <div className="contentWrap">
+            <div className="content-container">
+              {/* 게시글 한개 */}
+              <div className="content-list">
+                <img
+                  src="/images/basic-profile.svg"
+                  alt=""
+                  className="profile-img"
+                />
+                <div className="content">
+                  <div className="content-title">
+                    <div className="content-id">
+                      <h3>애월읍 위니브 감귤농장</h3>
+                      <p>@ weniv_Mandarin</p>
+                    </div>
+                    <div>
+                      <button>
+                        <img src="/images/icon-more-vertical.svg" alt="" />
+                      </button>
+                    </div>
                   </div>
-                  <div>
+                  <div className="content-inner">
+                    <p>
+                      옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의
+                      위하여, 뿐이다. 이상의 청춘의 뼈 따뜻한 그들의 그와
+                      약동하다. 대고, 못할 넣는 풍부하게 뛰노는 인생의 힘있다.
+                    </p>
+                    <img src="https://via.placeholder.com/304x228" alt="" />
+                  </div>
+                  <div className="like-comment">
                     <button>
-                      <img src="/images/icon-more-vertical.svg" alt="" />
+                      <img src="/images/icon-heart.svg" alt="" />{" "}
+                      <span>58</span>
+                    </button>
+                    <button>
+                      <img src="/images/icon-message-circle.svg" alt="" />
+                      <span>12</span>
                     </button>
                   </div>
+                  <span className="date">2020년 10월 21일</span>
                 </div>
-                <div className="content-inner">
-                  <p>
-                    옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의 위하여,
-                    뿐이다. 이상의 청춘의 뼈 따뜻한 그들의 그와 약동하다. 대고,
-                    못할 넣는 풍부하게 뛰노는 인생의 힘있다.
-                  </p>
-                  <img src="https://via.placeholder.com/304x228" alt="" />
+              </div>
+              <div className="content-list">
+                <img
+                  src="/images/basic-profile.svg"
+                  alt=""
+                  className="profile-img"
+                />
+                <div className="content">
+                  <div className="content-title">
+                    <div className="content-id">
+                      <h3>애월읍 위니브 감귤농장</h3>
+                      <p>@ weniv_Mandarin</p>
+                    </div>
+                    <div>
+                      <button>
+                        <img src="/images/icon-more-vertical.svg" alt="" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="content-inner">
+                    <p>
+                      옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의
+                      위하여, 뿐이다. 이상의 청춘의 뼈 따뜻한 그들의 그와
+                      약동하다. 대고, 못할 넣는 풍부하게 뛰노는 인생의 힘있다.
+                    </p>
+                    <img src="https://via.placeholder.com/304x228" alt="" />
+                  </div>
+                  <div className="like-comment">
+                    <button>
+                      <img src="/images/icon-heart.svg" alt="" />{" "}
+                      <span>58</span>
+                    </button>
+                    <button>
+                      <img src="/images/icon-message-circle.svg" alt="" />
+                      <span>12</span>
+                    </button>
+                  </div>
+                  <span className="date">2020년 10월 21일</span>
                 </div>
-                <div className="like-comment">
-                  <button>
-                    <img src="/images/icon-heart.svg" alt="" /> <span>58</span>
-                  </button>
-                  <button>
-                    <img src="/images/icon-message-circle.svg" alt="" />
-                    <span>12</span>
-                  </button>
-                </div>
-                <span className="date">2020년 10월 21일</span>
               </div>
             </div>
           </div>
@@ -281,7 +318,9 @@ export default function Profile() {
               삭제
             </button>
           ) : (
-            <button type="button">수정</button>
+            <button type="button" onClick={handleRenameItem}>
+              수정
+            </button>
           )}
         </Modal>
       )}
@@ -294,10 +333,7 @@ export default function Profile() {
  * @param setSelectProduct 선택된 상품확인 hook 상태변경함수
  * @returns ProductList 판매중인 상품 리스트
  */
-export const ProductsList = ({
-  list,
-  setSelectProduct,
-}) => {
+export const ProductsList = ({ list, setSelectProduct }) => {
   console.log("productList", list);
   if (!list) return;
 
@@ -309,10 +345,7 @@ export const ProductsList = ({
           list.map((item) => {
             return (
               <SwiperSlide key={item.id}>
-                <ProductItem
-                  item={item}
-                  setSelectProduct={setSelectProduct}
-                />
+                <ProductItem item={item} setSelectProduct={setSelectProduct} />
               </SwiperSlide>
             );
           })}
@@ -334,10 +367,10 @@ export const ProductItem = ({ item, setSelectProduct }) => {
   const handleProductItem = useCallback(() => {
     console.log("상품버튼 클릭", item);
     setSelectProduct(item);
-    setIsModalState(prev => ({
+    setIsModalState((prev) => ({
       ...prev,
-      isPostModalShow: !prev.isPostModalShow
-    }))
+      isPostModalShow: !prev.isPostModalShow,
+    }));
   }, []);
   return (
     <ProductItemParent onClick={handleProductItem}>
@@ -349,28 +382,13 @@ export const ProductItem = ({ item, setSelectProduct }) => {
           alt={item.itemName}
         />
         <ProductsName>{item.itemName}</ProductsName>
-        <ProductsPrice>{item.price.toLocaleString()}원</ProductsPrice>
+        <ProductsPrice>
+          {item.price ? item.price.toLocaleString() : 0}원
+        </ProductsPrice>
       </StyledLink>
     </ProductItemParent>
   );
 };
-
-/**
- * react-router-dom -> Link 밑줄 제거
- * GlobalStyle로 이동 예정
- */
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #000;
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-    color: #000;
-  }
-`;
 
 const HomeLayout = styled.div`
   /* display: flex; */
@@ -470,12 +488,21 @@ const Sect3 = styled.div`
   .content-container::-webkit-scrollbar {
     display: none;
   }
+  .contentWrap {
+    /* height: 300px;
+    overflow: hidden; */
+  }
   .content-container {
-    height: 500px;
-    overflow-y: scroll;
+    /* 기존 높이 */
+    /* height: 500px; */
+    /* border: 2px solid purple; */
+    padding-bottom: 100px;
+    height: inherit;
+    /* overflow: hidden;
+    overflow-y: scroll; */
     overflow-x: visible;
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     margin: 16px 16px 0;
     .content-list {
       display: flex;
