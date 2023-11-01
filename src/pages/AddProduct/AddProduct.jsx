@@ -3,26 +3,35 @@ import styled from "styled-components";
 import { CommonImgThumbnail } from "../../styles/GlobalStyle";
 import HeaderProfile from "../../components/Header/HeaderProfile";
 import Button from "./../../components/Button/Button";
+import { getToken } from "../../utils/common";
+import { useNavigate, useParams } from "react-router";
 
 /**
  * @param {}
  * @returns AddProduct
  */
 export default function AddProduct() {
-  const URL = "https://api.mandarin.weniv.co.kr";
-  const TOKEN = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo`;
-
-  const [addProductData, setAddProductData] = useState(null);
+  const URL = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate();
+  const itemID = useParams().id; //profile에서 선택된 상품의 id값
+  const [addProductData, setAddProductData] = useState(null); //신규 상품등록
+  const [renameData, setRenameData] = useState(null); //신규상품을 저장한 뒤 수정하는 곳에서 사용 state
   const [productName, setProductName] = useState(""); //상품명
   const [inputPrice, setInputPrice] = useState("");
   const [salesLink, setSalesLink] = useState("");
   const inputFocuseRef = useRef(null);
   const [addFileImg, setAddFileImg] = useState(""); //이미지 등록
   const [uploadImg, setUploadImg] = useState(null);
+  console.log("addProduct ID", itemID, addProductData);
 
   useEffect(() => {
     inputFocuseRef.current.focus();
   }, []);
+
+  //처음 상품 정보 가져올 때 id값으로 분기 처리
+  useEffect(() => {
+    if (itemID) productDetailInfoData();
+  }, [itemID]);
 
   //이미지 api 등록 함수
   const imgSubmit = useCallback(async () => {
@@ -33,50 +42,99 @@ export default function AddProduct() {
     const res = await fetch(`${URL}/image/uploadfile`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${getToken()}`,
       },
       body: formData,
     });
     return res.json();
-  }, [uploadImg, TOKEN]);
+  }, [uploadImg, getToken]);
+
+  //8.2 선택된 상품 상품 상세 가져오기 api
+  const productDetailInfoData = useCallback(async () => {
+    try {
+      const res = await fetch(`${URL}/product/detail/${itemID}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+          "Content-type": "application/json",
+        },
+      });
+      if (!res.ok) throw new Error("네트워크 문제가 발생했어요.");
+      const selectedItem = await res.json();
+      // console.log('test', `${URL}/${selectedItem.product.itemImage}`);
+      setAddProductData(selectedItem);
+      setProductName(selectedItem.product.itemName);
+      setInputPrice(String(selectedItem.product.price));
+      setSalesLink(selectedItem.product.link);
+      setAddFileImg(`${URL}/${selectedItem.product.itemImage}`);
+    } catch (error) {
+      console.error("🚫데이터를 불러오는데 에러가 발생했어요", error);
+    }
+  }, [itemID]);
 
   //product API 함수
   const handleAddProductSubmit = useCallback(
     async (e) => {
-      e.preventDefault();
+      if (e) e.preventDefault();
       try {
         //이미지를 넣어주기 위해서 body전에 삽입하고 imgSubmit을 호출
         const uploadResult = await imgSubmit();
         console.log("uploadResult", uploadResult);
 
-        const res = await fetch(`${URL}/product`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${TOKEN}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            product: {
-              itemName: inputFocuseRef.current.value,
-              price: Number(inputPrice),
-              link: salesLink,
-              // itemImage: uploadResult.path,
-              itemImage: uploadResult.filename,
+        //상품id가 없을 경우 신규 상품 등록
+        if (!itemID) {
+          const res = await fetch(`${URL}/product`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${getToken()}`,
+              "Content-Type": "application/json",
             },
-          }),
-        });
+            body: JSON.stringify({
+              product: {
+                itemName: inputFocuseRef.current.value,
+                price: Number(inputPrice),
+                link: salesLink,
+                itemImage: uploadResult.filename,
+              },
+            }),
+          });
+          console.log("신규상품등록", res);
+          const data = await res.json();
+          console.log("productData", data);
+          setAddProductData(data);
 
-        console.log("body", res);
-        if (!res.ok) {
-          throw new Error("네트워크 문제가 발생했어요.");
+          setProductName("");
+          setInputPrice("");
+          setSalesLink("");
+          setAddFileImg("");
+          navigate(`/profile/${itemID}`);
+          if (!res.ok) throw new Error("네트워크 문제가 발생했어요.");
         }
-        const data = await res.json();
-        console.log("productData", data);
-        setAddProductData(data);
-        setProductName("");
-        setInputPrice("");
-        setSalesLink("");
-        setAddFileImg("");
+        //상품id가 있을 경우 수정 api 적용
+        else {
+          console.log("itemID---------->", itemID);
+          const res = await fetch(`${URL}/product/${itemID}`, {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${getToken()}`,
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+              product: {
+                itemName: inputFocuseRef.current.value,
+                price: Number(inputPrice),
+                link: salesLink,
+                itemImage: uploadResult.filename,
+              },
+            }),
+          });
+          const renameData = await res.json();
+          //setSelectData에 renameData담기
+          setAddProductData(renameData);
+          navigate(`/profile/${itemID}`);
+          console.log("renameData", renameData);
+          if (!res.ok) throw new Error("네트워크 문제가 발생했어요.");
+        }
       } catch (error) {
         if (!inputFocuseRef.current.value || !inputPrice || !salesLink) {
           console.error("🚫필수 입력사항을 모두 입력해주세요", error);
@@ -85,7 +143,7 @@ export default function AddProduct() {
         }
       }
     },
-    [inputPrice, salesLink, inputFocuseRef, TOKEN, imgSubmit]
+    [inputPrice, salesLink, inputFocuseRef, imgSubmit, getToken, itemID]
   );
 
   //천단위 콤마찍기
@@ -116,6 +174,8 @@ export default function AddProduct() {
   //로컬에서 이미지 등록
   const handleAddFileImg = useCallback(async (e) => {
     const file = e.target.files[0];
+    //file등록값이 없을 경우 return
+    if (!file) return;
 
     setUploadImg(file);
     const reader = new FileReader();
@@ -145,7 +205,7 @@ export default function AddProduct() {
               !addFileImg
             }
           >
-            등록
+            {itemID ? "수정" : "등록"}
           </Button>
           <LayoutInner>
             <label>이미지 등록*</label>
