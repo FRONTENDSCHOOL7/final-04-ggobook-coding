@@ -2,12 +2,13 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import User from "./User";
 import Header from "./Header";
 import styled from "styled-components";
+import { getToken } from "../../utils/common";
 
 export default function Search() {
   const URL = process.env.REACT_APP_API_URL;
-  const TOKEN = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo`;
   const [inputValue, setInputValue] = useState("");
-  const [valueItems, setValueItems] = useState([]);
+  const [valueItems, setValueItems] = useState([]); //매칭된 user의 리스트
+  const [selectedUser, setSelectedUser] = useState(null); //선택된 user 정보
   const inputFocusRef = useRef("");
 
   useEffect(() => {
@@ -29,17 +30,13 @@ export default function Search() {
   // search api 함수
   const handleSearch = useCallback(async () => {
     try {
-      //input value 특수 문자 처리(url에 안전하지 않은 문자, 공백 포함될 수 있으므로 인코딩처리)
       if (!inputValue) return;
-      const res = await fetch(
-        `${URL}/user/searchuser/?keyword=${encodeURIComponent(inputValue)}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${TOKEN}`,
-          },
-        }
-      );
+      const res = await fetch(`${URL}/user/searchuser/?keyword=${inputValue}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      });
 
       if (!res.ok) {
         throw new Error("네트워크 문제가 발생했어요.");
@@ -48,12 +45,12 @@ export default function Search() {
     } catch (error) {
       console.error("🚫데이터를 불러오는데 에러가 발생했어요", error);
     }
-  }, [inputValue, TOKEN]);
+  }, [inputValue, getToken]);
 
   //받아온 데이터 업데이트
   const upDateData = useCallback(async () => {
     const searchRes = await handleSearch();
-    console.log("serachRes", searchRes);
+    console.log("searchRes", searchRes);
 
     //받아온 searchRes가 배열인지 조건 체크 (array 아닐수도 있으니까)
     if (Array.isArray(searchRes)) {
