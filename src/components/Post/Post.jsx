@@ -35,7 +35,7 @@ const PostLayout = styled.ul`
   .content {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 305px;
   }
   .content-inner {
     font-size: 14px;
@@ -64,12 +64,15 @@ const PostLayout = styled.ul`
     font-weight: 400;
   }
 
-  img {
+  .content-img {
     border-radius: 10px;
+    width: 304px;
+    height: 228px;
+    flex-shrink: 0;
   }
 `;
 
-export default function Post({ post }) {
+export default function Post({ post, del }) {
   //날짜포멧 맞추기 (YYYY년 MM월 DD일)
   let postDate = post.updatedAt;
   postDate = `${postDate.substring(0, 4)}년 ${postDate.substring(
@@ -92,14 +95,17 @@ export default function Post({ post }) {
               <p>@ {post.author.accountname}</p>
             </div>
             <div>
-              <button>
+              <button onClick={del}>
                 <img src="images/s-icon-more-vertical.svg" alt="" />
               </button>
             </div>
           </div>
           <div className="content-inner">
             <p>{post.content}</p>
-            <img src={post.image === "" ? null : post.image} alt="" />
+
+            {post.image === "" ? null : (
+              <img className="content-img" src={post.image} alt="" />
+            )}
           </div>
           <div className="like-comment">
             <button>
