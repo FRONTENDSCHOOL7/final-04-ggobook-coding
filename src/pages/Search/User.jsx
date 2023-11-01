@@ -10,20 +10,23 @@ import styled from "styled-components";
 export default function User({ inputValue, valueItems }) {
   const URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-  const id = useParams().id;
-  const [baseImg, setBaseImg] = useState(`basic-profile.svg`); //초기이미지
+  const [selectedUser, setSelectedUser] = useState(null); //선택한 user
   console.log("valueItems", inputValue, "valueItems이미지====>", valueItems);
-  console.log("🍀선택한 id값", id)
 
-  const handelUserProfile = (e) => {
-    console.log("클릭되었습니다");
-    // navigate(`/profile/${id}`);
-  };
+  useEffect(() => {
+    console.log("selectedUser", selectedUser)
+    if(selectedUser) navigate(`/profile/${selectedUser}`);
+  }, [selectedUser]);
+
+  //클릭했을 때 선택한 user의 accountname 이동
+  const handelUserProfile = useCallback((selectedItem) => {
+    console.log("selectedItem", selectedItem.accountname)
+    setSelectedUser(selectedItem.accountname);
+  }, []);
 
 
   //프로필 이미지 조건 처리
   const userProfileImg = useCallback((imgPath) => {
-    console.log("🎯", imgPath);
     const regExp = /heroku|undefined|null|blob|mandarin.api|Ellipse/;
     const errorPaths = [
       "http://146.56.183.55:5050/Ellipse.png",
@@ -33,7 +36,7 @@ export default function User({ inputValue, valueItems }) {
     if(errorPaths.includes(imgPath) === true) {
       return `https://api.mandarin.weniv.co.kr/Ellipse.png`;
     }
-    // //http로 시작하지 않는 이미지
+    //http로 시작하지 않는 이미지
     if(!imgPath.startsWith("http")) {
       return `https://api.mandarin.weniv.co.kr/Ellipse.png`;
     }
@@ -76,7 +79,7 @@ export default function User({ inputValue, valueItems }) {
       )}
       {valueItems.map((item) => {
         return (
-          <UserLayout onClick={handelUserProfile} key={item._id}>
+          <UserLayout onClick={()=>handelUserProfile(item)} key={item._id}>
             {/* <img src={item.image} alt={item.username} /> */}
             <img src={userProfileImg(item.image)} alt={item.username} />
             <div>
