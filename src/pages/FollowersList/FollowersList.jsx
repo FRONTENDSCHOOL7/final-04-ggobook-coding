@@ -28,17 +28,21 @@ async function fetchFollowersList(accountname, token) {
 
 // 팔로워 목록을 보여주는 컴포넌트
   function FollowersList() {
-  // const { accountname } = useParams();
-  // const accountname = useParams().id; // URL 파라미터에서 accountname 추출.. 둘중 맞는게 어떤거지
-  const accountname = "ggobook";
-  console.log(accountname)
+    const { id } = useParams();
+    const accountname = id;
+  // const accountname = useParams()._id;
+  // let { accountname } = useParams();
+  // const accountname = useParams(); // 
+  
+
+  // const accountname = "ggobook";
+  // console.log(accountname)
 
   const [followerList, setFollowerList] = useState(() => {})
-  const [followers, setFollowers] = useState([]); // 팔로워 목록 상태
+  // const [followers, setFollowers] = useState([]); // 팔로워 목록 상태
 
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo";
-  // const token = localStorage.getItem('token'); // 로컬 스토리지에서 토큰 가져오기
-  console.log('userToken:', token);
+  const token = localStorage.getItem('token'); // 로컬 스토리지에서 토큰 가져오기
+  console.log('Token:', token);
 
 /* 
 if(true){
@@ -46,6 +50,7 @@ if(true){
 }  => accountname = undefined(=false) ==> accountname가 true가 아니면 안에 내용이 실행되지 않음!
 */
 
+// API 함수를 호출하여 팔로워 데이터를 가져옵니다.
   useEffect(() => {
     // if (accountname) {
     //   fetchFollowersList(accountname, token)
@@ -70,7 +75,8 @@ if(true){
 
   const toggleFollow = async (followerId, isCurrentlyFollowed) => {
     // 서버에 팔로우 상태 변경을 요청하는 로직을 여기에 추가합니다.
-    // ...
+    // ---- 폐기. 버튼만 활성화 하는걸로. --- 
+    
     // 로컬 상태 업데이트
     setFollowerList((prevList) =>
       prevList.map((follower) =>
@@ -141,16 +147,6 @@ const FollowerLayout = styled.div`
     border-radius: 50%;
     object-fit: cover;
   }
-
-  /* button {
-    width: 56px;
-    height: 28px;
-    border-radius: 26px;
-    background: var(--mainColor);
-    color: #fff;
-    margin-left: auto;
-    font-size: 12px;
-  } */
 `;
 
 const FollowButton = styled.button`

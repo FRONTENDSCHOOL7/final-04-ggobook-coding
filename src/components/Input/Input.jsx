@@ -12,6 +12,8 @@ export default function Input({
   onBlur,
   id,
   name,
+  disabled,
+  onClick
 }) {
   return (
     <InputContainer>
@@ -26,6 +28,8 @@ export default function Input({
         onBlur={onBlur}
         id={id}
         name={name}
+        disabled={disabled}
+        onClick={onClick}
       ></StyledInput>
     </InputContainer>
   );
