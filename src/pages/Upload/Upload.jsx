@@ -98,9 +98,12 @@ export default function Upload() {
   const handleAddPostSubmit = async (e) => {
     try {
       e.preventDefault();
-      //이미지를 넣어주기 위해서 body전에 삽입하고 imgSubmit을 호출
-      const uploadResult = await imgSubmit();
-      console.log("uploadResult", uploadResult);
+
+      let uploadResult = "";
+      if (addFileImg) {
+        uploadResult = await imgSubmit();
+        console.log("uploadResult", uploadResult);
+      }
 
       const res = await fetch(`${URL}/post`, {
         method: "POST",
@@ -111,7 +114,7 @@ export default function Upload() {
         body: JSON.stringify({
           post: {
             content: contentTxt,
-            image: uploadResult.filename,
+            image: `${URL}/${uploadResult.filename}`,
           },
         }),
       });
@@ -161,7 +164,7 @@ export default function Upload() {
         type="button"
         padding="7px"
         onClick={handleAddPostSubmit}
-        disabled={!addFileImg}
+        disabled={!addFileImg && !contentTxt}
       >
         업로드
       </Button>
