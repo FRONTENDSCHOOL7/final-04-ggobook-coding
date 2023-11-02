@@ -4,6 +4,7 @@ import { CommonBtn } from "../../styles/GlobalStyle";
 import { useNavigate } from "react-router-dom";
 import Post from "../../components/Post/Post";
 import Modal from "../../components/Modal/Modal";
+import KebabHeader from "../../components/Header/KebabHeader";
 
 const PostLayout = styled.article`
   padding: 20px 16px;
@@ -304,6 +305,7 @@ export default function PostPage() {
 
   return (
     <>
+      <KebabHeader />
       <PostLayout>
         {/* 게시글 */}
         <Post post={post} del={handleModalPostDelButton} comments={comments} />
