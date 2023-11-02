@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Navigator from "../../components/Navigator/Navigator";
-import HeaderHome from "../../components/Header/HeaderHome";
+import FeedHeader from "../../components/Header/FeedHeader";
 import Post from "../../components/Post/Post";
 
 //총 배경 ========================================================
@@ -100,7 +100,7 @@ export default function Home() {
   if (posts.length === 0) {
     return (
       <HomeLayout>
-        <HeaderHome />
+        <FeedHeader />
         <MiddleSearch>
           <img src="/images/symbol-logo-gray.svg" alt="" />
           <div style={{ color: "#767676" }}>유저를 검색해 팔로우 해보세요!</div>
@@ -115,7 +115,7 @@ export default function Home() {
     //팔로우한 유저가 있을 경우
     return (
       <HomeLayout>
-        <HeaderHome />
+        <FeedHeader />
         <Sect3>
           {/* 게시글 목록 */}
           <div className="content-container">
