@@ -9,7 +9,7 @@ const StyledSearchButton = styled.button`
   width: 25px;
   height: 25px;
   padding: 0;
-  background: url("images/icon-search.svg");
+  background: url("/images/icon-search.svg");
   background-position: center;
   background-size: 24px;
 `;
