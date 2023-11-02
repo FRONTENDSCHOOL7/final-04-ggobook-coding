@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import User from "./User";
-import Header from "./Header";
 import styled from "styled-components";
 import { getToken } from "../../utils/common";
+import SearchHeader from "../../components/Header/SearchHeader";
 
 export default function Search() {
   const URL = process.env.REACT_APP_API_URL;
@@ -19,13 +19,6 @@ export default function Search() {
   const handleSearchInput = useCallback((e) => {
     setInputValue(e.target.value);
   }, []);
-
-  //계정 검색 후 초기화
-  // const handleRemoveInputValue = useCallback((e) => {
-  //   if(e.key === "Enter") {
-  //     setInputValue("");
-  //   }
-  // }, []);
 
   // search api 함수
   const handleSearch = useCallback(async () => {
@@ -71,28 +64,15 @@ export default function Search() {
 
   return (
     <>
-      <Header>
-        {/* children 삽입부 */}
-        <input
+      <SearchHeader>
+        <SearchBar
           className="searchInput"
-          placeholder="계정 검색"
+          placeholder={"계정 검색"}
           value={inputValue}
           ref={inputFocusRef}
           onChange={handleSearchInput}
         />
-
-        {/* button */}
-        {/* <Button
-          width="90px"
-          height="32px"
-          backgroundColor="var(--disabled)"
-          color="#fff"
-          type="submit"
-          padding="7px"
-        >
-          등록
-        </Button> */}
-      </Header>
+      </SearchHeader>
       <SearchParent>
         {inputValue && <User inputValue={inputValue} valueItems={valueItems} />}
       </SearchParent>
@@ -114,5 +94,17 @@ const SearchParent = styled.section`
     background: var(--mainColor); /* 스크롤바 막대 색상 */
     border: 2px solid var(--mainColor); /* 스크롤바 막대 테두리  */
     border-radius: 10px;
+  }
+`;
+
+const SearchBar = styled.input`
+  width: 316px;
+  padding: 7px 16px;
+  background-color: #f2f2f2;
+  border-radius: 32px;
+  color: #000;
+
+  &::placeholder {
+    color: #c4c4c4;
   }
 `;
