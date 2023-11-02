@@ -72,7 +72,7 @@ const PostLayout = styled.ul`
   }
 `;
 
-export default function Post({ post, del }) {
+export default function Post({ post, del, comments }) {
   //날짜포멧 맞추기 (YYYY년 MM월 DD일)
   let postDate = post.updatedAt;
   postDate = `${postDate.substring(0, 4)}년 ${postDate.substring(
@@ -114,7 +114,7 @@ export default function Post({ post, del }) {
             </button>
             <button>
               <img src="/images/icon-message-circle.svg" alt="" />{" "}
-              <span>{post.commentCount}</span>
+              <span>{comments.length}</span>
             </button>
           </div>
           <span className="date">{postDate}</span>
