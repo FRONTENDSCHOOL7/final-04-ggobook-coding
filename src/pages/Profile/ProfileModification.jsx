@@ -4,6 +4,7 @@ import { ProfileThumbnail } from "../../styles/GlobalStyle";
 import HeaderBtn from '../../components/Header/HeaderBtn';
 import Input from '../../components/Input/Input';
 import Spaces from '../../components/Spaces/Spaces';
+import ButtonHeader from '../../components/Header/ButtonHeader';
 
 
 function ProfileModification() {
@@ -272,11 +273,16 @@ function ProfileModification() {
   return (
     <StyledDiv>
       
-      <HeaderBtn 
+      {/* <HeaderBtn 
       onSubmitEdit={submitEdit} 
       // onNavigate={handleNavigateToLogin} 
       btnState={btnState} 
-      />
+      /> */}
+      <ButtonHeader
+        disabled={btnState}
+        onClick={submitEdit}
+        children={"저장"}
+        />
       
         <StyledForm>
         <AddImgWrap>
@@ -385,7 +391,7 @@ const AddImgWrap = styled.div`
     position: absolute;
     bottom: 0;
     right: 0;
-    background: url("images/upload-file.svg");
+    background: url("/images/upload-file.svg");
     background-size: 36px;
     
     cursor: pointer;
