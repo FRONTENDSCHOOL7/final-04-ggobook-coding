@@ -4,13 +4,14 @@ import { ProfileThumbnail } from "../../styles/GlobalStyle";
 import HeaderBtn from '../../components/Header/HeaderBtn';
 import Input from '../../components/Input/Input';
 import Spaces from '../../components/Spaces/Spaces';
-import { useNavigate } from 'react-router-dom';
+
 
 function ProfileModification() {
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo";
+  // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo";
   // localStorage에서 토큰 가져오기. 지금은 테스트를 위해 직접 넣은 상태.
   // const token = localStorage.getItem('userToken');
-  // console.log('userToken:', token);
+  const token =  localStorage.getItem("token");
+  console.log("token", token);
 
 
   // 사용자 초기 정보를 저장하기 위한 상태들을 선언합니다.
@@ -184,12 +185,7 @@ function ProfileModification() {
     edit(editData);
   };
 
-    // 뒤로가기 버튼 기능구현
-    const navigate = useNavigate();
 
-    const handleNavigateToLogin = () => {
-      navigate("profile/:id");
-    };
   
     
 
@@ -211,12 +207,13 @@ function ProfileModification() {
       setUsernameErr("필수 입력 항목입니다.");
     } else if (username.length < 2) {
       console.log(username.length < 2)
+      SetBtnState(true);
       setUsernameErr("2자 이상 닉네임을 입력해 주세요.");
     } else if (username.length > 10) {
       setUsernameErr("10자 이하 닉네임을 입력해 주세요.");
     } else {
       setUsernameErr("");
-    }
+    } 
   };
 
     // 계정 ID Input
@@ -272,13 +269,15 @@ function ProfileModification() {
 
 
 
-
   return (
     <StyledDiv>
+      
       <HeaderBtn 
       onSubmitEdit={submitEdit} 
-      onNavigate={handleNavigateToLogin} 
-      disabled={btnState} />
+      // onNavigate={handleNavigateToLogin} 
+      btnState={btnState} 
+      />
+      
         <StyledForm>
         <AddImgWrap>
           <ProfileThumbnail
@@ -298,7 +297,7 @@ function ProfileModification() {
 
         <Spaces gap="140px" />
         <Input
-          label="사용자 이름"
+          label="사용자 이름" 
           inputBorderColor="#dbdbdb"
           value={username}
           onChange={inputUsername}
@@ -308,7 +307,9 @@ function ProfileModification() {
           id="userNameInput"
           name="username"
           placeholder={
-            initUsername ? `${initUsername}` : '2~10자 이내여야 합니다.'
+            initUsername  
+            ? '2~10자 이내여야 합니다.' 
+            : `${initUsername}`
           }
         />
         <Spaces gap="16px" />
@@ -323,9 +324,10 @@ function ProfileModification() {
           id="userIdInput"
           name="accountname"
           placeholder={
-            initAccountname
-              ? `${initAccountname}`
-              : '영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.'
+            initAccountname 
+            ? '영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.' 
+            : `${initAccountname}`
+            
           }
         />
         <Spaces gap="16px" />
@@ -341,12 +343,13 @@ function ProfileModification() {
           name="intro"
           placeholder={
             initIntron
-              ? `${initIntron}`
-              : '자신과 판매할 상품에 대해 소개해 주세요!'
+              ? '자신과 판매할 상품에 대해 소개해 주세요!'
+              : `${initIntron}`
           }
         />
       </StyledForm>
     </StyledDiv>
+    
   );
 }
 
