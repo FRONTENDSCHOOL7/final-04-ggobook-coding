@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { CommonImgThumbnail } from "../../styles/GlobalStyle";
-import HeaderProfile from "../../components/Header/HeaderProfile";
-import Button from "./../../components/Button/Button";
 import { getToken } from "../../utils/common";
 import { useNavigate, useParams } from "react-router";
+import ButtonHeader from "../../components/Header/ButtonHeader";
 
 /**
  * @param {}
@@ -136,7 +135,7 @@ export default function AddProduct() {
           if (!res.ok) throw new Error("네트워크 문제가 발생했어요.");
         }
       } catch (error) {
-        if (!inputFocuseRef.current.value || !inputPrice || !salesLink) {
+        if (!inputFocuseRef.current?.value || !inputPrice || !salesLink) {
           console.error("🚫필수 입력사항을 모두 입력해주세요", error);
         } else if (!Number(inputPrice)) {
           console.error("🚫가격은 숫자로 입력하셔야 합니다.", error);
@@ -188,25 +187,16 @@ export default function AddProduct() {
 
   return (
     <>
-      <HeaderProfile />
       <FormAddProductParent onSubmit={handleAddProductSubmit}>
+        <ButtonHeader
+          disabled={
+            !inputPrice.length ||
+            !salesLink.length ||
+            !inputFocuseRef.current.value ||
+            !addFileImg}
+          children={itemID ? "수정" : "등록"}
+        />
         <LayoutAddProduct>
-          <Button
-            width="90px"
-            height="32px"
-            backgroundColor="var(--mainColor)"
-            color="#fff"
-            type="submit"
-            padding="7px"
-            disabled={
-              !inputPrice.length ||
-              !salesLink.length ||
-              !inputFocuseRef.current.value ||
-              !addFileImg
-            }
-          >
-            {itemID ? "수정" : "등록"}
-          </Button>
           <LayoutInner>
             <label>이미지 등록*</label>
 
@@ -269,7 +259,9 @@ export default function AddProduct() {
   );
 }
 
-const FormAddProductParent = styled.form``;
+const FormAddProductParent = styled.form`
+  height: 100vh;
+`;
 
 const LayoutAddProduct = styled.ul`
   position: relative;
