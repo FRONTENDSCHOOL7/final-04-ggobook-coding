@@ -8,7 +8,7 @@ export default function KebabIcon({ onClick }) {
 const KebabBtn = styled.button`
   width: 25px;
   height: 25px;
-  background: url("images/icon-more-vertical.svg");
+  background: url("/images/icon-more-vertical.svg");
   background-position: center;
   background-size: 24px;
 `;
