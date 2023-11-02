@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 
 const PostLayout = styled.ul`
@@ -10,6 +9,9 @@ const PostLayout = styled.ul`
   .profile-img {
     width: 42px;
     height: 42px;
+    flex-shrink: 0;
+    border-radius: 42px;
+    border: 0.5px solid var(--DBDBDB, #dbdbdb);
   }
   .content-title {
     display: flex;
@@ -33,7 +35,7 @@ const PostLayout = styled.ul`
   .content {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 305px;
   }
   .content-inner {
     font-size: 14px;
@@ -62,12 +64,15 @@ const PostLayout = styled.ul`
     font-weight: 400;
   }
 
-  img {
+  .content-img {
     border-radius: 10px;
+    width: 304px;
+    height: 228px;
+    flex-shrink: 0;
   }
 `;
 
-export default function Post({ post }) {
+export default function Post({ post, del, comments }) {
   //날짜포멧 맞추기 (YYYY년 MM월 DD일)
   let postDate = post.updatedAt;
   postDate = `${postDate.substring(0, 4)}년 ${postDate.substring(
@@ -78,7 +83,11 @@ export default function Post({ post }) {
   return (
     <PostLayout>
       <li className="content-list">
-        <img src="/images/basic-profile.svg" alt="" className="profile-img" />
+        <img
+          src={post.author.image ?? "/images/basic-profile.svg"}
+          alt=""
+          className="profile-img"
+        />
         <div className="content">
           <div className="content-title">
             <div className="content-id">
@@ -86,23 +95,17 @@ export default function Post({ post }) {
               <p>@ {post.author.accountname}</p>
             </div>
             <div>
-              <button>
+              <button onClick={del}>
                 <img src="images/s-icon-more-vertical.svg" alt="" />
               </button>
             </div>
           </div>
           <div className="content-inner">
             <p>{post.content}</p>
-            <img
-              src={
-                post.image === "" ? null : post.image
-                // .replace(
-                //     "uploadFiles/",
-                //     "https://api.mandarin.weniv.co.kr/"
-                //   )
-              }
-              alt=""
-            />
+
+            {post.image === "" ? null : (
+              <img className="content-img" src={post.image} alt="" />
+            )}
           </div>
           <div className="like-comment">
             <button>
@@ -111,7 +114,7 @@ export default function Post({ post }) {
             </button>
             <button>
               <img src="/images/icon-message-circle.svg" alt="" />{" "}
-              <span>{post.commentCount}</span>
+              <span>{comments ? comments.length : post.commentCount}</span>
             </button>
           </div>
           <span className="date">{postDate}</span>

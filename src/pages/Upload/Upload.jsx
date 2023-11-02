@@ -1,11 +1,14 @@
 import React, { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
 import { CommonBtn, CommonImgLayout } from "../../styles/GlobalStyle";
-import HeaderBtn from "../../components/Header/HeaderBtn";
-import Button from "../../components/Button/Button";
+import ButtonHeader from "../../components/Header/ButtonHeader";
 import { useNavigate } from "react-router-dom";
 
-const LayoutUpLoad = styled.article`
+const UploadLayout = styled.div`
+  height: 100vh;
+`;
+
+const PostLayout = styled.article`
   padding: 0 15px;
   padding-top: ${(props) => `${props.$space}` || `${48}`};
   display: flex;
@@ -98,9 +101,12 @@ export default function Upload() {
   const handleAddPostSubmit = async (e) => {
     try {
       e.preventDefault();
-      //이미지를 넣어주기 위해서 body전에 삽입하고 imgSubmit을 호출
-      const uploadResult = await imgSubmit();
-      console.log("uploadResult", uploadResult);
+
+      let uploadResult = "";
+      if (addFileImg) {
+        uploadResult = await imgSubmit();
+        console.log("uploadResult", uploadResult);
+      }
 
       const res = await fetch(`${URL}/post`, {
         method: "POST",
@@ -111,7 +117,7 @@ export default function Upload() {
         body: JSON.stringify({
           post: {
             content: contentTxt,
-            image: uploadResult.filename,
+            image: `${URL}/${uploadResult.filename}`,
           },
         }),
       });
@@ -152,21 +158,14 @@ export default function Upload() {
   }, []);
 
   return (
-    <>
-      <Button
-        width="90px"
-        height="32px"
-        backgroundColor="var(--mainColor)"
-        color="#fff"
-        type="button"
-        padding="7px"
+    <UploadLayout>
+      <ButtonHeader
+        children={"업로드"}
         onClick={handleAddPostSubmit}
-        disabled={!addFileImg}
-      >
-        업로드
-      </Button>
+        disabled={!addFileImg && !contentTxt}
+      />
 
-      <LayoutUpLoad $space="48px">
+      <PostLayout $space="48px">
         <div>
           <img
             className="imgProfile"
@@ -202,7 +201,7 @@ export default function Upload() {
             />
           </ImgLayoutWrap>
         </div>
-      </LayoutUpLoad>
+      </PostLayout>
 
       {/* 하단 업로드 버튼 */}
       <BtnUpload>
@@ -216,6 +215,6 @@ export default function Upload() {
           onChange={handleAddFileImg}
         />
       </BtnUpload>
-    </>
+    </UploadLayout>
   );
 }
