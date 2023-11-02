@@ -1,8 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
 import { CommonBtn, CommonImgLayout } from "../../styles/GlobalStyle";
-import HeaderBtn from "../../components/Header/HeaderBtn";
-import Button from "../../components/Button/Button";
+import ButtonHeader from "../../components/Header/ButtonHeader";
 import { useNavigate } from "react-router-dom";
 
 const UploadLayout = styled.div`
@@ -160,18 +159,11 @@ export default function Upload() {
 
   return (
     <UploadLayout>
-      <Button
-        width="90px"
-        height="32px"
-        backgroundColor="var(--mainColor)"
-        color="#fff"
-        type="button"
-        padding="7px"
+      <ButtonHeader
+        children={"업로드"}
         onClick={handleAddPostSubmit}
         disabled={!addFileImg && !contentTxt}
-      >
-        업로드
-      </Button>
+      />
 
       <PostLayout $space="48px">
         <div>
