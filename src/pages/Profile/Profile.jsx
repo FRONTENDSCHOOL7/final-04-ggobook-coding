@@ -28,6 +28,7 @@ export default function Profile() {
   const modalState = useRecoilValue(ProfileAtom);
   //atom 상태 수정하기
   const [isModalState, setIsModalState] = useRecoilState(ProfileAtom);
+  console.log("전달받은 id", id)
 
   /**
    * 모달 중복코드 공통함수 적용
