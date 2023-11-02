@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 
-export default function Chat() {
+export default function Chat(props) {
   const ChatLayout = styled.div`
     display: flex;
     align-items: center;
@@ -51,10 +51,10 @@ export default function Chat() {
         <div className="isChecked"></div>
         <img src="/images/img-profile-default.svg" alt="사용자 프로필 사진" />
         <div>
-          <h3>애월읍 위니브 감귤농장</h3>
-          <p className="msg">이번에 정정 언제하맨마씸?</p>
+          <h3>{props.nickName}</h3>
+          <p className="msg">{props.msg}</p>
         </div>
-        <p className="time">2020.10.25</p>
+        <p className="time">{props.date}</p>
       </ChatLayout>
     </>
   );
