@@ -5,13 +5,13 @@ export default function InputMsg() {
   const InputMsgLayout = styled.div`
     width: 390px;
     height: 60px;
-    background-color: #fff;
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    padding: 0 16px;
     position: fixed;
     bottom: 0;
+    border-top: 1px solid #dbdbdb;
+    padding: 0 20px;
 
     img {
       width: 36px;

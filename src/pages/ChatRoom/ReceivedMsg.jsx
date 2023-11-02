@@ -15,7 +15,6 @@ export default function ReceivedMsg({ msg, time }) {
       margin-bottom: auto;
     }
     .msg {
-      background-color: #fff;
       border-radius: 0 10px 10px 10px;
       border: solid 1px #c4c4c4;
       font-size: 14px;
