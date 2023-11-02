@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { styled } from "styled-components";
 
 const NavLayout = styled.nav`
-  border-top: 0.5px solid #dbdbdb;
+  border-top: 1px solid #dbdbdb;
   background: #fff;
   padding: 12px 0 6px;
   position: fixed;
@@ -32,6 +32,14 @@ const NavLayout = styled.nav`
     font-size: 10px;
     color: #767676;
     line-height: 14px;
+  }
+
+  .active {
+    color: var(--mainColor);
+  }
+
+  img {
+    fill: var(--mainColor);
   }
 `;
 
