@@ -1,12 +1,12 @@
 import React from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function BackButton() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleBackClick = () => {
-    // navigate(-1);
+    navigate(-1);
   };
 
   return <StyledBackButton onClick={handleBackClick}></StyledBackButton>;
