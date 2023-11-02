@@ -5,7 +5,11 @@ import HeaderBtn from "../../components/Header/HeaderBtn";
 import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 
-const LayoutUpLoad = styled.article`
+const UploadLayout = styled.div`
+  height: 100vh;
+`;
+
+const PostLayout = styled.article`
   padding: 0 15px;
   padding-top: ${(props) => `${props.$space}` || `${48}`};
   display: flex;
@@ -155,7 +159,7 @@ export default function Upload() {
   }, []);
 
   return (
-    <>
+    <UploadLayout>
       <Button
         width="90px"
         height="32px"
@@ -169,7 +173,7 @@ export default function Upload() {
         업로드
       </Button>
 
-      <LayoutUpLoad $space="48px">
+      <PostLayout $space="48px">
         <div>
           <img
             className="imgProfile"
@@ -205,7 +209,7 @@ export default function Upload() {
             />
           </ImgLayoutWrap>
         </div>
-      </LayoutUpLoad>
+      </PostLayout>
 
       {/* 하단 업로드 버튼 */}
       <BtnUpload>
@@ -219,6 +223,6 @@ export default function Upload() {
           onChange={handleAddFileImg}
         />
       </BtnUpload>
-    </>
+    </UploadLayout>
   );
 }
