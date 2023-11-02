@@ -306,7 +306,7 @@ export default function PostPage() {
     <>
       <PostLayout>
         {/* 게시글 */}
-        <Post post={post} del={handleModalPostDelButton} />
+        <Post post={post} del={handleModalPostDelButton} comments={comments} />
       </PostLayout>
       {/* 댓글 */}
       <CommentLayout $space="16px">
