@@ -15,7 +15,7 @@ export default function BackButton() {
 const StyledBackButton = styled.button`
   width: 25px;
   height: 25px;
-  background: url("images/icon-arrow-left.svg");
+  background: url("/images/icon-arrow-left.svg");
   background-size: 22px;
   background-position: center;
 `;
