@@ -114,7 +114,7 @@ export default function Post({ post, del, comments }) {
             </button>
             <button>
               <img src="/images/icon-message-circle.svg" alt="" />{" "}
-              <span>{comments.length}</span>
+              <span>{comments ? comments.length : post.commentCount}</span>
             </button>
           </div>
           <span className="date">{postDate}</span>
