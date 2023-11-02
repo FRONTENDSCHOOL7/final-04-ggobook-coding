@@ -42,6 +42,7 @@ const PostLayout = styled.ul`
     font-weight: 400;
     p {
       margin-bottom: 16px;
+      word-break: break-all;
     }
   }
   .like-comment {
