@@ -4,12 +4,14 @@ import styled from "styled-components";
 import Navigator from "../../components/Navigator/Navigator";
 import FeedHeader from "../../components/Header/FeedHeader";
 import Post from "../../components/Post/Post";
+import { useNavigate } from "react-router-dom";
 
 //총 배경 ========================================================
 
 const HomeLayout = styled.div`
   display: flex;
   flex-direction: column;
+  height: ${(props) => props.$h};
 `;
 
 //게시글===============================================
@@ -64,9 +66,10 @@ const Button = styled.div`
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
   const URL = "https://api.mandarin.weniv.co.kr";
-  const TOKEN = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo`;
+  const TOKEN = localStorage.getItem("token");
 
   //post 조회
   useEffect(() => {
@@ -86,7 +89,6 @@ export default function Home() {
 
         const data = await response.json();
         setPosts(data.posts);
-        // console.log(posts);
         console.log(data);
       } catch (error) {
         console.error(error);
@@ -99,7 +101,7 @@ export default function Home() {
   //팔로우한 유저가 없을 경우
   if (posts.length === 0) {
     return (
-      <HomeLayout>
+      <HomeLayout $h="100vh">
         <FeedHeader />
         <MiddleSearch>
           <img src="/images/symbol-logo-gray.svg" alt="" />
@@ -120,7 +122,13 @@ export default function Home() {
           {/* 게시글 목록 */}
           <div className="content-container">
             {posts.map((post) => (
-              <Post key={post.id} post={post} />
+              <Post
+                key={post.id}
+                post={post}
+                movePage={(e) => {
+                  navigate(`/post/${post.id}`);
+                }}
+              />
             ))}
           </div>
         </Sect3>
