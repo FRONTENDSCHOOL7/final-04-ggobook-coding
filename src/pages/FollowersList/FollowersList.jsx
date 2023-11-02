@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import HeaderFollowers from '../../components/Header/HeaderFollowers';
+import { useParams } from 'react-router-dom';
+// import HeaderFollowers from '../../components/Header/HeaderFollowers';
 import Navigator from '../../components/Navigator/Navigator';
+import KebabHeader from '../../components/Header/KebabHeader'
 
 
 // API 호출 함수
@@ -87,8 +88,11 @@ if(true){
   // =========================================
   console.log("데이터 찍히고 있나 ?", followerList);
   return (
-    <>
-    <HeaderFollowers/>
+    <StyledDiv>
+    <KebabHeader
+    content = "Followers"
+    />
+    {/* <HeaderFollowers/> */}
   
       {followerList ? (
         followerList.map((follower) => {
@@ -96,10 +100,13 @@ if(true){
             
           <FollowerLayout key={follower._id}>
             {/* <p>{followerList._id}</p> */}
+
+            <div className="follow-List">
             <img
               src={follower.image}
               alt={`${follower.username}의 프로필 사진`}
-            />
+              />
+              </div>
             <div>
               <h3>{follower.username}</h3>
               <p>{follower.intro}</p>
@@ -115,21 +122,39 @@ if(true){
           );
         }
         )
-      ) : (
-        <p>로딩 안됐음</p>
-      )}
-    </>
+        ) : (
+          <p>로딩 안됐음</p>
+          )}
+          <Navigator/>
+    </StyledDiv>
 
   );
 }
 
 // 스타일드 컴포넌트 정의
+// 배경
+const StyledDiv = styled.div`
+  height: 100vh;
+  
+  background-color: #fff;
+  font-family: 'Spoqa Han Sans Neo';
+`;
+
 const FollowerLayout = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
   margin: 20px 0 16px 0;
   padding: 0 16px;
+
+  .follow-List {
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
 
   h3 {
     padding-bottom: 6px;
@@ -141,12 +166,6 @@ const FollowerLayout = styled.div`
     color: #767676;
   }
 
-  img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
 `;
 
 const FollowButton = styled.button`
