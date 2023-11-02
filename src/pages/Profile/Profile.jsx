@@ -11,6 +11,7 @@ import PostModal from "./../../components/PostModal/PostModal";
 import Modal from "./../../components/Modal/Modal";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { ProfileAtom } from "./ProfileAtom";
+import KebabHeader from "../../components/Header/KebabHeader";
 
 /**
  * @param
@@ -159,7 +160,7 @@ export default function Profile() {
   return (
     <>
       <HomeLayout>
-        <HeaderProfile />
+        <KebabHeader kebab={"true"} />
         <Sect1>
           <ProImg>
             <button>

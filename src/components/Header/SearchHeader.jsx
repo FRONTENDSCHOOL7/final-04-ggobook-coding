@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import BackButton from "../common/BackButton";
-import SearchInput from "../common/SearchInput";
+// import SearchInput from "../common/SearchInput";
 
-export default function SearchHeader({ placeholder }) {
+export default function SearchHeader({ children }) {
   return (
     <StyledHeader>
       <BackButton />
-      <SearchInput placeholder={placeholder} />
+      {children}
     </StyledHeader>
   );
 }
