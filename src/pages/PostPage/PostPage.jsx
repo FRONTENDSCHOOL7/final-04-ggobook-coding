@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { CommonBtn } from "../../styles/GlobalStyle";
 import { useNavigate, useParams } from "react-router-dom";
