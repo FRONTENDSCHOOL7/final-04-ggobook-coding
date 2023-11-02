@@ -11,7 +11,7 @@ import Profile from "../pages/Profile/Profile";
 import ProfileModification from "../pages/Profile/ProfileModification";
 import FollowersList from "../pages/FollowersList/FollowersList";
 import AddProduct from "../pages/AddProduct/AddProduct";
-import Post from "../pages/Post/Post";
+import PostPage from "../pages/PostPage/PostPage";
 import Upload from "../pages/Upload/Upload";
 import ChatList from "../pages/ChatList/ChatList";
 import ChatRoom from "../pages/ChatRoom/ChatRoom";
@@ -40,7 +40,7 @@ export default function AppRouter() {
         <Route path="/product/addproduct" element={<AddProduct />} />
         <Route path="/product/:id/edit" element={<AddProduct />} />
         {/* 게시물 */}
-        <Route path="/post/:id" element={<Post />} />
+        <Route path="/post/:id" element={<PostPage />} />
         <Route path="/post/upload" element={<Upload />} />
         {/* 채팅 */}
         <Route path="/chatlist" element={<ChatList />} />
