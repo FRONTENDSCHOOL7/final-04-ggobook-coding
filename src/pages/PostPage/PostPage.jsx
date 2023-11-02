@@ -1,11 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { CommonBtn } from "../../styles/GlobalStyle";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Post from "../../components/Post/Post";
 import Modal from "../../components/Modal/Modal";
 import KebabHeader from "../../components/Header/KebabHeader";
 
+const PageLayout = styled.div`
+  height: 100vh;
+`;
 const PostLayout = styled.article`
   padding: 20px 16px;
 `;
@@ -139,12 +142,11 @@ export default function PostPage() {
   const [modalState, setModalState] = useState(false);
   const [modalType, setModalType] = useState("post");
   const [commentId, setCommentId] = useState("");
+  const { id } = useParams();
 
   const URL = "https://api.mandarin.weniv.co.kr";
-  const TOKEN =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo";
-  const postId = "654220cbb2cb205663a5fc4c";
-  // const postId = "65405b37b2cb20566394d0de";
+  const TOKEN = localStorage.getItem("token");
+  const postId = id;
 
   //post 조회
   useEffect(() => {
@@ -304,7 +306,7 @@ export default function PostPage() {
   // ============= COMMENTS(댓글) 끝 =============
 
   return (
-    <>
+    <PageLayout>
       <KebabHeader />
       <PostLayout>
         {/* 게시글 */}
@@ -397,6 +399,6 @@ export default function PostPage() {
           )}
         </Modal>
       )}
-    </>
+    </PageLayout>
   );
 }

@@ -73,7 +73,7 @@ const BtnUpload = styled.div`
 
 export default function Upload() {
   const URL = "https://api.mandarin.weniv.co.kr";
-  const TOKEN = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo`;
+  const TOKEN = localStorage.getItem("token");
 
   const fileInput = useRef();
   const [contentTxt, setContentTxt] = useState(""); //게시글내용

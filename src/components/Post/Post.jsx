@@ -72,7 +72,7 @@ const PostLayout = styled.ul`
   }
 `;
 
-export default function Post({ post, del, comments }) {
+export default function Post({ post, del, comments, movePage }) {
   //날짜포멧 맞추기 (YYYY년 MM월 DD일)
   let postDate = post.updatedAt;
   postDate = `${postDate.substring(0, 4)}년 ${postDate.substring(
@@ -82,7 +82,7 @@ export default function Post({ post, del, comments }) {
 
   return (
     <PostLayout>
-      <li className="content-list">
+      <li className="content-list" onClick={movePage}>
         <img
           src={post.author.image ?? "/images/basic-profile.svg"}
           alt=""
