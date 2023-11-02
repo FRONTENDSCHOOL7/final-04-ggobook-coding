@@ -1,8 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-export default function SearchButton({ onClick }) {
-  return <StyledSearchButton onClick={onClick}></StyledSearchButton>;
+export default function SearchButton() {
+  const navigate = useNavigate();
+
+  const handleMovetoSearch = () => {
+    navigate("/search");
+  };
+  return <StyledSearchButton onClick={handleMovetoSearch}></StyledSearchButton>;
 }
 
 const StyledSearchButton = styled.button`
