@@ -49,9 +49,15 @@ export default function LoginEmail() {
       } else if (!email || !password) {
         setErrorMsg("이메일 또는 비밀번호를 입력해 주세요.");
       } else {
+        const accountname = json.user.accountname;
+        const image = json.user.image;
         const token = json.user.token;
 
-        localStorage.setItem("token", token); // token 값을 자유롭게 사용할 수 있도록 로컬스토리지에 저장
+        // localstorage에 데이터 저장
+        localStorage.setItem("accountname", accountname);
+        localStorage.setItem("image", image);
+        localStorage.setItem("token", token);
+
         setErrorMsg("");
         alert("로그인 성공!");
         navigate("/home");
