@@ -129,7 +129,7 @@ export default function Upload() {
       const data = await res.json();
       console.log("PostData", data);
       alert("저장되었습니다.");
-      navigate("/home");
+      navigate(`/profile/${localStorage.getItem("accountname")}`);
     } catch (error) {
       console.error(error);
     }
@@ -169,7 +169,7 @@ export default function Upload() {
         <div>
           <img
             className="imgProfile"
-            src="/images/img-profile-default.svg"
+            src={localStorage.getItem("image")}
             alt="profile"
           />
         </div>
