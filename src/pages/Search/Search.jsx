@@ -27,7 +27,7 @@ export default function Search() {
       const res = await fetch(`${URL}/user/searchuser/?keyword=${inputValue}`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${getToken()}`,
+          Authorization: `Bearer ${getToken("token")}`,
         },
       });
 
