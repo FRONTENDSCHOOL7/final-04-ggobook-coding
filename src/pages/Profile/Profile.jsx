@@ -17,7 +17,7 @@ import KebabHeader from "../../components/Header/KebabHeader";
  * @returns Profile
  */
 export default function Profile() {
-  const URL = process.env.REACT_APP_API_URL;
+  const URL = "https://api.mandarin.weniv.co.kr";
   const navigate = useNavigate();
   const { id } = useParams();
   const [userInfo, setUserInfo] = useState("");
@@ -29,6 +29,8 @@ export default function Profile() {
   //atom 상태 수정하기
   const [isModalState, setIsModalState] = useRecoilState(ProfileAtom);
   console.log("Profile 전달받은 id", id);
+
+console.log("프로필 token", getToken());
 
   /**
    * 모달 중복코드 공통함수 적용
@@ -56,9 +58,10 @@ export default function Profile() {
       const res = await fetch(`${URL}/user/myinfo`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${getToken("token")}`,
+          Authorization: `Bearer ${getToken()}`,
         },
       });
+      console.log('프로필 res', res)
       if (!res.ok) {
         throw new Error("네트워크 문제가 발생했어요.");
       }
@@ -78,7 +81,7 @@ export default function Profile() {
       const res = await fetch(`${URL}/product/${userInfo.accountname}`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${getToken("token")}`,
+          Authorization: `Bearer ${getToken()}`,
           "Content-type": "application/json",
         },
       });
@@ -100,7 +103,7 @@ export default function Profile() {
       const res = await fetch(`${URL}/product/${selectProduct.id}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${getToken("token")}`,
+          Authorization: `Bearer ${getToken()}`,
           "Content-type": "application/json",
         },
       });

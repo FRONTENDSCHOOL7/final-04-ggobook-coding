@@ -8,7 +8,7 @@ import styled from "styled-components";
  * @returns User 유저검색시 매칭되어 나오는 User의 목록
  */
 export default function User({ inputValue, valueItems }) {
-  const URL = process.env.REACT_APP_API_URL;
+  const URL = "https://api.mandarin.weniv.co.kr";
   const navigate = useNavigate();
   const [selectedUser, setSelectedUser] = useState(null); //선택한 user
   console.log("valueItems", inputValue, "valueItems이미지====>", valueItems);
