@@ -20,6 +20,7 @@ export default function ReceivedMsg({ msg, time }) {
       font-size: 14px;
       padding: 12px;
       margin: 0 6px 0 12px;
+      word-break: break-all;
     }
     .time {
       color: #767676;

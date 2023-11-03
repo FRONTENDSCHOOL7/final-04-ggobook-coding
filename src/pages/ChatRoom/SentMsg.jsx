@@ -13,11 +13,12 @@ export default function SentMsg({ msg, time }) {
       border-radius: 10px;
     }
     .msg {
-      background-color: #f26e22;
+      background-color: var(--mainColor);
       color: #fff;
       border-radius: 10px 0 10px 10px;
       font-size: 14px;
       padding: 12px;
+      word-break: break-all;
     }
     .time {
       color: #767676;
@@ -29,11 +30,11 @@ export default function SentMsg({ msg, time }) {
     <>
       <SentMsgLayout>
         <p className="time">{time}</p>
-        <p className="msg">{msg}</p>
+        <img src="/images/QR-code.svg" alt="계좌QR코드" />
       </SentMsgLayout>
       <SentMsgLayout>
         <p className="time">{time}</p>
-        <img src="/images/img-profile-default.svg" alt="사용자 프로필 사진" />
+        <p className="msg">{msg}</p>
       </SentMsgLayout>
     </>
   );
