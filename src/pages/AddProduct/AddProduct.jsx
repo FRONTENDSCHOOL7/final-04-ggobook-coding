@@ -10,7 +10,7 @@ import ButtonHeader from "../../components/Header/ButtonHeader";
  * @returns AddProduct
  */
 export default function AddProduct() {
-  const URL = process.env.REACT_APP_API_URL;
+  const URL = "https://api.mandarin.weniv.co.kr";
   const navigate = useNavigate();
   const itemID = useParams().id; //profile에서 선택된 상품의 id값
   const [addProductData, setAddProductData] = useState(null); //신규 상품등록
@@ -46,7 +46,7 @@ export default function AddProduct() {
     const res = await fetch(`${URL}/image/uploadfile`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${getToken("token")}`,
+        Authorization: `Bearer ${getToken()}`,
       },
       body: formData,
     });
@@ -59,7 +59,7 @@ export default function AddProduct() {
       const res = await fetch(`${URL}/user/myinfo`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${getToken("token")}`,
+          Authorization: `Bearer ${getToken()}`,
         },
       });
       if (!res.ok) {
@@ -79,7 +79,7 @@ export default function AddProduct() {
       const res = await fetch(`${URL}/product/detail/${itemID}`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${getToken("token")}`,
+          Authorization: `Bearer ${getToken()}`,
           "Content-type": "application/json",
         },
       });
@@ -110,7 +110,7 @@ export default function AddProduct() {
           const res = await fetch(`${URL}/product`, {
             method: "POST",
             headers: {
-              Authorization: `Bearer ${getToken("token")}`,
+              Authorization: `Bearer ${getToken()}`,
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -140,7 +140,7 @@ export default function AddProduct() {
           const res = await fetch(`${URL}/product/${itemID}`, {
             method: "PUT",
             headers: {
-              Authorization: `Bearer ${getToken("token")}`,
+              Authorization: `Bearer ${getToken()}`,
               "Content-type": "application/json",
             },
             body: JSON.stringify({

@@ -5,7 +5,7 @@ import { getToken } from "../../utils/common";
 import SearchHeader from "../../components/Header/SearchHeader";
 
 export default function Search() {
-  const URL = process.env.REACT_APP_API_URL;
+  const URL = "https://api.mandarin.weniv.co.kr";
   const [inputValue, setInputValue] = useState("");
   const [valueItems, setValueItems] = useState([]); //매칭된 user의 리스트
   const [selectedUser, setSelectedUser] = useState(null); //선택된 user 정보
@@ -27,7 +27,7 @@ export default function Search() {
       const res = await fetch(`${URL}/user/searchuser/?keyword=${inputValue}`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${getToken("token")}`,
+          Authorization: `Bearer ${getToken()}`,
         },
       });
 
