@@ -3,8 +3,10 @@ import Chat from "./Chat";
 import { styled } from "styled-components";
 import KebabHeader from "../../components/Header/KebabHeader";
 import Navigator from "../../components/Navigator/Navigator";
+import { useNavigate } from "react-router-dom";
 
 export default function ChatList() {
+  const navigate = useNavigate();
   const ChatListLayout = styled.div`
     padding-bottom: 80px;
     height: 100vh;
@@ -12,21 +14,29 @@ export default function ChatList() {
   return (
     <ChatListLayout>
       <KebabHeader />
-      <Chat
-        nickName={"애월읍 위니브 감귤농장"}
-        msg={"이번에 정정 언제하맨마씸?"}
-        date={"2020.10.25"}
-      />
-      <Chat
-        nickName={"제주감귤마을"}
-        msg={"깊은 어둠의 존재감, 롤스로이스 뉴 블랙 배지..."}
-        date={"2020.10.21"}
-      />
-      <Chat
-        nickName={"누구네 농장 친환경 한라봉"}
-        msg={"내 차는 내가 평가한다. 오픈 이벤트에 참여 하..."}
-        date={"2020.10.20"}
-      />
+      <div
+        onClick={(e) => {
+          navigate("/chatroom");
+        }}
+      >
+        <Chat
+          nickName={"위니브 코딩팩토리"}
+          msg={"안녕하세요~! 자바스크립트 코드리뷰 요청드..."}
+          date={"2020.11.09"}
+        />
+        <Chat
+          isChecked={"true"}
+          nickName={"코딩마을"}
+          msg={"11월 10일에 하는 프론트엔드 모임 자리 남..."}
+          date={"2020.11.02"}
+        />
+        <Chat
+          isChecked={"true"}
+          nickName={"꼬북이네 코딩스쿨"}
+          msg={"지금 git 충돌나는데 원인을 모르겠어요..."}
+          date={"2020.10.30"}
+        />
+      </div>
       <Navigator />
     </ChatListLayout>
   );

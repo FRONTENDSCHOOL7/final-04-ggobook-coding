@@ -48,7 +48,7 @@ export default function Chat(props) {
   return (
     <>
       <ChatLayout>
-        <div className="isChecked"></div>
+        {props.isChecked ? "" : <div className="isChecked"></div>}
         <img src="/images/img-profile-default.svg" alt="사용자 프로필 사진" />
         <div>
           <h3>{props.nickName}</h3>
