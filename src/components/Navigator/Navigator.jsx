@@ -37,10 +37,6 @@ const NavLayout = styled.nav`
   .active {
     color: var(--mainColor);
   }
-
-  img {
-    fill: var(--mainColor);
-  }
 `;
 
 let navigators = [
@@ -57,7 +53,12 @@ let navigators = [
     path: "/post/upload",
     img: "/images/icon-edit.svg",
   },
-  { id: 4, name: "프로필", path: "/profile", img: "/images/icon-user.svg" },
+  {
+    id: 4,
+    name: "프로필",
+    path: `/profile/${localStorage.getItem("accountname")}`,
+    img: "/images/icon-user.svg",
+  },
 ];
 
 let navList = [];
