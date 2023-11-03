@@ -5,6 +5,6 @@
 //   return `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo`;
 // }
 
-export const getToken = (key) => {
-  return localStorage.getItem(key);
+export const getToken = () => {
+  return localStorage.getItem("token");
 }
