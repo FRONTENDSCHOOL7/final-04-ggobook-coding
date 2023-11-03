@@ -106,7 +106,7 @@ export default function Post({ post, del, comments, movePage }) {
 
   return (
     <PostLayout>
-      <li className="content-list" onClick={movePage}>
+      <li className="content-list">
         <img
           src={post.author.image ?? "/images/basic-profile.svg"}
           alt=""
@@ -124,7 +124,7 @@ export default function Post({ post, del, comments, movePage }) {
               </button>
             </div>
           </div>
-          <div className="content-inner">
+          <div className="content-inner" onClick={movePage}>
             <p>{post.content}</p>
 
             {post.image === "" ? null : (
