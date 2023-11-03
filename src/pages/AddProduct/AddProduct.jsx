@@ -67,7 +67,7 @@ export default function AddProduct() {
       }
       const userRes = await res.json();
       console.log("프로필 정보 불러오기", userRes);
-      setAccountName(userRes.user.accountname)
+      setAccountName(userRes.user.accountname);
     } catch (error) {
       console.error("🚫데이터를 불러오는데 에러가 발생했어요", error);
     }
@@ -155,7 +155,7 @@ export default function AddProduct() {
           const renameData = await res.json();
           //setSelectData에 renameData담기
           setAddProductData(renameData);
-          navigate(`/profile/${itemID}`); //선택한 상품의id로 이동
+          navigate(`/profile/${accountName}`); //상품 수정 후 프로필로 이동
           console.log("renameData", renameData);
           if (!res.ok) throw new Error("네트워크 문제가 발생했어요.");
         }
@@ -218,7 +218,8 @@ export default function AddProduct() {
             !inputPrice.length ||
             !salesLink.length ||
             !inputFocuseRef.current.value ||
-            !addFileImg}
+            !addFileImg
+          }
           children={itemID ? "수정" : "등록"}
         />
         <LayoutAddProduct>

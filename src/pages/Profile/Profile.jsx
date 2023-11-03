@@ -11,6 +11,7 @@ import Modal from "./../../components/Modal/Modal";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { ProfileAtom } from "./ProfileAtom";
 import KebabHeader from "../../components/Header/KebabHeader";
+import Post from "../../components/Post/Post";
 
 /**
  * @param
@@ -23,6 +24,7 @@ export default function Profile() {
   const [userInfo, setUserInfo] = useState("");
   const [list, setList] = useState([]); //상품리스트를 담을 hook
   const [selectProduct, setSelectProduct] = useState(null); //선택된 상품
+  const [postList, setPostList] = useState(null);
   const [modalType, setModalType] = useState(true);
   //atom상태값 읽기
   const modalState = useRecoilValue(ProfileAtom);
@@ -30,7 +32,8 @@ export default function Profile() {
   const [isModalState, setIsModalState] = useRecoilState(ProfileAtom);
   console.log("Profile 전달받은 id", id);
 
-console.log("프로필 token", getToken());
+  const accountname = localStorage.getItem("accountname");
+  console.log("프로필 accountname", accountname);
 
   /**
    * 모달 중복코드 공통함수 적용
@@ -52,6 +55,10 @@ console.log("프로필 token", getToken());
     productListData();
   }, [userInfo]);
 
+  useEffect(() => {
+    postLists();
+  }, []);
+
   //2.3 프로필 정보 불러오기 api
   const userInfoData = useCallback(async () => {
     try {
@@ -61,7 +68,7 @@ console.log("프로필 token", getToken());
           Authorization: `Bearer ${getToken()}`,
         },
       });
-      console.log('프로필 res', res)
+      console.log("프로필 res", res);
       if (!res.ok) {
         throw new Error("네트워크 문제가 발생했어요.");
       }
@@ -123,6 +130,25 @@ console.log("프로필 token", getToken());
     }
   }, [selectProduct]);
 
+  //5.3 유저별 게시글 목록
+  const postLists = useCallback(async () => {
+    try {
+      const res = await fetch(`${URL}/post/${accountname}/userpost`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+          "Content-type": "application/json",
+        },
+      });
+      if (!res.ok) throw new Error("데이터를 불러올 수 없습니다.");
+      const postData = await res.json();
+      console.log("postData", postData.post);
+      setPostList(postData.post);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
   //PostModal -> 삭제버튼
   const handleRemoveButton = useCallback(() => {
     updateModalState(true, false);
@@ -148,8 +174,8 @@ console.log("프로필 token", getToken());
 
   //Modal -> 선택상품 수정
   const handleRenameItem = useCallback(() => {
-    // navigate(`/product/${selectProduct.id}/edit`);
-    navigate(`/product/${selectProduct.author.accountname}/edit`);
+    navigate(`/product/${selectProduct.id}/edit`);
+    // navigate(`/product/${selectProduct.author.accountname}/edit`);
   }, [selectProduct]);
 
   //모달 취소 버튼
@@ -221,84 +247,16 @@ console.log("프로필 token", getToken());
           <div className="contentWrap">
             <div className="content-container">
               {/* 게시글 한개 */}
-              <div className="content-list">
-                <img
-                  src="/images/basic-profile.svg"
-                  alt=""
-                  className="profile-img"
-                />
-                <div className="content">
-                  <div className="content-title">
-                    <div className="content-id">
-                      <h3>애월읍 위니브 감귤농장</h3>
-                      <p>@ weniv_Mandarin</p>
-                    </div>
-                    <div>
-                      <button>
-                        <img src="/images/icon-more-vertical.svg" alt="" />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="content-inner">
-                    <p>
-                      옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의
-                      위하여, 뿐이다. 이상의 청춘의 뼈 따뜻한 그들의 그와
-                      약동하다. 대고, 못할 넣는 풍부하게 뛰노는 인생의 힘있다.
-                    </p>
-                    <img src="https://via.placeholder.com/304x228" alt="" />
-                  </div>
-                  <div className="like-comment">
-                    <button>
-                      <img src="/images/icon-heart.svg" alt="" />{" "}
-                      <span>58</span>
-                    </button>
-                    <button>
-                      <img src="/images/icon-message-circle.svg" alt="" />
-                      <span>12</span>
-                    </button>
-                  </div>
-                  <span className="date">2020년 10월 21일</span>
-                </div>
-              </div>
-              <div className="content-list">
-                <img
-                  src="/images/basic-profile.svg"
-                  alt=""
-                  className="profile-img"
-                />
-                <div className="content">
-                  <div className="content-title">
-                    <div className="content-id">
-                      <h3>애월읍 위니브 감귤농장</h3>
-                      <p>@ weniv_Mandarin</p>
-                    </div>
-                    <div>
-                      <button>
-                        <img src="/images/icon-more-vertical.svg" alt="" />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="content-inner">
-                    <p>
-                      옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의
-                      위하여, 뿐이다. 이상의 청춘의 뼈 따뜻한 그들의 그와
-                      약동하다. 대고, 못할 넣는 풍부하게 뛰노는 인생의 힘있다.
-                    </p>
-                    <img src="https://via.placeholder.com/304x228" alt="" />
-                  </div>
-                  <div className="like-comment">
-                    <button>
-                      <img src="/images/icon-heart.svg" alt="" />{" "}
-                      <span>58</span>
-                    </button>
-                    <button>
-                      <img src="/images/icon-message-circle.svg" alt="" />
-                      <span>12</span>
-                    </button>
-                  </div>
-                  <span className="date">2020년 10월 21일</span>
-                </div>
-              </div>
+              {postList &&
+                postList.map((post) => (
+                  <Post
+                    key={post.id}
+                    post={post}
+                    movePage={(e) => {
+                      navigate(`/post/${post.id}`);
+                    }}
+                  />
+                ))}
             </div>
           </div>
         </Sect3>
