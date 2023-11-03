@@ -14,13 +14,13 @@ export default function User({ inputValue, valueItems }) {
   console.log("valueItems", inputValue, "valueItems이미지====>", valueItems);
 
   useEffect(() => {
-    console.log("selectedUser", selectedUser)
+    // console.log("selectedUser", selectedUser)
     if(selectedUser) navigate(`/profile/${selectedUser}`);
   }, [selectedUser]);
 
-  //클릭했을 때 선택한 user의 accountname 이동
+  //클릭했을 때 선택한 user의 id로 이동
   const handelUserProfile = useCallback((selectedItem) => {
-    console.log("selectedItem", selectedItem.accountname)
+    // console.log("selectedItem", selectedItem.accountname, selectedItem._id)
     setSelectedUser(selectedItem.accountname);
   }, []);
 

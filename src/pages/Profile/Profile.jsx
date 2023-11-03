@@ -6,7 +6,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { getToken } from "../../utils/common";
 import Navigator from "../../components/Navigator/Navigator";
-import HeaderProfile from "../../components/Header/HeaderProfile";
 import PostModal from "./../../components/PostModal/PostModal";
 import Modal from "./../../components/Modal/Modal";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -29,7 +28,7 @@ export default function Profile() {
   const modalState = useRecoilValue(ProfileAtom);
   //atom 상태 수정하기
   const [isModalState, setIsModalState] = useRecoilState(ProfileAtom);
-  console.log("전달받은 id", id)
+  console.log("Profile 전달받은 id", id);
 
   /**
    * 모달 중복코드 공통함수 적용
@@ -57,7 +56,7 @@ export default function Profile() {
       const res = await fetch(`${URL}/user/myinfo`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${getToken()}`,
+          Authorization: `Bearer ${getToken("token")}`,
         },
       });
       if (!res.ok) {
@@ -79,7 +78,7 @@ export default function Profile() {
       const res = await fetch(`${URL}/product/${userInfo.accountname}`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${getToken()}`,
+          Authorization: `Bearer ${getToken("token")}`,
           "Content-type": "application/json",
         },
       });
@@ -101,7 +100,7 @@ export default function Profile() {
       const res = await fetch(`${URL}/product/${selectProduct.id}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${getToken()}`,
+          Authorization: `Bearer ${getToken("token")}`,
           "Content-type": "application/json",
         },
       });
@@ -146,7 +145,8 @@ export default function Profile() {
 
   //Modal -> 선택상품 수정
   const handleRenameItem = useCallback(() => {
-    navigate(`/product/${selectProduct.id}/edit`);
+    // navigate(`/product/${selectProduct.id}/edit`);
+    navigate(`/product/${selectProduct.author.accountname}/edit`);
   }, [selectProduct]);
 
   //모달 취소 버튼

@@ -21,7 +21,8 @@ export default function AddProduct() {
   const inputFocuseRef = useRef(null);
   const [addFileImg, setAddFileImg] = useState(""); //이미지 등록
   const [uploadImg, setUploadImg] = useState(null);
-  console.log("addProduct ID", itemID, addProductData);
+  const [accountName, setAccountName] = useState(null); //user 정보
+  console.log("addProduct ID", itemID, addProductData, accountName);
 
   useEffect(() => {
     inputFocuseRef.current.focus();
@@ -32,6 +33,10 @@ export default function AddProduct() {
     if (itemID) productDetailInfoData();
   }, [itemID]);
 
+  useEffect(() => {
+    userInfoData();
+  }, []);
+
   //이미지 api 등록 함수
   const imgSubmit = useCallback(async () => {
     const file = uploadImg;
@@ -41,12 +46,32 @@ export default function AddProduct() {
     const res = await fetch(`${URL}/image/uploadfile`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken("token")}`,
       },
       body: formData,
     });
     return res.json();
   }, [uploadImg, getToken]);
+
+  //프로필정보 불러오기
+  const userInfoData = useCallback(async () => {
+    try {
+      const res = await fetch(`${URL}/user/myinfo`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${getToken("token")}`,
+        },
+      });
+      if (!res.ok) {
+        throw new Error("네트워크 문제가 발생했어요.");
+      }
+      const userRes = await res.json();
+      console.log("프로필 정보 불러오기", userRes);
+      setAccountName(userRes.user.accountname)
+    } catch (error) {
+      console.error("🚫데이터를 불러오는데 에러가 발생했어요", error);
+    }
+  }, [URL]);
 
   //8.2 선택된 상품 상품 상세 가져오기 api
   const productDetailInfoData = useCallback(async () => {
@@ -54,7 +79,7 @@ export default function AddProduct() {
       const res = await fetch(`${URL}/product/detail/${itemID}`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${getToken()}`,
+          Authorization: `Bearer ${getToken("token")}`,
           "Content-type": "application/json",
         },
       });
@@ -85,7 +110,7 @@ export default function AddProduct() {
           const res = await fetch(`${URL}/product`, {
             method: "POST",
             headers: {
-              Authorization: `Bearer ${getToken()}`,
+              Authorization: `Bearer ${getToken("token")}`,
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -106,7 +131,7 @@ export default function AddProduct() {
           setInputPrice("");
           setSalesLink("");
           setAddFileImg("");
-          navigate(`/profile/${itemID}`);
+          navigate(`/profile/${accountName}`); //profile어카운트네임으로 이동
           if (!res.ok) throw new Error("네트워크 문제가 발생했어요.");
         }
         //상품id가 있을 경우 수정 api 적용
@@ -115,7 +140,7 @@ export default function AddProduct() {
           const res = await fetch(`${URL}/product/${itemID}`, {
             method: "PUT",
             headers: {
-              Authorization: `Bearer ${getToken()}`,
+              Authorization: `Bearer ${getToken("token")}`,
               "Content-type": "application/json",
             },
             body: JSON.stringify({
@@ -130,7 +155,7 @@ export default function AddProduct() {
           const renameData = await res.json();
           //setSelectData에 renameData담기
           setAddProductData(renameData);
-          navigate(`/profile/${itemID}`);
+          navigate(`/profile/${itemID}`); //선택한 상품의id로 이동
           console.log("renameData", renameData);
           if (!res.ok) throw new Error("네트워크 문제가 발생했어요.");
         }
