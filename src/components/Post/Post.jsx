@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { useState } from "react";
 
 const PostLayout = styled.ul`
   .content-list {
@@ -32,6 +33,11 @@ const PostLayout = styled.ul`
       color: var(--767676, #767676);
     }
   }
+  .del-btn {
+    width: 30px;
+    height: 30px;
+  }
+
   .content {
     display: flex;
     flex-direction: column;
@@ -74,12 +80,29 @@ const PostLayout = styled.ul`
 `;
 
 export default function Post({ post, del, comments, movePage }) {
+  const [likeCount, setLikeCount] = useState(post.heartCount);
+  const [isLike, setIsLike] = useState(false);
+  const [backgroundUrl, setBackgroundUrl] = useState("/images/icon-heart.svg");
+
   //날짜포멧 맞추기 (YYYY년 MM월 DD일)
   let postDate = post.updatedAt;
   postDate = `${postDate.substring(0, 4)}년 ${postDate.substring(
     5,
     7
   )}월 ${postDate.substring(8, 10)}일`;
+
+  //좋아요 버튼 기능
+  const handleClickLikeBtn = () => {
+    if (isLike) {
+      setLikeCount(likeCount - 1);
+      setBackgroundUrl("/images/icon-heart.svg");
+    } else {
+      setLikeCount(likeCount + 1);
+      setBackgroundUrl("/images/icon-red-heart.svg");
+    }
+
+    setIsLike(!isLike);
+  };
 
   return (
     <PostLayout>
@@ -96,8 +119,8 @@ export default function Post({ post, del, comments, movePage }) {
               <p>@ {post.author.accountname}</p>
             </div>
             <div>
-              <button onClick={del}>
-                <img src="images/s-icon-more-vertical.svg" alt="" />
+              <button className="del-btn" onClick={del}>
+                <img src="/images/s-icon-more-vertical.svg" alt="" />
               </button>
             </div>
           </div>
@@ -109,9 +132,8 @@ export default function Post({ post, del, comments, movePage }) {
             )}
           </div>
           <div className="like-comment">
-            <button>
-              <img src="/images/icon-heart.svg" alt="" />{" "}
-              <span>{post.heartCount}</span>
+            <button onClick={handleClickLikeBtn}>
+              <img src={backgroundUrl} alt="" /> <span>{likeCount}</span>
             </button>
             <button>
               <img src="/images/icon-message-circle.svg" alt="" />{" "}

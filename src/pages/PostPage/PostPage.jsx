@@ -303,6 +303,31 @@ export default function PostPage() {
     setModalState(false);
   };
 
+  //댓글 작성시간 계산
+  function elapsedTime(date) {
+    const start = new Date(date);
+    const end = new Date();
+
+    const diff = (end - start) / 1000;
+
+    const times = [
+      { name: "년", milliSeconds: 60 * 60 * 24 * 365 },
+      { name: "개월", milliSeconds: 60 * 60 * 24 * 30 },
+      { name: "일", milliSeconds: 60 * 60 * 24 },
+      { name: "시간", milliSeconds: 60 * 60 },
+      { name: "분", milliSeconds: 60 },
+    ];
+
+    for (const value of times) {
+      const betweenTime = Math.floor(diff / value.milliSeconds);
+
+      if (betweenTime > 0) {
+        return `${betweenTime}${value.name} 전`;
+      }
+    }
+    return "방금 전";
+  }
+
   // ============= COMMENTS(댓글) 끝 =============
 
   return (
@@ -320,13 +345,12 @@ export default function PostPage() {
               <img
                 className="imgProfile"
                 src={comment.author.image}
-                // src="/images/img-profile-default.svg"
                 alt="profile"
               />
               <div>
                 <div className="commentHeader">
                   <h3>{comment.author.username}</h3>
-                  <p>5분 전</p>
+                  <p>{elapsedTime(comment.createdAt)}</p>
                   <CommonBtn
                     type="button"
                     $img="/images/icon-more-vertical.svg"
@@ -353,8 +377,7 @@ export default function PostPage() {
           <div>
             <img
               className="imgProfile"
-              src="/images/img-profile-default.svg"
-              // 로그인한 사용자 img 보여주는 처리 해야함
+              src={localStorage.getItem("image")}
               alt="profile"
             />
           </div>
