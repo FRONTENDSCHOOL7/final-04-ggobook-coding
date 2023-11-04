@@ -103,8 +103,10 @@ export default function Upload() {
       e.preventDefault();
 
       let uploadResult = "";
+      let uploadFileName = "";
       if (addFileImg) {
         uploadResult = await imgSubmit();
+        uploadFileName = `${URL}/${uploadResult.filename}`;
         console.log("uploadResult", uploadResult);
       }
 
@@ -117,7 +119,7 @@ export default function Upload() {
         body: JSON.stringify({
           post: {
             content: contentTxt,
-            image: `${URL}/${uploadResult.filename}`,
+            image: uploadFileName,
           },
         }),
       });
@@ -128,7 +130,7 @@ export default function Upload() {
       }
       const data = await res.json();
       console.log("PostData", data);
-      alert("저장되었습니다.");
+      // alert("저장되었습니다.");
       navigate(`/profile/${localStorage.getItem("accountname")}`);
     } catch (error) {
       console.error(error);
