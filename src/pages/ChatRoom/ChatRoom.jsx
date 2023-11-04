@@ -15,7 +15,7 @@ export default function ChatRoom() {
 
   return (
     <ChatRoomayout>
-      <KebabHeader content={"애월읍 위니브 코딩팩토리"} />
+      <KebabHeader content={"애월읍 위니부 코딩팩토리"} />
       <ChatLayout>
         <ReceivedMsg
           msg={"안녕하세요~! 자바스크립트 코드리뷰 요청드려요."}
