@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { ProfileThumbnail } from "../../styles/GlobalStyle";
-import HeaderBtn from '../../components/Header/HeaderBtn';
 import Input from '../../components/Input/Input';
 import Spaces from '../../components/Spaces/Spaces';
 import ButtonHeader from '../../components/Header/ButtonHeader';
@@ -10,7 +10,7 @@ import ButtonHeader from '../../components/Header/ButtonHeader';
 function ProfileModification() {
   // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzdjZGI2YjJjYjIwNTY2Mzg1ZjhlZCIsImV4cCI6MTcwMzM1MTM0MywiaWF0IjoxNjk4MTY3MzQzfQ.oJlrkrlk8XQSW17M24AL_csorLzsVXxvXzDc-3tFDyo";
   // localStorage에서 토큰 가져오기. 지금은 테스트를 위해 직접 넣은 상태.
-  // const token = localStorage.getItem('userToken');
+
   const token =  localStorage.getItem("token");
   console.log("token", token);
 
@@ -168,10 +168,17 @@ function ProfileModification() {
     uploadImage(imageFile);
   };
 
+
+  const navigate = useNavigate(); // useNavigate를 사용하여 navigate 함수를 얻습니다.
+
+
+
   // 수정 버튼을 클릭할 때 실행되는 이벤트 핸들러입니다.
   const submitEdit = (e) => {
     e.preventDefault();
     // 기본 submit 버튼기능을 막습니다.
+
+    navigate(-1);
 
     // 수정할 정보를 객체로 만들어 API 호출 함수에 전달합니다.
     const editData = {
@@ -185,12 +192,6 @@ function ProfileModification() {
     console.log(editData)
     edit(editData);
   };
-
-
-  
-    
-
-
 
 
  // ┌ ====== 유효성을 통한 버튼 활성화 기능 ==========┐
@@ -269,15 +270,8 @@ function ProfileModification() {
 
 
 
-
   return (
     <StyledDiv>
-      
-      {/* <HeaderBtn 
-      onSubmitEdit={submitEdit} 
-      // onNavigate={handleNavigateToLogin} 
-      btnState={btnState} 
-      /> */}
       <ButtonHeader
         disabled={btnState}
         onClick={submitEdit}
