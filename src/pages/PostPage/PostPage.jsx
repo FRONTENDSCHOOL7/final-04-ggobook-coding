@@ -194,9 +194,8 @@ export default function PostPage() {
         return response.json();
       })
       .then((data) => {
-        // console.log(data);
         console.log("게시물을 성공적으로 삭제했습니다.");
-        navigate("/home");
+        navigate(`/profile/${localStorage.getItem("accountname")}`);
       })
       .catch((error) => {
         console.error(error);
