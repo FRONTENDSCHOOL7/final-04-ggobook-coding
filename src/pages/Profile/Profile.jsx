@@ -273,7 +273,7 @@ export default function Profile() {
       {/* 전체 모달 */}
       {modalState.isCommonModal && (
         <Modal
-          title={modalType ? "게시글을 삭제할까요?" : "상품을 수정할까요?"}
+          title={modalType ? "상품을 삭제할까요?" : "상품을 수정할까요?"}
           handleModalCancelButton={handleModalCancelButton}
         >
           {modalType ? (
