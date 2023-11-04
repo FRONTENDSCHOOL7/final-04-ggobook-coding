@@ -113,7 +113,7 @@ export const CommonLayOut = styled.section`
   margin: 0 auto;
   max-width: var(--appWidth);
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24); */
 `;
 
 //Layout 좌우 패딩
@@ -137,9 +137,8 @@ export const ProfileThumbnail = styled.img`
   position: absolute;
   background-size: 110px;
   border-radius: 110px;
-  
+
   border: 1px solid #dbdbdb;
-  
 `;
 
 /**
@@ -158,7 +157,7 @@ export const CommonBtn = styled.button`
 
   /* 비활성화 컬러 추가 */
   &[disabled] {
-    background-color: #A7CAB5; 
+    background-color: #a7cab5;
     cursor: not-allowed;
   }
 `;
