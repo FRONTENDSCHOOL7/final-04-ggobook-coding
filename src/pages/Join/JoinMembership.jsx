@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 import Input from "../../components/Input/Input";
@@ -10,21 +10,72 @@ import { UserInfoContext } from "../../context/UserInfoContext";
 export default function JoinMembership() {
   const { email, setEmail } = useContext(UserInfoContext);
   const { password, setPassword } = useContext(UserInfoContext);
-
+  const [emailErrMsg, setEmailErrMsg] = useState("");
   const [pwErrMsg, setPwErrMsg] = useState("");
+  const [isBtnDisabled, setIsBtnDisabled] = useState(true);
+
+  const navigate = useNavigate();
+
+  // 다음 버튼 disabled 처리
+  const handleBtnDisabled = () => {
+    if (email && password) {
+      setIsBtnDisabled(false);
+    } else {
+      setIsBtnDisabled(true);
+    }
+  };
 
   const inputEmail = (event) => {
     setEmail(event.target.value);
+    setEmailErrMsg("");
+    handleBtnDisabled();
   };
 
   const inputPassword = (event) => {
     setPassword(event.target.value);
 
-    // if (password.length >= 6) {
-    //   setPwErrMsg("");
-    // } else {
-    //   setPwErrMsg("*비밀번호는 6자 이상이어야 합니다.");
-    // }
+    if (password.length < 6) {
+      setPwErrMsg("*비밀번호는 6자 이상 입력해 주세요.");
+    } else {
+      setPwErrMsg("");
+      handleBtnDisabled();
+    }
+  };
+
+  // 이메일 검증
+  const emailValid = async (email) => {
+    const baseUrl = "https://api.mandarin.weniv.co.kr";
+    const reqPath = "/user/emailvalid";
+
+    try {
+      const res = await fetch(baseUrl + reqPath, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          user: {
+            email: email,
+          },
+        }),
+      });
+
+      const json = await res.json();
+
+      if (json.message === "이미 가입된 이메일 주소 입니다.") {
+        setEmailErrMsg("이미 가입된 이메일 주소 입니다.");
+      } else {
+        navigate("/profilesetting");
+      }
+    } catch (error) {
+      console.log("에러 발생");
+    }
+  };
+
+  // 다음 버튼 클릭 시 이벤트
+  const handleNext = (event) => {
+    event.preventDefault();
+    emailValid(email);
   };
 
   return (
@@ -32,7 +83,7 @@ export default function JoinMembership() {
       <Styledh1>이메일로 회원가입</Styledh1>
       <Spaces gap={"40px"} />
 
-      <StyledForm>
+      <StyledForm onSubmit={handleNext}>
         <Input
           label="이메일"
           inputBorderColor="#dbdbdb"
@@ -42,7 +93,7 @@ export default function JoinMembership() {
           placeholder="이메일을 주소를 입력해 주세요."
           autoFocus={true}
         />
-        {/* {emailErrMsg && <ErrMsg>{emailErrMsg}</ErrMsg>} */}
+        {emailErrMsg && <ErrMsg>{emailErrMsg}</ErrMsg>}
         <Spaces gap="16px" />
         <Input
           label="비밀번호"
@@ -54,16 +105,15 @@ export default function JoinMembership() {
         />
         {pwErrMsg && <ErrMsg>{pwErrMsg}</ErrMsg>}
         <Spaces gap="30px" />
-        <Link to="/profilesetting">
-          <Button
-            width="322px"
-            padding="13px"
-            backgroundColor="var(--disabled)"
-            color="#fff"
-          >
-            다음
-          </Button>
-        </Link>
+        <Button
+          width="322px"
+          padding="13px"
+          backgroundColor="var(--mainColor)"
+          color="#fff"
+          disabled={isBtnDisabled}
+        >
+          다음
+        </Button>
       </StyledForm>
     </StyledDiv>
   );
