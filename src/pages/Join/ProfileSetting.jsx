@@ -17,12 +17,24 @@ export default function ProfileSetting() {
   const [username, setUsername] = useState();
   const [accountname, setAccountname] = useState();
   const [intro, setIntro] = useState();
+  const [isBtnDisabled, setIsBtnDisabled] = useState(true);
+
+  // 회원가입 버튼 disabled 처리
+  const handleBtnDisabled = () => {
+    if (username && accountname) {
+      setIsBtnDisabled(false);
+    } else {
+      setIsBtnDisabled(true);
+    }
+  };
 
   const inputUsername = (event) => {
     setUsername(event.target.value);
+    handleBtnDisabled();
   };
   const inputAccountname = (event) => {
     setAccountname(event.target.value);
+    handleBtnDisabled();
   };
   const inputIntro = (event) => {
     setIntro(event.target.value);
@@ -130,8 +142,9 @@ export default function ProfileSetting() {
         <Button
           width="322px"
           padding="13px"
-          backgroundColor="var(--disabled)"
+          backgroundColor="var(--mainColor)"
           color="#fff"
+          disabled={isBtnDisabled}
           onClick={handleJoin}
         >
           코북코딩 시작하기
