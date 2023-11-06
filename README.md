@@ -59,7 +59,7 @@
    
 | 이지은 | 이재영 | 임하늘 | 정희수 |
 | :-: | :-: | :-: | :-: |
-| <img width="180" alt="taehee_profile_img" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/ae465482-face-470b-9813-092cc78c0def"> |  | <img width="180" alt="taehee_profile_img" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/a2eac245-e395-40df-a2ec-0ff694b3aa13"> |  |
+| <img width="180" alt="이지은" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/ae465482-face-470b-9813-092cc78c0def"> | <img width="180" alt="이재영" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/e00b5a38-300b-4d7c-a2be-ea6e6897e492"> | <img width="180" alt="임하늘" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/a2eac245-e395-40df-a2ec-0ff694b3aa13"> |  |
 | [cutieun](https://github.com/cutieun) | [jaeyounging](https://github.com/jaeyounging)  | [limhaneul2244](https://github.com/limhaneul2244) | [Heesoo.J](https://github.com/hodolCup) |
 | `팀장` | `팀원` | `팀원` | `팀원`|
    
@@ -175,29 +175,29 @@
 
 ## 7. 💖주요 기능 소개
 
-| Splash 및 로그인 | 회원가입 |
-| :-: | :-: |
-|<img width="430px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/e85fccd5-6735-499b-bc17-600d2f750ab8" alt="로그인">||
+| Splash 및 로그인 | 회원가입 | 프로필설정 |
+| :-: | :-: | :-: |
+|<img height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/e85fccd5-6735-499b-bc17-600d2f750ab8" alt="로그인">|<img  height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/ccbf7228-4d1e-42e2-8e57-47e08f902cc1" alt="회원가입">|<img  height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/3067dce8-52da-4598-b33b-bbcd89362bd0" alt="프로필설정">|
 
 | 게시글 등록 | 게시글 삭제 | 댓글추가 및 삭제 |
 | :-: | :-: | :-: |
-|<img width="430px;" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/46c092b9-ece0-4623-8062-0ef684fce8b1" alt="게시글등록">|<img width="430px;" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/f7b66776-2016-42f0-bda8-418bf01e5f7b" alt="게시글삭제">|<img width="430px;" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/13ded54d-0a98-4682-9e4f-3f3045b18260" alt="댓글추가및삭제">|
+|<img height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/46c092b9-ece0-4623-8062-0ef684fce8b1" alt="게시글등록">|<img height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/f7b66776-2016-42f0-bda8-418bf01e5f7b" alt="게시글삭제">|<img height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/13ded54d-0a98-4682-9e4f-3f3045b18260" alt="댓글추가및삭제">|
 
 | 상품 등록 | 상품 수정 | 상품 삭제 |
 | :-: | :-: | :-: |
-|<img width="430px;" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/9c58fb9e-eed3-41a4-81fe-231848284203" alt="상품등록">|<img width="430px;" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/02108106-f033-4e4e-8a43-538cd185ce48" alt="상품수정">|<img width="430px;" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/688a907c-5478-46fc-86f6-3fc5614c5c7d" alt="상품삭제">|
+|<img height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/9c58fb9e-eed3-41a4-81fe-231848284203" alt="상품등록">|<img height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/02108106-f033-4e4e-8a43-538cd185ce48" alt="상품수정">|<img height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/688a907c-5478-46fc-86f6-3fc5614c5c7d" alt="상품삭제">|
 
 | 내프로필 조회 | 내 프로필 수정 |
 | :-: | :-: |
-|<img width="430px;" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/4d63cc2d-a0a6-43da-ab9d-f4aaf0a0bf0a" alt="내프로필조회">|<img width="430px;" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/ff585f89-8835-4c5d-8e36-4f16f3e7045a" alt="내프로필수정">|
+|<img height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/4d63cc2d-a0a6-43da-ab9d-f4aaf0a0bf0a" alt="내프로필조회">|<img  height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/ff585f89-8835-4c5d-8e36-4f16f3e7045a" alt="내프로필수정">|
 
 | 팔로우 | 네비게이션 | 채팅방 |
 | :-: | :-: | :-: |
-|<img width="430px;" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/48569265-6ca3-4be4-b8b1-20fd01c1658b" alt="팔로우">|<img width="430px;" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/09742841-4d68-4a99-a1bd-0c98f161f0d8" alt="네비게이션">|<img width="430px;" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/15acafc7-619a-4eac-976c-aded238846a6" alt="채팅방">|
+|<img height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/48569265-6ca3-4be4-b8b1-20fd01c1658b" alt="팔로우">|<img height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/09742841-4d68-4a99-a1bd-0c98f161f0d8" alt="네비게이션">|<img height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/15acafc7-619a-4eac-976c-aded238846a6" alt="채팅방">|
 
-| 피드조회 | 사용자조회 | 404페이지 |
+| 피드조회 | 검색창 | 404페이지 |
 | :-: | :-: | :-: |
-|<img width="430px;" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/b8ecdaee-e191-4a3a-b7dc-00a694bcf4e9" alt="피드조회">|  |<img width="430px;" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/7f620866-31b6-47ed-b0e7-fbf808440b9d" alt="404페이지">|
+|<img height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/b8ecdaee-e191-4a3a-b7dc-00a694bcf4e9" alt="피드조회">|<img height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/d4f0c582-1f68-407e-8727-e79248b9befe" alt="검색창">|<img height="500px" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/7f620866-31b6-47ed-b0e7-fbf808440b9d" alt="404페이지">|
 
 <p align="right"><a href="#top">🔼 Top</a></p>
 
