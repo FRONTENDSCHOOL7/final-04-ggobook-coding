@@ -43,14 +43,12 @@ export default function Search() {
   //받아온 데이터 업데이트
   const upDateData = useCallback(async () => {
     const searchRes = await handleSearch();
-    console.log("searchRes", searchRes);
 
     //받아온 searchRes가 배열인지 조건 체크 (array 아닐수도 있으니까)
     if (Array.isArray(searchRes)) {
       const userRes = searchRes.filter(
         (list) => list.username.includes(inputValue) === true
       );
-      console.log("userRes", userRes);
       setValueItems(userRes);
     }
   }, [inputValue, handleSearch]);

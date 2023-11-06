@@ -30,10 +30,7 @@ export default function Profile() {
   const modalState = useRecoilValue(ProfileAtom);
   //atom 상태 수정하기
   const [isModalState, setIsModalState] = useRecoilState(ProfileAtom);
-  console.log("Profile 전달받은 id", id);
-
   const accountname = localStorage.getItem("accountname");
-  console.log("프로필 accountname", accountname);
 
   /**
    * 모달 중복코드 공통함수 적용
@@ -68,12 +65,10 @@ export default function Profile() {
           Authorization: `Bearer ${getToken()}`,
         },
       });
-      console.log("프로필 res", res);
       if (!res.ok) {
         throw new Error("네트워크 문제가 발생했어요.");
       }
       const userRes = await res.json();
-      console.log("프로필 정보 불러오기", userRes.user);
       setUserInfo(userRes.user);
     } catch (error) {
       console.error("🚫데이터를 불러오는데 에러가 발생했어요", error);
@@ -82,7 +77,6 @@ export default function Profile() {
 
   //8.2 상품리스트 productListData api
   const productListData = useCallback(async () => {
-    // console.log("userInfo---->", userInfo);
     if (!userInfo) return;
     try {
       const res = await fetch(`${URL}/product/${userInfo.accountname}`, {
@@ -97,7 +91,6 @@ export default function Profile() {
         throw new Error("네트워크 문제가 발생했어요.");
       }
       const data = await res.json();
-      console.log("data", data);
       setList(data.product);
     } catch (error) {
       console.error("🚫데이터를 불러오는데 에러가 발생했어요", error);
@@ -118,14 +111,10 @@ export default function Profile() {
         throw new Error("네트워크 문제가 발생했어요.");
       }
       const itemData = await res.json();
-
       const listArray = list.filter((item) => item.id !== selectProduct.id);
-      console.log("list", listArray);
-      console.log("상품 삭제기능", itemData);
       setList(listArray);
       return itemData;
     } catch (error) {
-      // console.error("🚫등록된 상품이 없습니다.", error);
       console.error("🚫데이터를 불러오는데 에러가 발생했어요", error);
     }
   }, [selectProduct]);
@@ -142,7 +131,6 @@ export default function Profile() {
       });
       if (!res.ok) throw new Error("데이터를 불러올 수 없습니다.");
       const postData = await res.json();
-      console.log("postData", postData.post);
       setPostList(postData.post);
     } catch (error) {
       console.error(error);
@@ -175,7 +163,6 @@ export default function Profile() {
   //Modal -> 선택상품 수정
   const handleRenameItem = useCallback(() => {
     navigate(`/product/${selectProduct.id}/edit`);
-    // navigate(`/product/${selectProduct.author.accountname}/edit`);
   }, [selectProduct]);
 
   //모달 취소 버튼
@@ -297,7 +284,6 @@ export default function Profile() {
  * @returns ProductList 판매중인 상품 리스트
  */
 export const ProductsList = ({ list, setSelectProduct }) => {
-  console.log("productList", list);
   if (!list) return;
 
   return (
@@ -353,10 +339,7 @@ export const ProductItem = ({ item, setSelectProduct }) => {
   );
 };
 
-const HomeLayout = styled.div`
-  /* display: flex; */
-  /* flex-direction: column; */
-`;
+const HomeLayout = styled.div``;
 
 const Sect1 = styled.div`
   display: flex;
@@ -410,7 +393,6 @@ const Intro = styled.div`
 
 const Btns = styled.div`
   display: flex;
-  /* margin-top: 24px; */
   margin-bottom: 24px;
   justify-content: center;
   gap: 10px;
@@ -451,10 +433,7 @@ const Sect3 = styled.div`
   .content-container::-webkit-scrollbar {
     display: none;
   }
-  .contentWrap {
-    /* height: 300px;
-    overflow: hidden; */
-  }
+
   .content-container {
     /* 기존 높이 */
     /* height: 500px; */

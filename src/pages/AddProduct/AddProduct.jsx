@@ -85,7 +85,6 @@ export default function AddProduct() {
       });
       if (!res.ok) throw new Error("네트워크 문제가 발생했어요.");
       const selectedItem = await res.json();
-      // console.log('test', `${URL}/${selectedItem.product.itemImage}`);
       setAddProductData(selectedItem);
       setProductName(selectedItem.product.itemName);
       setInputPrice(String(selectedItem.product.price));
@@ -103,7 +102,6 @@ export default function AddProduct() {
       try {
         //이미지를 넣어주기 위해서 body전에 삽입하고 imgSubmit을 호출
         const uploadResult = await imgSubmit();
-        console.log("uploadResult", uploadResult);
 
         //상품id가 없을 경우 신규 상품 등록
         if (!itemID) {
@@ -122,9 +120,7 @@ export default function AddProduct() {
               },
             }),
           });
-          console.log("신규상품등록", res);
           const data = await res.json();
-          console.log("productData", data);
           setAddProductData(data);
 
           setProductName("");
@@ -136,7 +132,6 @@ export default function AddProduct() {
         }
         //상품id가 있을 경우 수정 api 적용
         else {
-          console.log("itemID---------->", itemID);
           const res = await fetch(`${URL}/product/${itemID}`, {
             method: "PUT",
             headers: {
@@ -156,7 +151,6 @@ export default function AddProduct() {
           //setSelectData에 renameData담기
           setAddProductData(renameData);
           navigate(`/profile/${accountName}`); //상품 수정 후 프로필로 이동
-          console.log("renameData", renameData);
           if (!res.ok) throw new Error("네트워크 문제가 발생했어요.");
         }
       } catch (error) {
@@ -203,7 +197,6 @@ export default function AddProduct() {
 
     setUploadImg(file);
     const reader = new FileReader();
-    console.log("AddProduct 이미지 로드 시작: ", file, reader);
     reader.readAsDataURL(file);
     reader.onload = () => {
       setAddFileImg(reader.result || null);
