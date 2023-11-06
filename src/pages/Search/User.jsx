@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 
 /**
@@ -11,16 +11,13 @@ export default function User({ inputValue, valueItems }) {
   const URL = "https://api.mandarin.weniv.co.kr";
   const navigate = useNavigate();
   const [selectedUser, setSelectedUser] = useState(null); //선택한 user
-  console.log("valueItems", inputValue, "valueItems이미지====>", valueItems);
 
   useEffect(() => {
-    // console.log("selectedUser", selectedUser)
     if(selectedUser) navigate(`/profile/${selectedUser}`);
   }, [selectedUser]);
 
   //클릭했을 때 선택한 user의 id로 이동
   const handelUserProfile = useCallback((selectedItem) => {
-    // console.log("selectedItem", selectedItem.accountname, selectedItem._id)
     setSelectedUser(selectedItem.accountname);
   }, []);
 
@@ -80,7 +77,6 @@ export default function User({ inputValue, valueItems }) {
       {valueItems.map((item) => {
         return (
           <UserLayout onClick={()=>handelUserProfile(item)} key={item._id}>
-            {/* <img src={item.image} alt={item.username} /> */}
             <img src={userProfileImg(item.image)} alt={item.username} />
             <div>
               <h3>{highLightText(item.username, inputValue)}</h3>
