@@ -2,32 +2,32 @@
 <details>
   <summary><strong>🌳목차</strong></summary>
 
-1. [ 서비스소개](#1-🐢서비스-소개)
+1. [ 서비스소개](#1-서비스-소개)
 
-2. [ 팀 소개](#2-👥팀-소개)
+2. [ 팀 소개](#2-팀-소개)
 
-3. [ 개발기간](#3-🔮개발기간)
+3. [ 개발기간](#3-개발기간)
 
-4. [ 개발환경 및 기술 스택](#4-📆개발환경-및-기술-스택)
+4. [ 개발환경 및 기술 스택](#4-개발환경-및-기술-스택)
 
-5. [ 기능명세서](#5-🛠기능명세서)
+5. [ 기능명세서](#5-기능명세서)
 
-6. [ 프로젝트 폴더 구조](#6-📂프로젝트-폴더-구조)
+6. [ 프로젝트 폴더 구조](#6-프로젝트-폴더-구조)
 
-7. [ 주요 기능 소개](#7-💖주요-기능-소개)
+7. [ 주요 기능 소개](#7-주요-기능-소개)
 
-8. [ 상세 담당 업무](#8-👩‍💻상세-담당-업무)
+8. [ 상세 담당 업무](#8-상세-담당-업무)
 
-9. [ 겪었던 문제와 해결과정](#9-👿겪었던-문제와-해결과정)
+9. [ 겪었던 문제와 해결과정](#9-겪었던-문제와-해결과정)
 
-10. [ 느낀점](#10-💭느낀점)
+10. [ 느낀점](#10-느낀점)
 
 </details>
 
 
 <div align="center">
   <br />
-  <img src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/3ee79fce-43cd-4c18-80db-ce091296335e" alt="꼬북코딩" />
+  <img src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/51a31786-beff-453a-8156-42ab13aea8e9" alt="꼬북코딩" />
 
   <br />
 </div>
@@ -59,7 +59,7 @@
    
 | 이지은 | 이재영 | 임하늘 | 정희수 |
 | :-: | :-: | :-: | :-: |
-| <img width="180" alt="이지은" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/ae465482-face-470b-9813-092cc78c0def"> | <img width="180" alt="이재영" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/e00b5a38-300b-4d7c-a2be-ea6e6897e492"> | <img width="180" alt="임하늘" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/a2eac245-e395-40df-a2ec-0ff694b3aa13"> |  |
+| <img width="180" alt="이지은" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/ae465482-face-470b-9813-092cc78c0def"> | <img width="180" alt="이재영" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/e00b5a38-300b-4d7c-a2be-ea6e6897e492"> | <img width="180" alt="임하늘" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/a2eac245-e395-40df-a2ec-0ff694b3aa13"> | <img width="180" alt="정희수" src="https://github.com/FRONTENDSCHOOL7/final-04-ggobook-coding/assets/77787731/d7736921-1e52-49b4-b98b-38978a1fb8c5"> |
 | [cutieun](https://github.com/cutieun) | [jaeyounging](https://github.com/jaeyounging)  | [limhaneul2244](https://github.com/limhaneul2244) | [Heesoo.J](https://github.com/hodolCup) |
 | `팀장` | `팀원` | `팀원` | `팀원`|
    
@@ -308,19 +308,23 @@
   <details>
     <summary><strong>이재영</strong></summary>
 
-1. test
-    
-    - test
+1. 컴포넌트 분리 과정
+
+  - 유독 내 페이지에서 겹치는 디자인이 많았다. 코드의 중복을 없애고 재사용 하기 위해 컴포넌트를 분리하는 과정에서 어려움을 겪었다. 얼마나 세세하게 해야될지 어디서부터 어떻게 분리해야 될지 생각을 많이 했던 거 같다. 구글에 검색을 하고 강사님들께 질문을 한 결과 여러 페이지에서 자주 쓰이는 컴포넌트들은 세세하게 분리해 common 폴더에 따로 저장하고 그렇지 않으면 최대한 덩어리로 분리하는 게 좋은 방법이라고 생각한다.
+
+2. ContextAPI
+
+  - 회원가입 페이지에서 이메일과 비밀번호를 입력 받은 뒤 그 데이터를 프로필 설정까지 가지고 가야했다. 회원가입 페이지와 프로필 설정 페이지는 형제 컴포넌트이기 때문에 데이터를 주고 받기 위해서는 상태관리가 필요했다. 상태관리를 하는 방법은 매우 많았지만, 큰 상태관리가 필요한 게 아니였기 때문에 최대한 간단하게 내장되어 있는 useContext 훅을 이용했다.
   </details>
 
   <details>
   <summary><strong>임하늘</strong></summary>
 
 1. search검색시 upDateData 함수를 계속 호출하는 문제
-    
+
   - input창에 사용자 검색을 할때 upDateData함수를 계속 호출하는 문제가 있었습니다. 왜 그런지 확인해보니 의존성배열에 inputValue가 바뀔때마다 upDateData함수를 호출하도록 초기에 해놨기 때문에 api를 실시간으로 불러오고 있었습니다.
   - useEffect를 사용해 upDateData지연시키기
-  
+
   ```jsx
   useEffect(() => {
     const delay = setTimeout(() => {
