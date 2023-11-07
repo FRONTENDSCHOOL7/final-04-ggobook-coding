@@ -1,7 +1,6 @@
 //reset css
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import "./fonts.css";
 import { Link } from "react-router-dom";
 
 export const GlobalStyle = createGlobalStyle`
