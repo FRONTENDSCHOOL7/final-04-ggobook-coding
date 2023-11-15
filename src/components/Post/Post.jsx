@@ -1,0 +1,148 @@
+import { styled } from "styled-components";
+import { useState } from "react";
+
+const PostLayout = styled.ul`
+  .content-list {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .profile-img {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 42px;
+    border: 0.5px solid var(--DBDBDB, #dbdbdb);
+  }
+  .content-title {
+    display: flex;
+    justify-content: space-between;
+  }
+  .content-id {
+    h3 {
+      margin-top: 2px;
+      margin-bottom: 0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    p {
+      margin-top: 6px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--767676, #767676);
+    }
+  }
+  .del-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 305px;
+  }
+  .content-inner {
+    font-size: 14px;
+    font-weight: 400;
+    p {
+      margin-bottom: 16px;
+      word-break: break-all;
+    }
+  }
+  .like-comment {
+    display: flex;
+    margin-top: 12px;
+    button {
+      display: flex;
+      align-items: center;
+      span {
+        margin-left: 4px;
+        margin-right: 4px;
+        color: #767676;
+      }
+    }
+  }
+  .date {
+    margin-top: 20px;
+    color: #767676;
+    font-size: 10px;
+    font-weight: 400;
+  }
+
+  .content-img {
+    border-radius: 10px;
+    width: 304px;
+    height: 228px;
+    flex-shrink: 0;
+  }
+`;
+
+export default function Post({ post, del, comments, movePage }) {
+  const [likeCount, setLikeCount] = useState(post.heartCount);
+  const [isLike, setIsLike] = useState(false);
+  const [backgroundUrl, setBackgroundUrl] = useState("/images/icon-heart.svg");
+
+  //날짜포멧 맞추기 (YYYY년 MM월 DD일)
+  let postDate = post.updatedAt;
+  postDate = `${postDate.substring(0, 4)}년 ${postDate.substring(
+    5,
+    7
+  )}월 ${postDate.substring(8, 10)}일`;
+
+  //좋아요 버튼 기능
+  const handleClickLikeBtn = () => {
+    if (isLike) {
+      setLikeCount(likeCount - 1);
+      setBackgroundUrl("/images/icon-heart.svg");
+    } else {
+      setLikeCount(likeCount + 1);
+      setBackgroundUrl("/images/icon-red-heart.svg");
+    }
+
+    setIsLike(!isLike);
+  };
+
+  return (
+    <PostLayout>
+      <li className="content-list">
+        <img
+          src={post.author.image ?? "/images/basic-profile.svg"}
+          alt=""
+          className="profile-img"
+        />
+        <div className="content">
+          <div className="content-title">
+            <div className="content-id">
+              <h3>{post.author.username}</h3>
+              <p>@ {post.author.accountname}</p>
+            </div>
+            <div>
+              <button className="del-btn" onClick={del}>
+                <img src="/images/s-icon-more-vertical.svg" alt="" />
+              </button>
+            </div>
+          </div>
+          <div className="content-inner" onClick={movePage}>
+            <p>{post.content}</p>
+
+            {post.image === "" ? null : (
+              <img className="content-img" src={post.image} alt="" />
+            )}
+          </div>
+          <div className="like-comment">
+            <button onClick={handleClickLikeBtn}>
+              <img src={backgroundUrl} alt="" /> <span>{likeCount}</span>
+            </button>
+            <button>
+              <img src="/images/icon-message-circle.svg" alt="" />{" "}
+              <span>{comments ? comments.length : post.commentCount}</span>
+            </button>
+          </div>
+          <span className="date">{postDate}</span>
+        </div>
+      </li>
+    </PostLayout>
+  );
+}

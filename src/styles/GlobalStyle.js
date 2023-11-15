@@ -1,12 +1,17 @@
 //reset css
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import './fonts.css';
+import { Link } from "react-router-dom";
 
 export const GlobalStyle = createGlobalStyle`
+  :root{
+    --mainColor: #237B46;
+    --disabled: #A7CAB5;
+    --appWidth: 390px;
+  }
 
   ${reset};
-
+  * {box-sizing: border-box;}
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -57,14 +62,36 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
   input {
+    width: 100%;
+    box-sizing: border-box;
     background: unset;
     border: unset;
     font: inherit;
+    outline: none;
+    &::placeholder {
+      color: #dbdbdb;
+    }
+  }
+  textarea {
+    font: inherit;
+    width: 100%;
+    border: unset;
+    background-color: unset;
+    &::placeholder {
+      color: #C4C4C4;
+    }
   }
   img {
     display: block;
     vertical-align: top;
     width: 100%;
+  }
+
+  @font-face {
+    font-family: 'SpoqaHanSansNeo-R';
+    src: url(/fonts/SpoqaHanSansNeo-Regular.otf);
+    font-weight: normal;
+    font-style: normal;
   }
   //숨김처리
   .a11y {
@@ -79,4 +106,88 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   //추가로 적용해야할 공통 CSS 추가
-`
+`;
+//공통 Layout 적용
+export const CommonLayOut = styled.section`
+  margin: 0 auto;
+  max-width: var(--appWidth);
+  background-color: #fff;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24); */
+`;
+
+//Layout 좌우 패딩
+export const PaddingLayOut = styled.div`
+  ${(props) => `padding: 0 ${props.padding}px`}
+`;
+
+//
+export const CommonImgThumbnail = styled.img`
+  width: 100%;
+  height: 200px;
+  display: block;
+  border-radius: 10px;
+  background-color: gray;
+`;
+
+// 프로필 수정 이미지
+export const ProfileThumbnail = styled.img`
+  width: 110px;
+  height: 110px;
+  position: absolute;
+  background-size: 110px;
+  border-radius: 110px;
+
+  border: 1px solid #dbdbdb;
+`;
+
+/**
+ * 공통으로 적용되는 버튼
+ * 방법: 버튼 내부에 이미지 적용시 사용
+ * <CommonBtn type="button" $w="22px" $h="22px" $img="/images/x.svg" alt=""/>
+ * props -> img, w(width), h(height), img
+ */
+export const CommonBtn = styled.button`
+  margin-left: auto;
+  width: ${(props) => props.$w};
+  height: ${(props) => props.$h};
+  background-image: url(${(props) => props.$img});
+  background-repeat: no-repeat;
+  background-position: center;
+
+  /* 비활성화 컬러 추가 */
+  &[disabled] {
+    background-color: #a7cab5;
+    cursor: not-allowed;
+  }
+`;
+
+/**
+ * 공통으로 적용될 수 있는 이미지레이아웃
+ * props -> w(width), h(height)
+ */
+export const CommonImgLayout = styled.img`
+  max-width: ${(props) => props.$w};
+  height: ${(props) => props.$h};
+  display: block;
+  width: 100%;
+  border: 1px solid #dbdbdb;
+  background-color: #3f3c3c;
+  border-radius: 10px;
+  box-sizing: border-box;
+`;
+
+/**
+ * react-router-dom -> Link 밑줄 제거
+ */
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #000;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+    color: #000;
+  }
+`;
